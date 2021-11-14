@@ -1,0 +1,173 @@
+html {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+}
+div.unselect {
+    background: #ccc;
+    text-align: center;
+    transition: background-color .5s;
+    border-radius: 5px;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    padding: 1px 1px;
+    width: 70px;
+    height: 30px;
+    opacity:0.910!important;
+  }
+  #reworkTable  {
+  	box-shadow: 0 0 9px rgba(0,0,0,0.4);
+  }
+  .animate-load {
+  	animation: animate-load 400ms;
+  }
+  
+  .gradientbackgroundHeader {
+	background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+	height: 100px;
+	animation: animate-load 500ms;
+  }
+  @keyframes animate-load {
+  	0% {
+  		transform: translateY(-100%);
+  	}
+  	100% {
+  		transform: translateY(0);
+  	}
+  }
+  .gradientbackground {
+  	background-image: linear-gradient(135deg, #f5f7fa 0%, #e2e7ef 100%);
+  	box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  }
+  .gradientbackgroundSearchPanel {
+  	background-image: linear-gradient(135deg, #f5f7fa 0%, #e2e7ef 100%);
+  	box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  	animation: animate-load 370ms;
+  }
+  
+  div.selected {
+    color: white;
+    background: #058bff;
+    text-align: center;
+    transition: background-color .4s;
+    border-radius: 5px;
+    cursor: pointer;
+    border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom: solid 2px #0070d1;
+    border-right: solid 2px #0070d1;
+    padding: 1px 1px;
+    width: 70px;
+    height: 30px;
+  }
+  div.unselect:hover {
+  	background: #6397e6;
+  	border-top: solid 2px #e1e1e1;
+    border-left: solid 2px #e1e1e1;
+    border-bottom: solid 2px #0275d8;
+    border-right: solid 2px #0275d8;
+  }
+  div.selected:hover {
+    color: white;
+  	background: #007be6;
+  	border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom: solid 2px #0064ba;
+    border-right: solid 2px #0064ba;
+  }
+  
+  .bootstrap-select .dropdown-toggle:focus {
+    outline: none!important;
+  }
+
+  .bootstrap-select .dropdown-toggle:focus {
+    outline: none!important;
+  }
+  
+  .bootstrap-select .btn.focus, .btn:focus {
+    box-shadow: none!important;
+  }
+  .widthcolumn {
+  	width: 70px;
+  	height: 150px;
+  }
+  .opacity-2 {
+  	opacity:0.4!important;
+  }
+  .rotate-text {
+	 writing-mode: vertical-rl
+  }
+  
+  .heightrow {
+  	height: 63px;
+  }
+  
+  .statusDIV {
+  	margin: auto;
+  	text-align: center;
+  }
+
+  #topPageButton {
+	  display: none;
+	  position: fixed;
+	  bottom: 20px;
+	  right: 30px;
+	  z-index: 99;
+	  font-size: 18px;
+	  border: none;
+	  outline: none;
+	  background-color: #0070d1;
+	  color: white;
+	  cursor: pointer;
+	  padding: 9px;
+	  border-radius: 4px;
+	}
+	
+	#topPageButton:hover {
+	  background-color: #555;
+	}
+  
+
+.tableFixHead          { overflow: auto; height: 100px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%;  height: 100%; table-layout: fixed;}
+th, td { /*padding: 6px 8px;*/ height: 100%;}
+th     { background:#eee; }
+
+.wraprow {
+  height: 170px;
+  transition: height 0.2s;
+}
+
+.wraprowh {
+  height: 30px;
+  transition: height 0.5s;
+}
+
+.cell {
+  vertical-align: middle;
+  font-size: 18px;
+  padding: 2px 2px 2px 2px;
+}
+.aLink {
+   color: #007bff;
+   text-decoration: none;
+   background-color: transparent; 
+   -webkit-text-decoration-skip: objects; 
+    cursor: pointer;
+
+   @include hover {
+      color: #0070d1;
+      cursor: pointer;
+      text-decoration: underline 
+   }
+}
+
+
+
+
+
+
