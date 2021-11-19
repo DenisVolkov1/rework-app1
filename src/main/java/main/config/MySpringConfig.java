@@ -87,24 +87,13 @@ public class MySpringConfig implements WebMvcConfigurer {
     
 	@Bean
 	public DataSource getDataSource() {
-		
-//		  Properties prop=null; try (InputStream input =
-//		  this.getClass().getResourceAsStream("/config.properties")) {
-//		  
-//		  prop = new Properties(); // load a properties file prop.load(input); } catch
-//		  (IOException ex) { System.out.println(ex); }
-//		  
+			  
 	  DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		  dataSource.setDriverClassName(prop.getProperty("db.driver"));
-//		  dataSource.setUrl(prop.getProperty("db.url"));
-//		  dataSource.setUsername(prop.getProperty("db.user"));
-//		  dataSource.setPassword(prop.getProperty("db.password"));
+		  dataSource.setDriverClassName(env.getProperty("db.driver"));
+		  dataSource.setUrl(env.getProperty("db.url"));
+		  dataSource.setUsername(env.getProperty("db.user"));
+		  dataSource.setPassword(env.getProperty("db.password"));
 		 
-	    System.out.println(env.getProperty("db.url"));
-	    dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-	    dataSource.setUrl("jdbc:sqlserver://localhost:1433;databasename=SCPRD;");
-	    dataSource.setUsername("sa");
-	    dataSource.setPassword("sql");
 	    return dataSource;
 	}
 	
