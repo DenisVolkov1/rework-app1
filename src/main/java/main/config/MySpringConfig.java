@@ -1,6 +1,12 @@
 package main.config;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -9,6 +15,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
@@ -34,12 +42,16 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 
 @Configuration
+@PropertySource("classpath:config.properties")
 @EnableTransactionManagement
 @ComponentScan("main")
 @EnableWebMvc
 public class MySpringConfig implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
+    
+    @Autowired
+    Environment env;
 
 	@Autowired
     public MySpringConfig(ApplicationContext applicationContext) {
@@ -75,7 +87,20 @@ public class MySpringConfig implements WebMvcConfigurer {
     
 	@Bean
 	public DataSource getDataSource() {
-	    DriverManagerDataSource dataSource = new DriverManagerDataSource(); 
+		
+//		  Properties prop=null; try (InputStream input =
+//		  this.getClass().getResourceAsStream("/config.properties")) {
+//		  
+//		  prop = new Properties(); // load a properties file prop.load(input); } catch
+//		  (IOException ex) { System.out.println(ex); }
+//		  
+	  DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		  dataSource.setDriverClassName(prop.getProperty("db.driver"));
+//		  dataSource.setUrl(prop.getProperty("db.url"));
+//		  dataSource.setUsername(prop.getProperty("db.user"));
+//		  dataSource.setPassword(prop.getProperty("db.password"));
+		 
+	    System.out.println(env.getProperty("db.url"));
 	    dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	    dataSource.setUrl("jdbc:sqlserver://localhost:1433;databasename=SCPRD;");
 	    dataSource.setUsername("sa");
