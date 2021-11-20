@@ -259,7 +259,6 @@
 		$('#updateStatusModal').modal('hide');
 		$('#reworkTable').find('select').selectpicker('hide');
 		$('.statusDIV').show();
-		
 		$("#updateStatusButton").unbind( "click" );
 	}
 	

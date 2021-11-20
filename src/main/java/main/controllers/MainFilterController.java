@@ -35,23 +35,6 @@ public class MainFilterController {
 	
 	@Autowired
 	private WmsService wmsService;
-
-//	@GetMapping("/mainfilter")
-//	public String showMainFilterPage(Model model,HttpServletRequest request) {	
-//		List<Tuple2<Rework, List<ReworkDetail>>> modelsForRows = reworkService.findAll();
-//		Tuple2<Rework, List<ReworkDetail>> modelForTitle = modelsForRows.get(0);
-//		List<Status> allStatuses = statusService.findAll();
-//		List<Wms> allWms = wmsService.findAll();
-//		List<String> allWhoUpdate = reworkService.findAllWhoUpdate();
-//		
-//		model.addAttribute("allWhoUpdates", allWhoUpdate);
-//		model.addAttribute("modelForTitle", modelForTitle);
-//		model.addAttribute("modelsForRows", modelsForRows);
-//		model.addAttribute("allStatuses", allStatuses);
-//		model.addAttribute("allWms", allWms);
-//		
-//		return "main_filter";
-//	}
 	
 	@GetMapping("/mainfilter/start")
 	public String showMainFilterPage2(@ModelAttribute("modelFilter") SearchFilter searchFilter , Model model,HttpServletRequest request) {	
@@ -65,12 +48,10 @@ public class MainFilterController {
 	@PostMapping("/mainfilter/search")
 	public String showMainFilterSearch(@ModelAttribute("modelFilter") SearchFilter searchFilter , Model model,HttpServletRequest request) {	
 		if(searchFilter.getWms() != null ) {
-			//System.out.println(searchFilter);
 			List<Tuple2<Rework, List<ReworkDetail>>> modelsForRows = null;
 			if(searchFilter.getSearch().isEmpty()) {
 				modelsForRows = reworkService.findOnWms(searchFilter.getWms());
 			} else {
-				System.out.println("search");
 				modelsForRows = reworkService.findOnWmsAndSearchParams(searchFilter.getWms(), searchFilter.getSearch());
 			}
 			
@@ -88,8 +69,7 @@ public class MainFilterController {
 		
 		System.out.println(searchFilter);
 		
-		
-		return "main_filter_search";//"main_filter_search";
+		return "main_filter_search";
 	}
 	
 	@GetMapping("/mainfilter/updatestatus")
