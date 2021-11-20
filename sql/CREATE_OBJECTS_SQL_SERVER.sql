@@ -1,6 +1,5 @@
-USE [SCPRD]
+USE [master]
 GO
-
 
 CREATE DATABASE [SCPRD]
  CONTAINMENT = NONE
@@ -20,6 +19,93 @@ ALTER DATABASE [SCPRD] SET ANSI_NULL_DEFAULT OFF
 GO
 
 ALTER DATABASE [SCPRD] SET ANSI_NULLS OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET ANSI_PADDING OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET ANSI_WARNINGS OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET ARITHABORT OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET AUTO_CLOSE OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET AUTO_SHRINK OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET AUTO_UPDATE_STATISTICS ON 
+GO
+
+ALTER DATABASE [SCPRD] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET CURSOR_DEFAULT  GLOBAL 
+GO
+
+ALTER DATABASE [SCPRD] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET NUMERIC_ROUNDABORT OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET QUOTED_IDENTIFIER OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET RECURSIVE_TRIGGERS OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET  DISABLE_BROKER 
+GO
+
+ALTER DATABASE [SCPRD] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET TRUSTWORTHY OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET PARAMETERIZATION SIMPLE 
+GO
+
+ALTER DATABASE [SCPRD] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET HONOR_BROKER_PRIORITY OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET RECOVERY SIMPLE 
+GO
+
+ALTER DATABASE [SCPRD] SET  MULTI_USER 
+GO
+
+ALTER DATABASE [SCPRD] SET PAGE_VERIFY CHECKSUM  
+GO
+
+ALTER DATABASE [SCPRD] SET DB_CHAINING OFF 
+GO
+
+ALTER DATABASE [SCPRD] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+
+ALTER DATABASE [SCPRD] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+
+ALTER DATABASE [SCPRD] SET DELAYED_DURABILITY = DISABLED 
+GO
+
+ALTER DATABASE [SCPRD] SET QUERY_STORE = OFF
+GO
+
+ALTER DATABASE [SCPRD] SET  READ_WRITE 
 GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
@@ -101,36 +187,36 @@ GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS10](
-	[¹ ï/ï] [float] NULL,
-	[ÍÎÌÅÐ] [nvarchar](255) NULL,
-	[ÑÑÛËÊÀ ÍÀ WIKI] [nvarchar](255) NULL,
-	[ÎÏÈÑÀÍÈÅ] [nvarchar](255) NULL,
-	[ËÎÃÈÊÎÍ] [nvarchar](255) NULL,
-	[ÏÐÎÄÓÊÒÛ] [nvarchar](255) NULL,
-	[ÂÎËÃÀ-ÑÅÐÂÈÑ] [nvarchar](255) NULL,
-	[ÍÒÏ] [nvarchar](255) NULL,
-	[ÎÇÑÌ] [nvarchar](255) NULL,
-	[ÌÇÑÌ] [nvarchar](255) NULL,
-	[ÑÈÃÌÀ] [nvarchar](255) NULL,
-	[ÁÀÐÑ] [nvarchar](255) NULL,
-	[ÑÊ ÃÏÍ-ÑÌ] [nvarchar](255) NULL,
+	[ï¿½ ï¿½/ï¿½] [float] NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ WIKI] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ ï¿½ï¿½ï¿½-ï¿½ï¿½] [nvarchar](255) NULL,
 	[ALG] [nvarchar](255) NULL,
-	[Ãàðàæ_Tools] [nvarchar](255) NULL,
-	[ÃàëàÖåíòð] [nvarchar](255) NULL,
-	[Âèêòîðèÿ Áàëòèÿ] [nvarchar](255) NULL,
-	[Ñèáèðñêèé Ãóðìàí] [nvarchar](255) NULL,
-	[Ëóêîèë ÏÍÎÑ] [nvarchar](255) NULL,
-	[Áîÿðä] [nvarchar](255) NULL
+	[ï¿½ï¿½ï¿½ï¿½ï¿½_Tools] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS11](
-	[ÍÎÌÅÐ] [nvarchar](255) NULL,
-	[ÑÑÛËÊÀ ÍÀ WIKI] [nvarchar](255) NULL,
-	[ÎÏÈÑÀÍÈÅ] [nvarchar](255) NULL,
-	[ËÎÃÈÊÎÍ] [nvarchar](255) NULL,
-	[ÌÎÍÅÒÊÀ] [nvarchar](255) NULL
+	[ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ WIKI] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL,
+	[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
 
