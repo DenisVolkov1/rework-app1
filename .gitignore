@@ -2,7 +2,7 @@
 *.class
 *.classpath
 *.project
-
+*.settings
 # Log file
 *.log
 
