@@ -38,29 +38,34 @@ public class StatusImpl implements StatusDao {
 		
 	}
 	
+	
 	@Transactional()
 	@Override
-	public void updateStatus(String wms, String reworkNumber, String project, String status) {
+	public void updateStatus(String wms, String reworkNumber, String project, String status, String whoUpdate) {
 		String sqlSelectCountRows = "SELECT COUNT(*) FROM dbo.REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
 		Integer countRows = jdbcTemplate.queryForObject(sqlSelectCountRows, new Object[] {wms,reworkNumber,project}, Integer.class);
 		
 		if(countRows == 1) {
 			if(!status.equals("")) {
-				String sqlUpdateStatus = "UPDATE dbo.REWORKDETAIL set STATUS = ?, EDITDATE = GETUTCDATE() WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
+				String sqlUpdateStatus = "UPDATE dbo.REWORKDETAIL "
+										 + "set STATUS = ?,"
+											+ " EDITDATE = GETUTCDATE(),"
+											+ " EDITWHO = ? "
+										+ "WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
 				jdbcTemplate.update(
 						sqlUpdateStatus, 
-						status, wms, reworkNumber, project);
+						status, whoUpdate, wms, reworkNumber, project);
 			} else {
 				String sqlDelete = "DELETE FROM dbo.REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
 				jdbcTemplate.update(sqlDelete, wms, reworkNumber, project);
 			}
 		} else if (countRows == 0) {
 			if(!status.equals("")) {
-				String sqlInsertReworkDetail = "INSERT INTO dbo.REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS) "
-						 + "VALUES(?,?,?,?) ";
+				String sqlInsertReworkDetail = "INSERT INTO dbo.REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO,EDITWHO) "
+						 + "VALUES(?,?,?,?,?,?) ";
 				jdbcTemplate.update(
 						sqlInsertReworkDetail,
-						wms, reworkNumber, project, status);
+						wms, reworkNumber, project, status, whoUpdate, whoUpdate);
 			}
 		}
 	}
@@ -88,4 +93,6 @@ public class StatusImpl implements StatusDao {
 		}
 		return new ReworkDetail();
 	}
+
+
 }

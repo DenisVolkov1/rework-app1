@@ -9,8 +9,8 @@ public interface StatusDao {
 	
 	List<Status> findAll();
 
-	void updateStatus(String wms, String reworkNumber, String project, String valueStatus);
-
 	ReworkDetail getDateTooltip(String wms, String reworkNumber, String project);
+
+	void updateStatus(String wms, String reworkNumber, String project, String status, String whoUpdate);
 
 }

@@ -11,12 +11,14 @@ import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.dao.impl_dao.rowmapper.ReworkRowMapper;
 import main.dao.interface_dao.ReworkDao;
 import main.dao.model.NewRework;
+import main.dao.model.Project;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 
@@ -47,42 +49,6 @@ public class ReworkImpl implements ReworkDao {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-//	@Override
-//	public List<Tuple2<Rework, List<ReworkDetail>>> findAll() {
-//		 String sqlALL_PROJECT = "SELECT DISTINCT PROJECT FROM dbo.REWORKDETAIL";
-//		 List<String> dataAllProject = jdbcTemplate.queryForList(sqlALL_PROJECT, String.class);
-//		
-//		
-//		ResultSetExtractor<List<Tuple2<Rework, List<ReworkDetail>>>> resultSetExtractor = 
-//		        JdbcTemplateMapperFactory
-//		            .newInstance()
-//		            .addKeys("REWORKNUMBER","WMS") // the column name you expect the user id to be on
-//		            .newResultSetExtractor(new TypeReference<Tuple2<Rework, List<ReworkDetail>>>(){});
-//		
-//		Comparator<ReworkDetail> comparator = new Comparator<ReworkDetail>() {
-//			@Override
-//			public int compare(ReworkDetail o1, ReworkDetail o2) {
-//				return o1.getProject().compareTo(o2.getProject());
-//			}
-//		};
-//	
-//		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(MAIN_FILTER_QUERY, resultSetExtractor);
-//		for (Tuple2<Rework, List<ReworkDetail>> tuple : result) {
-//			List<ReworkDetail> rdList = tuple.v2;
-//			for(String project : dataAllProject) {
-//				
-//				boolean isContProj = isContainsProject(rdList,project);
-//				//System.out.println( project+" "+ isContProj);
-//				if(!isContProj) {
-//					rdList.add(new ReworkDetail(rdList.get(0).getWms(), rdList.get(0).getReworkNumber(), project, ""));
-//				}
-//			}
-//			Collections.sort(rdList, comparator);
-//		}
-//	
-//		return result;
-//	}
 	
 	
 	private boolean isContainsProject(List<ReworkDetail> rdList, String project) {
@@ -246,6 +212,13 @@ public class ReworkImpl implements ReworkDao {
 	@Override
 	public List<Tuple2<Rework, List<ReworkDetail>>> findAll() {
 		return null;//unused!
+	}
+
+	@Override
+	public List<String> findAllWhoUpdate() {
+		String query = "SELECT DISTINCT EDITWHO FROM REWORKDETAIL";
+		List<String> data = jdbcTemplate.queryForList(query, String.class);
+		return data;
 	}
 
 }

@@ -88,38 +88,63 @@
 				      //console.log(wms);
 				    });
 				});
-				// update status start////////////////////////////////////////////////////////////////////////////////
+				// update status show form start////////////////////////////////////////////////////////////////////////////////
 				$(".selectpicker").change(function() {
 					var serverName = $("#server").val();
 					var port = $("#port").val();
 					var $parentThis = $(this);
 					var valueStatus = $(this).find(":selected").text();
-					var row_index = $(this).closest("tr").index();
+					//var row_index = $(this).closest("tr").index();
 					var response;
 					var column_index = $(this).closest("td").index();
 					//
 					var wms = $(this).closest("tr").children('td').eq(0).text();
 					var reworkNumber = $(this).closest("tr").children('td').eq(1).text().trim();
 					var project = $('#headerMainTable > tr').children('th').eq(column_index).children('div').eq(0).text().trim();
-					var updateStatusUrl = "http://"+ serverName +":"+ port +"/mainfilter/updatestatus?wms="+ wms +"&reworkNumber="+ reworkNumber +"&project="+project+"&valueStatus="+valueStatus;
-					$.get(updateStatusUrl, function( data ) {
-						response = ""+data;
-						var $alertUpdate = alertUpdate(reworkNumber +" : "+wms+" : "+project, "status was updated!");
-						var $alertErr = alertErr(reworkNumber +" : "+wms+" : "+project, "status is not updated!");
-						if(response == 'updateIsDone') {
-							$("body").before($alertUpdate);
-								upToPage();
-									var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
-									$visibleValueStatusDIV.text(valueStatus);
-						} else {
-							$("body").before($alertErr);//unexpected error!
-								upToPage();
-						}
+
+
+					$('#updateStatusModal').on('show.bs.modal', function (e) {
+						$('#wmsUpdateStatusLabel').text(wms);
+						$('#reworkNumberUpdateStatusLabel').text(reworkNumber);
+						$('#projectUpdateStatusLabel').text(project);
+						$('#statusUpdateStatusLabel').text(valueStatus);
+					});
+					
+					$("#updateStatusButton").click(function() {
+						var	wms =	        $('#wmsUpdateStatusLabel').text();
+						var	reworkNumber =	$('#reworkNumberUpdateStatusLabel').text();
+						var	project =	    $('#projectUpdateStatusLabel').text();
+						var	valueStatus =	$('#statusUpdateStatusLabel').text();
+						var	whoUpdate =     $('#whoUpdatesSelect').find(":selected").text();
+						//
+						var updateStatusUrl = "http://"+ serverName +":"+ port +"/mainfilter/updatestatus?"
+						+"wms="+ wms 
+						+"&reworkNumber="+ reworkNumber 
+						+"&project="+ project 
+						+"&valueStatus="+valueStatus
+						+"&whoUpdate="+whoUpdate;
+						
+						$.get(updateStatusUrl, function( data ) {
+							response = ""+data;
+							var $alertUpdate = alertUpdate(reworkNumber +" : "+wms+" : "+project, "статус был обновлён!");
+							var $alertErr = alertErr(reworkNumber +" : "+wms+" : "+project, "status is not updated!");
+							if(response == 'updateIsDone') {
+								$("body").before($alertUpdate);
+									upToPage();
+										var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
+										$visibleValueStatusDIV.text(valueStatus);
+							} else {
+								$("body").before($alertErr);//unexpected error!
+									upToPage();
+							}
+							hideUpdateStatusModal.call();
+						});
 						
 					});
 					
+					$('#updateStatusModal').modal('show');
 				});
-				// update status end////////////////////////////////////////////////////////////////////////////////
+				// update status show form end//////////////////////////////////////////////////////////////////////
 				// tooltip cell stauts start////////////////////////////////////////////////////////////////////////
 				$(".cell").on('mouseenter', function () {
 					var serverName = $("#server").val();
@@ -222,10 +247,20 @@
 					$(this).closest('form').submit();
 				});
 				
+				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);
+				
 
 	});
 	function submitLinkShowReworkForm() {
 		$('#formBack').submit();
+	}
+	
+	var hideUpdateStatusModal = function(){
+		$('#updateStatusModal').modal('hide');
+		$('#reworkTable').find('select').selectpicker('hide');
+		$('.statusDIV').show();
+		
+		$("#updateStatusButton").unbind( "click" );
 	}
 	
 	function upToPage() {

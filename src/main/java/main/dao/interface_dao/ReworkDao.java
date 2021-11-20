@@ -12,6 +12,8 @@ public interface ReworkDao {
 	
 	public List<Tuple2<Rework, List<ReworkDetail>>> findAll();
 	
+	public List<String> findAllWhoUpdate();
+	
 	public Rework getRework(Integer serialkey);
 
     public void updateDescAndWikilink(int serialkey, Rework rework);
