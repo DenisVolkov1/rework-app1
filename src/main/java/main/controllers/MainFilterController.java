@@ -59,7 +59,7 @@ public class MainFilterController {
 			List<Status> allStatuses = statusService.findAll();
 			List<Wms> allWms = wmsService.findAll();
 			List<String> allWhoUpdate = reworkService.findAllWhoUpdate();
-			
+				
 			model.addAttribute("allWhoUpdates", allWhoUpdate);
 			model.addAttribute("modelForTitle", modelForTitle);
 			model.addAttribute("modelsForRows", modelsForRows);

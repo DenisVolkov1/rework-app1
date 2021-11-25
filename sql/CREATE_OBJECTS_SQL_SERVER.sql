@@ -2,111 +2,6 @@ USE [master]
 GO
 
 CREATE DATABASE [SCPRD]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'SCPRD', FILENAME = N'C:\backup\SCPRD.mdf' , SIZE = 73728KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'SCPRD_log', FILENAME = N'C:\backup\SCPRD_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
-GO
-
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [SCPRD].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-
-ALTER DATABASE [SCPRD] SET ANSI_NULL_DEFAULT OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET ANSI_NULLS OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET ANSI_PADDING OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET ANSI_WARNINGS OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET ARITHABORT OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET AUTO_CLOSE OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET AUTO_SHRINK OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET AUTO_UPDATE_STATISTICS ON 
-GO
-
-ALTER DATABASE [SCPRD] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET CURSOR_DEFAULT  GLOBAL 
-GO
-
-ALTER DATABASE [SCPRD] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET NUMERIC_ROUNDABORT OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET QUOTED_IDENTIFIER OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET RECURSIVE_TRIGGERS OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET  DISABLE_BROKER 
-GO
-
-ALTER DATABASE [SCPRD] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET TRUSTWORTHY OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET PARAMETERIZATION SIMPLE 
-GO
-
-ALTER DATABASE [SCPRD] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET HONOR_BROKER_PRIORITY OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET RECOVERY SIMPLE 
-GO
-
-ALTER DATABASE [SCPRD] SET  MULTI_USER 
-GO
-
-ALTER DATABASE [SCPRD] SET PAGE_VERIFY CHECKSUM  
-GO
-
-ALTER DATABASE [SCPRD] SET DB_CHAINING OFF 
-GO
-
-ALTER DATABASE [SCPRD] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-
-ALTER DATABASE [SCPRD] SET TARGET_RECOVERY_TIME = 60 SECONDS 
-GO
-
-ALTER DATABASE [SCPRD] SET DELAYED_DURABILITY = DISABLED 
-GO
-
-ALTER DATABASE [SCPRD] SET QUERY_STORE = OFF
-GO
-
-ALTER DATABASE [SCPRD] SET  READ_WRITE 
-GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK](
@@ -187,36 +82,36 @@ GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS10](
-	[� �/�] [float] NULL,
-	[�����] [nvarchar](255) NULL,
-	[������ �� WIKI] [nvarchar](255) NULL,
-	[��������] [nvarchar](255) NULL,
-	[�������] [nvarchar](255) NULL,
-	[��������] [nvarchar](255) NULL,
-	[�����-������] [nvarchar](255) NULL,
-	[���] [nvarchar](255) NULL,
-	[����] [nvarchar](255) NULL,
-	[����] [nvarchar](255) NULL,
-	[�����] [nvarchar](255) NULL,
-	[����] [nvarchar](255) NULL,
-	[�� ���-��] [nvarchar](255) NULL,
+	[№ п/п] [float] NULL,
+	[НОМЕР] [nvarchar](255) NULL,
+	[ССЫЛКА НА WIKI] [nvarchar](255) NULL,
+	[ОПИСАНИЕ] [nvarchar](255) NULL,
+	[ЛОГИКОН] [nvarchar](255) NULL,
+	[ПРОДУКТЫ] [nvarchar](255) NULL,
+	[ВОЛГА-СЕРВИС] [nvarchar](255) NULL,
+	[НТП] [nvarchar](255) NULL,
+	[ОЗСМ] [nvarchar](255) NULL,
+	[МЗСМ] [nvarchar](255) NULL,
+	[СИГМА] [nvarchar](255) NULL,
+	[БАРС] [nvarchar](255) NULL,
+	[СК ГПН-СМ] [nvarchar](255) NULL,
 	[ALG] [nvarchar](255) NULL,
-	[�����_Tools] [nvarchar](255) NULL,
-	[���������] [nvarchar](255) NULL,
-	[�������� ������] [nvarchar](255) NULL,
-	[��������� ������] [nvarchar](255) NULL,
-	[������ ����] [nvarchar](255) NULL,
-	[�����] [nvarchar](255) NULL
+	[Гараж_Tools] [nvarchar](255) NULL,
+	[ГалаЦентр] [nvarchar](255) NULL,
+	[Виктория Балтия] [nvarchar](255) NULL,
+	[Сибирский Гурман] [nvarchar](255) NULL,
+	[Лукоил ПНОС] [nvarchar](255) NULL,
+	[Боярд] [nvarchar](255) NULL
 ) ON [PRIMARY]
-GO
+G
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS11](
-	[�����] [nvarchar](255) NULL,
-	[������ �� WIKI] [nvarchar](255) NULL,
-	[��������] [nvarchar](255) NULL,
-	[�������] [nvarchar](255) NULL,
-	[�������] [nvarchar](255) NULL
+	[НОМЕР] [nvarchar](255) NULL,
+	[ССЫЛКА НА WIKI] [nvarchar](255) NULL,
+	[ОПИСАНИЕ] [nvarchar](255) NULL,
+	[ЛОГИКОН] [nvarchar](255) NULL,
+	[МОНЕТКА] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
 
