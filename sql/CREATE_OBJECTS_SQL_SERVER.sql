@@ -8,6 +8,7 @@ CREATE TABLE [dbo].[REWORK](
 	[SERIALKEY] [int] IDENTITY(1,1) NOT NULL,
 	[WMS] [nvarchar](50) NOT NULL,
 	[REWORKNUMBER] [nvarchar](50) NOT NULL,
+	[RESOURCE] [nvarchar](500) NULL,
 	[WIKILINK] [nvarchar](255) NULL,
 	[DESCRIPTION] [nvarchar](max) NULL,
 	[ADDDATE] [datetime] NOT NULL,
@@ -84,6 +85,7 @@ GO
 CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS10](
 	[№ п/п] [float] NULL,
 	[НОМЕР] [nvarchar](255) NULL,
+	[РЕСУРС] [nvarchar](500) NULL,
 	[ССЫЛКА НА WIKI] [nvarchar](255) NULL,
 	[ОПИСАНИЕ] [nvarchar](255) NULL,
 	[ЛОГИКОН] [nvarchar](255) NULL,
@@ -103,11 +105,13 @@ CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS10](
 	[Лукоил ПНОС] [nvarchar](255) NULL,
 	[Боярд] [nvarchar](255) NULL
 ) ON [PRIMARY]
-G
+GO
+
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS11](
 	[НОМЕР] [nvarchar](255) NULL,
+	[РЕСУРС] [nvarchar](500) NULL,
 	[ССЫЛКА НА WIKI] [nvarchar](255) NULL,
 	[ОПИСАНИЕ] [nvarchar](255) NULL,
 	[ЛОГИКОН] [nvarchar](255) NULL,

@@ -21,7 +21,7 @@
 	<div class="container">
 		<form id="formNew" th:method="POST" th:action="@{/newrework/new}" th:object="${modelNewRework}" class="container bg-light">
 			<div class="form-row">
-				<div class="col-10">
+				<div class="col-11">
 					<div class="container mt-3">
 					  <div class="row mt-3 align-items-top">
 					    <div class="col-2">
@@ -40,7 +40,7 @@
 					    </div>
 					  </div>
 					  <div class="row mt-3 align-items-top">
-					    <div class="col-3">
+					    <div class="col-2">
 					      <div class="card-header"> Номер доработки </div>
 					    </div>
 					    <div id="reworkNumberInputDIV" class="col-3">
@@ -48,7 +48,15 @@
 					    </div>
 					  </div>
 					  <div class="row mt-3 align-items-top">
-					    <div class="col-3">
+					    <div class="col-2">
+					      <div class="card-header"> РЕСУРС </div>
+					    </div>
+					    <div id="resourceInputDIV" class="col-10">
+					     	<input id="resourceInput" th:field= "*{resource}" type="text" class="form-control" value="" required>
+					    </div>
+					  </div>
+					  <div class="row mt-3 align-items-top">
+					    <div class="col-2">
 					      <div class="card-header"> WIKILINK </div>
 					    </div>
 					    <div id="wikilinkInputDIV" class="col-7">
@@ -82,7 +90,7 @@
 					    <div id="projectInputDIV" class="col-7 d-none">
 					     	<input id="projectInput" th:field= "*{project}" type="text" class="form-control" value="" isActualElement="false">
 					    </div>
-					    <div id="projectSelectDIV" class="col-7">
+					    <div id="projectSelectDIV" class="col-6">
 					     	<select th:field= "*{project}" class="custom-select" data-style="btn-default">
        			 				<option th:each="p, index : ${allProjects}" th:value="${p.project}" th:utext="${p.project}"/>
        			 			</select>

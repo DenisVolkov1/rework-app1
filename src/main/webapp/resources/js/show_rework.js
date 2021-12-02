@@ -12,6 +12,18 @@ $(function() {
 		$('#wikilinkEditInput').prop("readonly",false);
 		$('#wikilinkEditInput').addClass("form-control");
 	});
+	$('#resourceEditButton').click(function() {
+			$('#resourceEditInput').removeClass("d-none");
+				$('#resourceEditInput').attr("required",""); 
+			$('#resourceEditA').addClass("d-none");
+	});
+	
+	$('#resourceEditButton').click(function() {
+		$('#resourceEditInput').removeClass("form-control-plaintext");
+		$('#resourceEditInput').prop("readonly",false);
+		$('#resourceEditInput').addClass("form-control");
+	});
+	
 
 	var reworkNumber = ($(".row.mt-2.align-items-center.border-bottom").eq(1).children()[1]).innerText;
 	
@@ -34,7 +46,12 @@ $(function() {
 	$('#updateButton').click(function() {
 		var isEmptyFields;
 		var wikilink = $("#wikilinkEditInput").val();
+		var resource = $("#resourceEditInput").val();
 		var descrRework = $("#descrReworkTextarea").val();
+		
+		if($('#resourceEditInput').attr("required") == "required") {
+			if(resource.trim() == '') {showErrorMessage($('#resourceEditInput'), "Заполните поле \'Ресурс\'!"); isEmptyFields = "true";}
+		}
 		if($('#wikilinkEditInput').attr("required") == "required") {
 			if(wikilink.trim() == '') {showErrorMessage($('#wikilinkEditInput'), "Заполните поле \'WIKILINK\'!"); isEmptyFields = "true";}
 		}

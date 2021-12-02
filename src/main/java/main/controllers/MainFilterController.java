@@ -38,7 +38,7 @@ public class MainFilterController {
 	
 	@GetMapping("/mainfilter/start")
 	public String showMainFilterPage2(@ModelAttribute("modelFilter") SearchFilter searchFilter , Model model,HttpServletRequest request) {	
-
+		
 		List<Wms> allWms = wmsService.findAll();
 		model.addAttribute("allWms", allWms);
 		
@@ -95,6 +95,7 @@ public class MainFilterController {
 							Model model) {
 		Integer serialkey = Integer.valueOf(serialkeyrework.replace("serialkeyrework_", ""));
 		Rework modelRework = reworkService.getRework(serialkey);
+			modelRework.toStringAll();
 		if(isUpdate != null) model.addAttribute("isUpdate","true");
 		model.addAttribute("modelRework",modelRework);
 		

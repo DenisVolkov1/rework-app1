@@ -128,7 +128,7 @@
 	        <tr th:object="${modelForTitle}">
 	        	<th style="width: 160px;"> WMS </th>
 	            <th style="width: 105px;"> НОМЕР </th>
-	            <th style="width: 180px;"> ССЫЛКА НА WIKI </th>
+	            <th style="width: 180px;"> РЕCУРС </th>
 	            <th style="width: 440px;"> ОПИСАНИЕ </th>
 	            <th data-toggle="tooltip" data-placement="top"   th:attr= "title=*{v2[__${itemStat.index}__].project}" th:each="m, itemStat : *{v2}" class="widthcolumn rotate-text"> 
 	            	<div th:text="*{v2[__${itemStat.index}__].project}"></div>
@@ -169,7 +169,7 @@
 				</div>
            </td>
            <td class="text-truncate" style="vertical-align: middle;">
-           		<a id="wikilinkEditA" th:href="@{*{row.v1.getWikiLink()}}" th:text="*{row.v1.getWikiLink()}"></a>
+           		<a id="wikilinkEditA" th:href="@{*{row.v1.getResource()}}" th:text="*{row.v1.getResource()}"></a>
            </td>
            <td class="text-truncate" style="vertical-align: middle;" th:text="*{row.v1.getDescription()}"></td>
            <th:block th:each="rowProject : *{row.v2}"> 

@@ -45,7 +45,7 @@
 
 	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{/showrework/update/{serialkeyrework}(serialkeyrework = *{getSerialKey()})}" th:object="${modelRework}" class="container bg-light">
 		<div class="row">
-			<div class="col-10">
+			<div class="col-12">
 				<div class="container">
 				  <div class="row mt-2 align-items-center border-bottom">
 				    <div class="card-header col-2">
@@ -69,6 +69,18 @@
 				  </div>
 				</div>
 				<div class="container mt-3">
+				  <div class="row mt-2 align-items-center">
+				    <div class="col-2">
+				      <div class="card-header"> РЕСУРС </div>
+				    </div>
+				    <div id="resourceEditDIV" class="col-8">
+				    	<a id="resourceEditA" th:href="@{*{getResource()}}" th:text="*{getResource()}"></a>
+				     	<input id="resourceEditInput" th:field= "*{resource}" type="text" readonly class="form-control-plaintext position-sticky text-primary d-none" value="email@example.com">
+				    </div>
+				    <div class="col">
+				    	<button id="resourceEditButton" type="button" class="btn btn-primary">Править</button>
+				    </div>
+				  </div>
 				  <div class="row mt-2 align-items-center">
 				    <div class="col-2">
 				      <div class="card-header"> WIKILINK </div>
@@ -102,8 +114,8 @@
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
-				    <div class="col-3">
-				      <div class="card-header"> Кто добавил </div>
+				    <div class="col-2">
+				      <div class="card-header p-1"> Кто добавил </div>
 				    </div>
 				    <div class="col">
 				      <div th:text=*{getAddWho()}></div>
@@ -112,8 +124,8 @@
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
-				    <div class="col-3">
-				      <div class="card-header"> Кто обновил </div>
+				    <div class="col-2">
+				      <div class="card-header p-1"> Кто обновил </div>
 				    </div>
 				    <div class="col">
 				      <div th:text=*{getEditWho()}></div>

@@ -35,7 +35,7 @@ public class ShowReworkController {
 						 @PathVariable("serialkeyrework") int serialkeyrework, 
 						 Model model) {
 		Integer serialkey = Integer.valueOf(serialkeyrework);
-			reworkService.updateDescAndWikilink(serialkey, rework);
+			reworkService.updateRework(serialkey, rework);
 				model.addAttribute("isUpdate","true");
 		return "redirect:/showrework/serialkeyrework_{serialkeyrework}";
 	}

@@ -41,6 +41,7 @@ $(function() {
 		var wms;	
 		var reworkNumber = $("#reworkNumberInput").val();
 		var wikilink = $("#wikilinkInput").val();
+		var resource = $("#resourceInput").val();
 		var descrRework = $("#descrReworkTextarea").val();
 		var project = $("#projectInput").val();
 		var addWhoInput = $("#addWhoInput").val();
@@ -57,6 +58,7 @@ $(function() {
 		}
 		if(reworkNumber.trim() == '') {showErrorMessage($('#reworkNumberInput'), "Заполните поле \'Номер доработки\'!"); isEmptyFields = "true";}
 		if(wikilink.trim() == '') {showErrorMessage($('#wikilinkInput'), "Заполните поле \'WIKILINK\'!"); isEmptyFields = "true"}
+		if(resource.trim() == '') {showErrorMessage($('#resourceInput'), "Заполните поле \'Ресурс\'!"); isEmptyFields = "true"}
 		if(descrRework.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните \'Описание\'!"); isEmptyFields = "true"}
 		if($('#projectInput').attr("isActualElement") == "true") {if(project.trim() == '') {showErrorMessage($('#projectInput'), "Заполните \'Описание\'!"); isEmptyFields = "true"}}
 		if(addWhoInput.trim() == '') {showErrorMessage($('#addWhoInput'), "Заполните поле \'Кто добавил\'!"); isEmptyFields = "true"}

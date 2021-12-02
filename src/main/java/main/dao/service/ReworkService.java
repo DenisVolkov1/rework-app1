@@ -25,8 +25,8 @@ public class ReworkService {
 		return reworkDao.getRework(serialkey);
 	}
 	
-	public void updateDescAndWikilink(int serialkey, Rework rework) {
-		reworkDao.updateDescAndWikilink(serialkey,rework);
+	public void updateRework(int serialkey, Rework rework) {
+		reworkDao.updateRework(serialkey,rework);
 	}
 
 	public void deleteRework(String wms, String reworkNumber) {

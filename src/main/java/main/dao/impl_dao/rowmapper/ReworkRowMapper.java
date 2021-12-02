@@ -20,6 +20,7 @@ public class ReworkRowMapper implements RowMapper<Rework> {
 			resultRework.setWms(rs.getString("WMS"));
 			resultRework.setReworkNumber(rs.getString("REWORKNUMBER"));
 			resultRework.setWikiLink(rs.getString("WIKILINK"));
+			resultRework.setResource(rs.getString("RESOURCE"));
 			resultRework.setDescription(rs.getString("DESCRIPTION"));
 			resultRework.setAddDate(new LocalDateTimeRus(rs.getTimestamp("ADDDATE").toLocalDateTime()));
 			resultRework.setAddWho(rs.getString("ADDWHO"));

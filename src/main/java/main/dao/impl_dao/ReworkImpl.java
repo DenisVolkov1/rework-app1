@@ -11,14 +11,12 @@ import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.dao.impl_dao.rowmapper.ReworkRowMapper;
 import main.dao.interface_dao.ReworkDao;
 import main.dao.model.NewRework;
-import main.dao.model.Project;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 
@@ -31,6 +29,7 @@ public class ReworkImpl implements ReworkDao {
 					+ "	r.SERIALKEY, "
 					+ " r.WMS, "
 					+ "	r.REWORKNUMBER, "
+					+ " r.RESOURCE, " 
 					+ "	r.WMS AS rd_WMS, "
 			        + "	r.REWORKNUMBER AS rd_REWORKNUMBER, "
 			        + "	ISNULL(r.WIKILINK,'') AS WIKILINK, "
@@ -74,14 +73,15 @@ public class ReworkImpl implements ReworkDao {
 	}
 
 	@Override
-	public void updateDescAndWikilink(int serialkey, Rework rework) {
-		String sqlUpdate = "UPDATE dbo.REWORK set DESCRIPTION = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
+	public void updateRework(int serialkey, Rework rework) {
+		String sqlUpdate = "UPDATE dbo.REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
 		String descr = rework.getDescription();
 		String wikilink = rework.getWikiLink();
+		String resource = rework.getResource();
 		
 		jdbcTemplate.update(
 				sqlUpdate, 
-				descr, wikilink, serialkey);
+				resource, descr, wikilink, serialkey);
 		
 	}
 
@@ -107,6 +107,7 @@ public class ReworkImpl implements ReworkDao {
 	public void addNewRework(NewRework newRework) {
 		String wms = newRework.getWms().replace(",", "");
 		String reworkNumber = newRework.getReworkNumber();
+		String resource = newRework.getResource();
 		String wlkiLink = newRework.getWikiLink();
 		String description = newRework.getDescription();
 		String addwho = newRework.getAddWho();
@@ -114,18 +115,18 @@ public class ReworkImpl implements ReworkDao {
 		String status = newRework.getStatus();
 		String project = newRework.getProject().replace(",", "");
 		
-		String sqlInsertRework = "INSERT INTO dbo.REWORK (WMS,REWORKNUMBER,WIKILINK,DESCRIPTION,ADDWHO) "
-			    				+ "VALUES(?,?,?,?,?) ";
+		String sqlInsertRework = "INSERT INTO dbo.REWORK (WMS,REWORKNUMBER,RESOURCE,WIKILINK,DESCRIPTION,ADDWHO,EDITWHO) "
+			    				+ "VALUES(?,?,?,?,?,?,?) ";
 		
 		jdbcTemplate.update(
 				sqlInsertRework,
-				wms, reworkNumber, wlkiLink, description, addwho
+				wms, reworkNumber,resource, wlkiLink, description, addwho, addwho
 		);
-		String sqlInsertReworkDetail = "INSERT INTO dbo.REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO) "
-									 + "VALUES(?,?,?,?,?) ";
+		String sqlInsertReworkDetail = "INSERT INTO dbo.REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO, EDITWHO) "
+									 + "VALUES(?,?,?,?,?,?) ";
 		jdbcTemplate.update(
 				sqlInsertReworkDetail,
-				wms, reworkNumber, project, status, addwho
+				wms, reworkNumber, project, status, addwho, addwho
 		);
 		
 	}

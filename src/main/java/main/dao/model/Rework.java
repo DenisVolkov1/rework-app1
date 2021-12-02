@@ -10,6 +10,7 @@ public class Rework {
 	private String wms;
 	private String reworkNumber;
 	private String wikiLink;
+	private String resource;
 	private String description;
 	private LocalDateTimeRus addDate;
 	private String addWho;
@@ -17,12 +18,13 @@ public class Rework {
 	private LocalDateTimeRus editDate;
 	
 	
-	public Rework(long serialKey, String wms, String reworkNumber, String wikiLink, String description,
+	public Rework(long serialKey, String wms, String reworkNumber,String resource, String wikiLink, String description,
 			LocalDateTimeRus addDate, String addWho, String editWho, LocalDateTimeRus editDate) {
 		super();
 		this.serialKey = serialKey;
 		this.wms = wms;
 		this.reworkNumber = reworkNumber;
+		this.resource = resource;
 		this.wikiLink = wikiLink;
 		this.description = description;
 		this.addDate = addDate;
@@ -88,11 +90,24 @@ public class Rework {
 	public void setSerialKey(long serialKey) {
 		this.serialKey = serialKey;
 	}
-
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
+	public String getResource() {
+		return resource;
+	}
 	@Override
 	public String toString() {
 		return "Rework ["+reworkNumber+ " " + wms +"] "+getAddWho();
 	}
+
+	public String toStringAll() {
+		return "Rework [serialKey=" + serialKey + ", wms=" + wms + ", reworkNumber=" + reworkNumber + ", wikiLink="
+				+ wikiLink + ", resource=" + resource + ", description=" + description + ", addDate=" + addDate
+				+ ", addWho=" + addWho + ", editWho=" + editWho + ", editDate=" + editDate + "]";
+	}
+
+
 	
 	
 	
