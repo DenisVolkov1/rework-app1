@@ -65,7 +65,7 @@ $(function() {
 		if(isEmptyFields == "true") return;
 		
 		//var url = "http://"+ serverName +":"+ port +"/isAlreadyExistsRework?wms="+ wms +"&reworkNumber="+ reworkNumber +"";
-		var url = "http://"+ serverName +":"+ port +"/isAlreadyExistsRework";
+		var url = "http://"+ serverName +":"+ port +"/rework-app1/isAlreadyExistsRework";
 		$.ajax({
 			    type: 'get',
 			    url: url,

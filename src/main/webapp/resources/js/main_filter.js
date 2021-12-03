@@ -117,7 +117,7 @@
 						var	valueStatus =	$('#statusUpdateStatusLabel').text();
 						var	whoUpdate =     $('#whoUpdatesSelect').find(":selected").text();
 						//
-						var updateStatusUrl = "http://"+ serverName +":"+ port +"/mainfilter/updatestatus?"
+						var updateStatusUrl = "http://"+ serverName +":"+ port +"/rework-app1/mainfilter/updatestatus?"
 						+"wms="+ wms 
 						+"&reworkNumber="+ reworkNumber 
 						+"&project="+ project 
@@ -157,11 +157,11 @@
 					var wms = $(this).closest("tr").children('td').eq(0).text();
 					var reworkNumber = $(this).closest("tr").children('td').eq(1).text().trim();
 					var project = $('#headerMainTable > tr').children('th').eq(column_index).children('div').eq(0).text().trim();
-					var tooltipUrl = "http://"+ serverName +":"+ port +"/mainfilter/tooltip/cell?wms="+ wms +"&reworkNumber="+ reworkNumber +"&project="+project;
+					var tooltipUrl = "http://"+ serverName +":"+ port +"/rework-app1/mainfilter/tooltip/cell?wms="+ wms +"&reworkNumber="+ reworkNumber +"&project="+project;
 					
 					$.ajax({
 				        type: "POST",                            
-				        url: tooltipUrl, //'http://localhost:8080/mainfilter/tooltip/cell?wms=INFOR_WMS_10&reworkNumber=FBR0080&project=БАРС',
+				        url: tooltipUrl, //'http://localhost:8080/rework-app1/mainfilter/tooltip/cell?wms=INFOR_WMS_10&reworkNumber=FBR0080&project=БАРС',
 						dataType: "json",
 				        headers: {
 				                  "Accept": "application/json"
