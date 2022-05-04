@@ -1,7 +1,8 @@
+---START MS SQL-----------------
 USE [master]
 GO
 
-CREATE DATABASE [SCPRD]
+CREATE DATABASE [REWORKAPP]
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[REWORK](
@@ -12,8 +13,8 @@ CREATE TABLE [dbo].[REWORK](
 	[WIKILINK] [nvarchar](255) NULL,
 	[DESCRIPTION] [nvarchar](max) NULL,
 	[ADDDATE] [datetime] NOT NULL,
-	[ADDWHO] [nvarchar](18) NULL,
-	[EDITWHO] [nvarchar](18) NULL,
+	[ADDWHO] [nvarchar](30) NULL,
+	[EDITWHO] [nvarchar](30) NULL,
 	[EDITDATE] [datetime] NOT NULL,
  CONSTRAINT [PK__REWORKNU__E0C27C7F2525AE9B] PRIMARY KEY CLUSTERED 
 (
@@ -47,8 +48,8 @@ CREATE TABLE [dbo].[REWORKDETAIL](
 	[PROJECT] [nvarchar](80) NOT NULL,
 	[STATUS] [nvarchar](30) NULL,
 	[ADDDATE] [datetime] NOT NULL,
-	[ADDWHO] [nvarchar](18) NULL,
-	[EDITWHO] [nvarchar](18) NULL,
+	[ADDWHO] [nvarchar](30) NULL,
+	[EDITWHO] [nvarchar](30) NULL,
 	[EDITDATE] [datetime] NOT NULL,
  CONSTRAINT [PK_REWORKDETAIL] PRIMARY KEY CLUSTERED 
 (
@@ -94,6 +95,7 @@ CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS10](
 	[НТП] [nvarchar](255) NULL,
 	[ОЗСМ] [nvarchar](255) NULL,
 	[МЗСМ] [nvarchar](255) NULL,
+	[РПХ] [nvarchar](255) NULL,
 	[СИГМА] [nvarchar](255) NULL,
 	[БАРС] [nvarchar](255) NULL,
 	[СК ГПН-СМ] [nvarchar](255) NULL,
@@ -118,6 +120,76 @@ CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS11](
 	[МОНЕТКА] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
+---END MS SQL-----------------
+---START postgresql-----------------
 
+-- DROP TABLE IF EXISTS public.REWORK;
+-- DROP TABLE IF EXISTS public.REWORK_EXCEL_FILE_WMS10
+CREATE TABLE IF NOT EXISTS public.REWORK
+(
+    SERIALKEY integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+	WMS character varying(50) NOT NULL,
+	REWORKNUMBER character varying(50) NOT NULL,
+	RESOURCE character varying(500) NULL,
+	WIKILINK character varying(500) NULL,
+	DESCRIPTION character varying NULL,
+	ADDDATE timestamp NOT NULL DEFAULT timezone('utc', now()),
+	ADDWHO character varying(30) NULL DEFAULT current_user,
+	EDITWHO character varying(30) NULL DEFAULT current_user,
+	EDITDATE timestamp  NOT NULL DEFAULT timezone('utc', now()),
+	CONSTRAINT PK_REWORK PRIMARY KEY(WMS,REWORKNUMBER)
+)
+
+CREATE TABLE IF NOT EXISTS public.REWORKDETAIL
+(
+    SERIALKEY integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+	WMS character varying(50) NOT NULL,
+	REWORKNUMBER character varying(50) NOT NULL,
+	PROJECT character varying(80) NOT NULL,
+	STATUS character varying(30) NULL,
+	ADDDATE timestamp  NOT NULL DEFAULT timezone('utc', now()),
+	ADDWHO character varying(30) NULL DEFAULT current_user,
+	EDITWHO character varying(30) NULL DEFAULT current_user,
+	EDITDATE timestamp  NOT NULL DEFAULT timezone('utc', now()),
+	CONSTRAINT PK_REWORKDETAIL PRIMARY KEY(WMS,REWORKNUMBER,PROJECT),
+	CONSTRAINT FK_REWORKDETAIL FOREIGN KEY(WMS,REWORKNUMBER) REFERENCES public.REWORK(WMS,REWORKNUMBER)
+)
+
+CREATE TABLE IF NOT EXISTS public.REWORK_EXCEL_FILE_WMS10
+(
+	НОМЕР character varying(255) NULL,
+	РЕСУРС character varying(500) NULL,
+	"ССЫЛКА НА WIKI" character varying(255) NULL,
+	ОПИСАНИЕ character varying(255) NULL,
+	ЛОГИКОН character varying(255) NULL,
+	ПРОДУКТЫ character varying(255) NULL,
+	"ВОЛГА-СЕРВИС" character varying(255) NULL,
+	НТП character varying(255) NULL,
+	ОЗСМ character varying(255) NULL,
+	МЗСМ character varying(255) NULL,
+	РПХ character varying(255) NULL,
+	СИГМА character varying(255) NULL,
+	БАРС character varying(255) NULL,
+	"СК ГПН-СМ" character varying(255) NULL,
+	ALG character varying(255) NULL,
+	Гараж_Tools character varying(255) NULL,
+	ГалаЦентр character varying(255) NULL,
+	"Виктория Балтия" character varying(255) NULL,
+	"Сибирский Гурман" character varying(255) NULL,
+	"Лукоил ПНОС" character varying(255) NULL,
+	Боярд character varying(255) NULL
+)
+CREATE TABLE IF NOT EXISTS public.REWORK_EXCEL_FILE_WMS11
+(
+	НОМЕР character varying(255) NULL,
+	РЕСУРС character varying(500) NULL,
+	"ССЫЛКА НА WIKI" character varying(255) NULL,
+	ОПИСАНИЕ character varying(255) NULL,
+	ЛОГИКОН character varying(255) NULL,
+	МОНЕТКА character varying(255) NULL
+
+)
+
+---END postgresql-----------------
 
 

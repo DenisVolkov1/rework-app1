@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -88,6 +89,7 @@ public class MySpringConfig implements WebMvcConfigurer {
 	   HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 	   LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 	    factory.setJpaVendorAdapter(vendorAdapter);
+	    factory.setJpaDialect(new HibernateJpaDialect());
 	    factory.setPackagesToScan("main");
 	    factory.setDataSource(getDataSource());
 	    return factory;
