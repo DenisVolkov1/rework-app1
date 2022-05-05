@@ -76,7 +76,7 @@ public class ReworkImplPostgreSQL implements ReworkDao {
 
 	@Override
 	public void updateRework(int serialkey, Rework rework) {
-		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
+		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = timezone('utc'::text, now()) WHERE SERIALKEY = ?; ";
 		String descr = rework.getDescription();
 		String wikilink = rework.getWikiLink();
 		String resource = rework.getResource();
