@@ -1,4 +1,4 @@
-package main.dao.impl_dao;
+package main.dao.impl_dao.mssql;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import main.dao.interface_dao.ProjectDao;
 import main.dao.model.Project;
 
 @Component
-public class ProjectImpl implements ProjectDao {
+public class ProjectImplMSSQL implements ProjectDao {
 	
 	private JdbcTemplate jdbcTemplate; 
 	
-	public ProjectImpl(@Autowired JdbcTemplate jdbcTemplate) {
+	public ProjectImplMSSQL(@Autowired JdbcTemplate jdbcTemplate) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}

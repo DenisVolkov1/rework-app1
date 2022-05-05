@@ -1,4 +1,4 @@
-package main.dao.impl_dao;
+package main.dao.impl_dao.mssql;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,7 +21,7 @@ import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 
 @Component
-public class ReworkImpl implements ReworkDao {
+public class ReworkImplMSSQL implements ReworkDao {
 	
 	private JdbcTemplate jdbcTemplate;  
 	private final static String MAIN_FILTER_QUERY = 
@@ -44,7 +44,7 @@ public class ReworkImpl implements ReworkDao {
 	private final static String AND = " AND "; 
 	private final static String OR = " OR "; 
 	
-	public ReworkImpl(@Autowired JdbcTemplate jdbcTemplate) {
+	public ReworkImplMSSQL(@Autowired JdbcTemplate jdbcTemplate) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}
@@ -74,7 +74,7 @@ public class ReworkImpl implements ReworkDao {
 
 	@Override
 	public void updateRework(int serialkey, Rework rework) {
-		String sqlUpdate = "UPDATE dbo.REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
+		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
 		String descr = rework.getDescription();
 		String wikilink = rework.getWikiLink();
 		String resource = rework.getResource();
@@ -88,16 +88,16 @@ public class ReworkImpl implements ReworkDao {
 	@Override
 	@Transactional()
 	public void deleteRework(String wms, String reworkNumber) {
-		String sqlDelete = "DELETE FROM dbo.REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ?; ";
+		String sqlDelete = "DELETE FROM REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ?; ";
 		jdbcTemplate.update(sqlDelete, wms, reworkNumber);
-			sqlDelete = "DELETE FROM dbo.REWORK WHERE WMS = ? AND REWORKNUMBER = ?; ";
+			sqlDelete = "DELETE FROM REWORK WHERE WMS = ? AND REWORKNUMBER = ?; ";
 				jdbcTemplate.update(sqlDelete, wms, reworkNumber);
 		
 	}
 
 	@Override
 	public boolean isAlreadyExistsRework(String wms, String reworkNumber) {
-		 String sqlisExists = "SELECT REWORKNUMBER FROM dbo.REWORK WHERE WMS = ? AND REWORKNUMBER = ? ";
+		 String sqlisExists = "SELECT REWORKNUMBER FROM REWORK WHERE WMS = ? AND REWORKNUMBER = ? ";
 		 List<Map<String, Object>> reworks = jdbcTemplate.queryForList(sqlisExists, wms,reworkNumber);
 		return !reworks.isEmpty();
 	}
@@ -115,14 +115,14 @@ public class ReworkImpl implements ReworkDao {
 		String status = newRework.getStatus();
 		String project = newRework.getProject().replace(",", "");
 		
-		String sqlInsertRework = "INSERT INTO dbo.REWORK (WMS,REWORKNUMBER,RESOURCE,WIKILINK,DESCRIPTION,ADDWHO,EDITWHO) "
+		String sqlInsertRework = "INSERT INTO REWORK (WMS,REWORKNUMBER,RESOURCE,WIKILINK,DESCRIPTION,ADDWHO,EDITWHO) "
 			    				+ "VALUES(?,?,?,?,?,?,?) ";
 		
 		jdbcTemplate.update(
 				sqlInsertRework,
 				wms, reworkNumber,resource, wlkiLink, description, addwho, addwho
 		);
-		String sqlInsertReworkDetail = "INSERT INTO dbo.REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO, EDITWHO) "
+		String sqlInsertReworkDetail = "INSERT INTO REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO, EDITWHO) "
 									 + "VALUES(?,?,?,?,?,?) ";
 		jdbcTemplate.update(
 				sqlInsertReworkDetail,
@@ -185,7 +185,7 @@ public class ReworkImpl implements ReworkDao {
 	private List<Tuple2<Rework, List<ReworkDetail>>> addMissingProjects(
 			List<Tuple2<Rework, List<ReworkDetail>>> result) {
 		
-		 String sqlALL_PROJECT = "SELECT DISTINCT PROJECT FROM dbo.REWORKDETAIL";
+		 String sqlALL_PROJECT = "SELECT DISTINCT PROJECT FROM REWORKDETAIL";
 		 List<String> dataAllProject = jdbcTemplate.queryForList(sqlALL_PROJECT, String.class);
 		
 		

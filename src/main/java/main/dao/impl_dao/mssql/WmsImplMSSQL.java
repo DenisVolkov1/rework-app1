@@ -1,4 +1,4 @@
-package main.dao.impl_dao;
+package main.dao.impl_dao.mssql;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import main.dao.model.Wms;
 
 
 @Component
-public class WmsImpl implements WmsDao{
+public class WmsImplMSSQL implements WmsDao{
 
 private JdbcTemplate jdbcTemplate;  
 	
-	public WmsImpl(@Autowired JdbcTemplate jdbcTemplate) {
+	public WmsImplMSSQL(@Autowired JdbcTemplate jdbcTemplate) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}
