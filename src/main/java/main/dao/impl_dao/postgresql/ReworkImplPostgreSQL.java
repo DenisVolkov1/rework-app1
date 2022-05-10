@@ -107,15 +107,23 @@ public class ReworkImplPostgreSQL implements ReworkDao {
 	@Transactional()
 	@Override
 	public void addNewRework(NewRework newRework) {
-		String wms = newRework.getWms().replace(",", "");
-		String reworkNumber = newRework.getReworkNumber();
-		String resource = newRework.getResource();
-		String wlkiLink = newRework.getWikiLink();
-		String description = newRework.getDescription();
-		String addwho = newRework.getAddWho();
+		String wms =          newRework.getWms().replace(",", "");
+		String reworkNumber = newRework.getReworkNumber().toUpperCase();
+		String resource =     newRework.getResource();
+		String wlkiLink =     newRework.getWikiLink();
+		String description =  newRework.getDescription();
+		String addwho =       newRework.getAddWho();
 		
-		String status = newRework.getStatus();
-		String project = newRework.getProject().replace(",", "");
+		String status =       newRework.getStatus();
+		Boolean isAutoAssigment = newRework.getIsAutoAssigment();
+		String project =      newRework.getProject().replace(",", "");
+		
+		if(isAutoAssigment) {
+			String suffix=reworkNumber;
+			String sql_getnumberrework = "SELECT public.getnumberrework(?) ";
+			 List<String> getNumberRework = jdbcTemplate.queryForList(sql_getnumberrework, String.class, suffix);
+			reworkNumber = getNumberRework.get(0);
+		} 
 		
 		String sqlInsertRework = "INSERT INTO REWORK (WMS,REWORKNUMBER,RESOURCE,WIKILINK,DESCRIPTION,ADDWHO,EDITWHO) "
 			    				+ "VALUES(?,?,?,?,?,?,?) ";

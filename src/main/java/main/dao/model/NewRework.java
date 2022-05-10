@@ -10,11 +10,12 @@ public class NewRework {
 	private String description;
 	private String project;
 	private String status;
+	private Boolean isAutoAssigment;
 	private String addWho;
 	private String editWho;
 	
 	public NewRework(String wms, String reworkNumber, String resource,String wikiLink, String description, String project,
-			String status, String addWho, String editWho) {
+			String status,Boolean isAutoAssigment, String addWho, String editWho) {
 		super();
 		this.wms = wms;
 		this.reworkNumber = reworkNumber;
@@ -23,6 +24,7 @@ public class NewRework {
 		this.description = description;
 		this.project = project;
 		this.status = status;
+		this.isAutoAssigment = isAutoAssigment;
 		this.addWho = addWho;
 		this.editWho = editWho;
 	}
@@ -61,9 +63,19 @@ public class NewRework {
 	public String getStatus() {
 		return status;
 	}
+	
+	public Boolean getIsAutoAssigment() { 
+		return isAutoAssigment; 
+	}
+	 
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public void setIsAutoAssigment(Boolean isAutoAssigment) {
+	  this.isAutoAssigment = isAutoAssigment; 
+	}
+	 
 	public String getAddWho() {
 		return addWho;
 	}
@@ -87,7 +99,7 @@ public class NewRework {
 	@Override
 	public String toString() {
 		return "NewRework [wms=" + wms + ", reworkNumber=" + reworkNumber + ", resource=" + resource + ", wikiLink=" + wikiLink + ", description="
-				+ description + ", project=" + project + ", status=" + status + ", addWho=" + addWho + ", editWho="
+				+ description + ", project=" + project + ", status=" + status + ", isAutoAssigment="+isAutoAssigment+", addWho=" + addWho + ", editWho="
 				+ editWho + "]";
 	}
 

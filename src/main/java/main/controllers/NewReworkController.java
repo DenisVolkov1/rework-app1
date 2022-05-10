@@ -45,20 +45,24 @@ public class NewReworkController {
 		List<Status> allStatuses = statusService.findAll();
 		List<Wms> allWms = wmsService.findAll();
 		List<Project> allProjects = projectService.findAll();
+		Boolean isAutoAssigment = false;
 		
 		allStatuses.removeIf(s -> s.getStatus().isEmpty());
 		model.addAttribute("allProjects", allProjects);
 		model.addAttribute("allStatuses", allStatuses);
 		model.addAttribute("allWms", allWms);
+		
 		return "new_rework";
 	}
 	
 	@PostMapping("/newrework/new")
 	public String newRework(
+			@ModelAttribute("modelFilter") SearchFilter searchFilter,
 			@ModelAttribute("modelNewRework") NewRework newRework, 
 			Model model) {
 		System.out.println(newRework);
 		reworkService.addNewRework(newRework);
+	
 		return "redirect:/mainfilter/start";
 	}
 	

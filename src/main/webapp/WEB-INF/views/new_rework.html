@@ -27,10 +27,10 @@
 					    <div class="col-2">
 					      <div class="card-header"> WMS </div>
 					    </div>
-					    <div id="wmsInputDIV" class="col-7 d-none">
+					    <div id="wmsInputDIV" class="col-3 d-none">
 					     	<input id="wmsInput" th:field= "*{wms}" type="text" class="form-control" isActualElement="false">
 					    </div>
-					    <div id="wmsSelectDIV" class="col-7">
+					    <div id="wmsSelectDIV" class="col-3">
 					     	<select id="wmsSelect" th:field= "*{wms}" class="custom-select" data-style="btn-default">
        			 				<option th:each="w, si : ${allWms}" th:value="${w.wms}" th:utext="${w.wms}"/>
        			 			</select>
@@ -43,8 +43,12 @@
 					    <div class="col-2">
 					      <div class="card-header"> Номер доработки </div>
 					    </div>
-					    <div id="reworkNumberInputDIV" class="col-3">
+						<div id="reworkNumberInputDIV" class="col-3">
 					     	<input id="reworkNumberInput" th:field= "*{reworkNumber}" type="text" class="form-control" value="" required>
+					     	<div class="form-check mt-2">
+  								<input id="autoAssigmentCheck" th:field="${modelNewRework.isAutoAssigment}" class="form-check-input" type="checkbox">
+  								<label class="form-check-label" for="autoAssigmentCheck">Авто присвоение номера</label>
+							</div>
 					    </div>
 					  </div>
 					  <div class="row mt-3 align-items-top">
@@ -87,10 +91,10 @@
 					    <div class="col-2">
 					      <div class="card-header"> Проект </div>
 					    </div>
-					    <div id="projectInputDIV" class="col-7 d-none">
+					    <div id="projectInputDIV" class="col-3 d-none">
 					     	<input id="projectInput" th:field= "*{project}" type="text" class="form-control" value="" isActualElement="false">
 					    </div>
-					    <div id="projectSelectDIV" class="col-6">
+					    <div id="projectSelectDIV" class="col-3">
 					     	<select th:field= "*{project}" class="custom-select" data-style="btn-default">
        			 				<option th:each="p, index : ${allProjects}" th:value="${p.project}" th:utext="${p.project}"/>
        			 			</select>

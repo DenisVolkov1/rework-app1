@@ -46,6 +46,7 @@ public class MainFilterController {
 	}
 	
 	@PostMapping("/mainfilter/search")
+	@GetMapping("/mainfilter/search")
 	public String showMainFilterSearch(@ModelAttribute("modelFilter") SearchFilter searchFilter , Model model,HttpServletRequest request) {	
 		if(searchFilter.getWms() != null ) {
 			List<Tuple2<Rework, List<ReworkDetail>>> modelsForRows = null;
