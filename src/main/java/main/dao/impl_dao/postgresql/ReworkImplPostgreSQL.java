@@ -157,11 +157,11 @@ public class ReworkImplPostgreSQL implements ReworkDao {
 		if(!wms.equals("Все")) { 
 			sqlSelectFilter += WHERE+ " r.WMS = ? ";
 				sqlSelectFilter += AND;
-				sqlSelectFilter += "(r.REWORKNUMBER LIKE ? OR r.DESCRIPTION LIKE ?)";
+				sqlSelectFilter += "(r.REWORKNUMBER ILIKE ? OR r.DESCRIPTION ILIKE ?)";
 			paramsSqlSelectFilter = new Object[] { wms ,"%"+search+"%", "%"+search+"%"};
 		} else if (wms.equals("Все")) {
 			sqlSelectFilter += WHERE;
-				sqlSelectFilter += " r.REWORKNUMBER LIKE ? OR r.DESCRIPTION LIKE ? ";
+				sqlSelectFilter += " r.REWORKNUMBER ILIKE ? OR r.DESCRIPTION ILIKE ? ";
 			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%" };
 		}
 		

@@ -180,7 +180,7 @@
            <th:block th:each="rowProject : *{row.v2}"> 
            	<td class="cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
            		<div class="statusDIV" th:text="*{rowProject.getStatus()}"></div>
-       			 <select class="selectpicker" data-style="btn-default" data-width="fit">
+       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
        			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
        			 </select>
            	 </td>
