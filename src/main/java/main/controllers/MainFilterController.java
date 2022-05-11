@@ -46,8 +46,15 @@ public class MainFilterController {
 	}
 	
 	@PostMapping("/mainfilter/search")
-	@GetMapping("/mainfilter/search")
-	public String showMainFilterSearch(@ModelAttribute("modelFilter") SearchFilter searchFilter , Model model,HttpServletRequest request) {	
+	public String showMainFilterSearch(
+			@ModelAttribute("modelFilter") SearchFilter searchFilter , 
+			@ModelAttribute("newInsertRework_wms") String newInsertRework_wms,
+			@ModelAttribute("newInsertRework_reworknumber") String newInsertRework_reworknumber,
+			@ModelAttribute("newInsertRework_project") String newInsertRework_project,
+			@ModelAttribute("newInsertRework_status") String newInsertRework_status,	
+			Model model,HttpServletRequest request) {	
+		
+		System.out.println(searchFilter);
 		if(searchFilter.getWms() != null ) {
 			List<Tuple2<Rework, List<ReworkDetail>>> modelsForRows = null;
 			if(searchFilter.getSearch().isEmpty()) {
@@ -67,8 +74,6 @@ public class MainFilterController {
 			model.addAttribute("allStatuses", allStatuses);
 			model.addAttribute("allWms", allWms);
 		}
-		
-		System.out.println(searchFilter);
 		
 		return "main_filter_search";
 	}

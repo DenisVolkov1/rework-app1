@@ -88,6 +88,17 @@
 				      //console.log(wms);
 				    });
 				});
+				///new insert rework show modal////////////////////////////////////////////////////////////////////////////////
+				var newInsertRework_wms=$("#newInsertRework_wms").val();
+				var newInsertRework_reworknumber=$("#newInsertRework_reworknumber").val();	
+				var newInsertRework_project= $("#newInsertRework_project").val();
+				var newInsertRework_status=$("#newInsertRework_status").val();	
+				
+				if(newInsertRework_wms != '' && newInsertRework_reworknumber !='') {
+					var $alertInsert = alertInsert(newInsertRework_reworknumber +" : "+newInsertRework_wms+" : "+newInsertRework_project+" : "+newInsertRework_status, " доработка была добавлена!");
+					$("body").before($alertInsert);
+				}
+				///
 				// update status show form start////////////////////////////////////////////////////////////////////////////////
 				$(".selectpicker").change(function() {
 					var serverName = $("#server").val();
@@ -126,7 +137,7 @@
 						
 						$.get(updateStatusUrl, function( data ) {
 							response = ""+data;
-							var $alertUpdate = alertUpdate(reworkNumber +" : "+wms+" : "+project, "статус был обновлён!");
+							var $alertUpdate = alertUpdate(reworkNumber +" : "+wms+" : "+project, " статус был обновлён!");
 							var $alertErr = alertErr(reworkNumber +" : "+wms+" : "+project, "status is not updated!");
 							if(response == 'updateIsDone') {
 								$("body").before($alertUpdate);

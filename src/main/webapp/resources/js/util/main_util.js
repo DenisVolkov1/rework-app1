@@ -37,6 +37,15 @@ function hideError(elementForMessage) {
 	}
 }
 
+function alertInsert(boldMessage, plainMessage) {
+		var $alertInsert=$("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">"+
+	    				    "<strong>"+ boldMessage +"</strong> "+ plainMessage +
+	    				     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"+
+	      		           	   "<span aria-hidden=\"true\">&times;</span>"+
+	    	                 "</button>"+
+  	                    	"</div>");
+return $alertInsert;
+}
 function alertUpdate(boldMessage, plainMessage) {
 		var $alertUpdate=$("<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">"+
 	    				    "<strong>"+ boldMessage +"</strong> "+ plainMessage +

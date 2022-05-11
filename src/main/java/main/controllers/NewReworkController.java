@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import main.dao.model.NewRework;
 import main.dao.model.Project;
@@ -45,7 +48,6 @@ public class NewReworkController {
 		List<Status> allStatuses = statusService.findAll();
 		List<Wms> allWms = wmsService.findAll();
 		List<Project> allProjects = projectService.findAll();
-		Boolean isAutoAssigment = false;
 		
 		allStatuses.removeIf(s -> s.getStatus().isEmpty());
 		model.addAttribute("allProjects", allProjects);
@@ -57,13 +59,36 @@ public class NewReworkController {
 	
 	@PostMapping("/newrework/new")
 	public String newRework(
-			@ModelAttribute("modelFilter") SearchFilter searchFilter,
-			@ModelAttribute("modelNewRework") NewRework newRework, 
-			Model model) {
+			@ModelAttribute("modelFilter") 		   SearchFilter searchFilter,
+			@ModelAttribute("modelNewRework")      NewRework newRework,
+			@ModelAttribute("newInsertRework_wms") String newInsertRework_wms,
+			@ModelAttribute("newInsertRework_reworknumber") String newInsertRework_reworknumber,
+			@ModelAttribute("newInsertRework_project") String newInsertRework_project,
+			@ModelAttribute("newInsertRework_status") String newInsertRework_status,	
+			Model model,
+			HttpServletRequest request,
+			final RedirectAttributes redirectAttributes) {
+		
+		request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
+		
 		System.out.println(newRework);
 		reworkService.addNewRework(newRework);
-	
-		return "redirect:/mainfilter/start";
+		String inpuNew_ReworkNumber = newRework.getReworkNumber();
+		String inputNew_Wms = newRework.getWms();
+			searchFilter.setSearch(inpuNew_ReworkNumber);
+			searchFilter.setWms(inputNew_Wms);
+			
+			newInsertRework_wms = inputNew_Wms;
+			newInsertRework_reworknumber = inpuNew_ReworkNumber;
+			newInsertRework_project = newRework.getProject();
+			newInsertRework_status =  newRework.getStatus();
+			
+			redirectAttributes.addFlashAttribute("modelFilter", searchFilter);
+			redirectAttributes.addFlashAttribute("newInsertRework_wms", newInsertRework_wms);
+			redirectAttributes.addFlashAttribute("newInsertRework_reworknumber", newInsertRework_reworknumber);
+			redirectAttributes.addFlashAttribute("newInsertRework_project", newInsertRework_project);
+			redirectAttributes.addFlashAttribute("newInsertRework_status", newInsertRework_status);
+		return "redirect:/mainfilter/search";
 	}
 	
 	@GetMapping("/isAlreadyExistsRework")

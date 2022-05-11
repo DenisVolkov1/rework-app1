@@ -123,8 +123,9 @@ public class ReworkImplPostgreSQL implements ReworkDao {
 			String sql_getnumberrework = "SELECT public.getnumberrework(?) ";
 			 List<String> getNumberRework = jdbcTemplate.queryForList(sql_getnumberrework, String.class, suffix);
 			reworkNumber = getNumberRework.get(0);
+			newRework.setReworkNumber(reworkNumber);
 		} 
-		
+
 		String sqlInsertRework = "INSERT INTO REWORK (WMS,REWORKNUMBER,RESOURCE,WIKILINK,DESCRIPTION,ADDWHO,EDITWHO) "
 			    				+ "VALUES(?,?,?,?,?,?,?) ";
 		
