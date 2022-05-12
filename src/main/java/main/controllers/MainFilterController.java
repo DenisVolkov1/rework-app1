@@ -37,10 +37,16 @@ public class MainFilterController {
 	private WmsService wmsService;
 	
 	@GetMapping("/mainfilter/start")
-	public String showMainFilterPage2(@ModelAttribute("modelFilter") SearchFilter searchFilter , Model model,HttpServletRequest request) {	
+	public String showMainFilterPage2(
+			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
+			@ModelAttribute("deleteRework_wms") String deleteRework_wms,
+			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
+			Model model,HttpServletRequest request) {	
 		
 		List<Wms> allWms = wmsService.findAll();
 		model.addAttribute("allWms", allWms);
+		model.addAttribute("deleteRework_wms", deleteRework_wms);
+		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
 		
 		return "main_filter_start";
 	}

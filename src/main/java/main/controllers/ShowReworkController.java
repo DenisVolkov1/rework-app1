@@ -44,11 +44,13 @@ public class ShowReworkController {
 	public String delete(Model model, 
 			@RequestParam(value="reworkNumber",required = false) String reworkNumber,
 			@RequestParam(value="wms",required = false)          String wms,
-			RedirectAttributes ra) {
+			RedirectAttributes attributes) {
 		
-			reworkService.deleteRework(wms, reworkNumber);
-				//model.addAttribute("isDelete",true);
-		return "redirect:/mainfilter";
+			reworkService.deleteRework(wms, reworkNumber);			
+			
+			attributes.addAttribute("deleteRework_wms", wms);
+			attributes.addAttribute("deleteRework_reworknumber", reworkNumber);
+		return "redirect:/mainfilter/start";
 	}
 	
 	@ModelAttribute("server")	

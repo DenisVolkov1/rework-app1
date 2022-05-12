@@ -134,7 +134,7 @@
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
-				    <div class="col-3">
+				    <div class="col-2">
 				      <div class="card-header p-1"> Когда добавлено </div>
 				    </div>
 				    <div class="col">
@@ -144,7 +144,7 @@
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
-				    <div class="col-3">
+				    <div class="col-2">
 				      <div class="card-header p-1"> Когда обновлено </div>
 				    </div>
 				    <div class="col">
@@ -162,7 +162,7 @@
 				  <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary">
 				  <input id="updateButton" type="button" value="Обновить" class="btn btn-warning mx-3">
 				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить</a>
-				  <a hidden id="deleteReworkLink" role="button" class="btn btn-outline-danger" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()},wms=*{getWms()})}"></a>
+				  <a hidden id="deleteReworkLink" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()},wms=*{getWms()})}"></a>
 				</div>
 			</div>
 		</div>
