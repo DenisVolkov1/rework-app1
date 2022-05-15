@@ -173,9 +173,12 @@ th     { background:#eee; }
    }
 }
 .legend {
-   color: #007bff;
+ 
 	opacity:0.3;
+	display:inline-block;
+	color: linear-gradient(90deg, rgba(199,217,255,1) 1%, rgba(0,123,255,1) 100%);
 }
+
 .legend:hover {
    color: #007bff;
    text-decoration: underline;
