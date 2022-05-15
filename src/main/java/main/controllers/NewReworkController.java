@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import main.dao.model.AddWho;
 import main.dao.model.NewRework;
 import main.dao.model.Project;
 import main.dao.model.SearchFilter;
 import main.dao.model.Status;
 import main.dao.model.Wms;
+import main.dao.service.AddWhoService;
 import main.dao.service.ProjectService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
@@ -32,6 +34,8 @@ import main.dao.service.WmsService;
 public class NewReworkController {
 	@Autowired
 	private StatusService statusService;
+	@Autowired
+	private AddWhoService addWhoService;
 	@Autowired
 	private ReworkService reworkService;
 	@Autowired
@@ -45,14 +49,16 @@ public class NewReworkController {
 			@ModelAttribute("modelNewRework") NewRework rework, 
 			Model model) {
 		
-		List<Status> allStatuses = statusService.findAll();
 		List<Wms> allWms = wmsService.findAll();
 		List<Project> allProjects = projectService.findAll();
+		List<Status> allStatuses = statusService.findAll();
+		List<AddWho> allAddWho = addWhoService.findAll();
 		
 		allStatuses.removeIf(s -> s.getStatus().isEmpty());
+		model.addAttribute("allWms", allWms);
 		model.addAttribute("allProjects", allProjects);
 		model.addAttribute("allStatuses", allStatuses);
-		model.addAttribute("allWms", allWms);
+		model.addAttribute("allAddWho", allAddWho);
 		
 		return "new_rework";
 	}

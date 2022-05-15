@@ -111,6 +111,7 @@ div.unselect {
   .statusDIV {
   	margin: auto;
   	text-align: center;
+  	font-weight: bold;
   }
 
   #topPageButton {
@@ -168,11 +169,26 @@ th     { background:#eee; }
    @include hover {
       color: #0070d1;
       cursor: pointer;
-      text-decoration: underline 
+      text-decoration: underline; 
    }
 }
+.legend {
+   color: #007bff;
+	opacity:0.3;
+}
+.legend:hover {
+   color: #007bff;
+   text-decoration: underline;
+   background-color: transparent; 
+   -webkit-text-decoration-skip: objects; 
+    cursor: pointer;
+	opacity:0.6;
+}
 
-
+.tooltip-inner {
+    max-width: 100% !important;
+    text-align: left!important;
+}
 
 
 

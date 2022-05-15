@@ -6,6 +6,5 @@ import main.dao.model.Wms;
 
 public interface WmsDao {
 
-	
 	List<Wms> findAll();
 }

@@ -30,7 +30,7 @@ private JdbcTemplate jdbcTemplate;
 	public List<Wms> findAll() {
 		 final RowMapper<Wms> rowMapper =
 		        JdbcTemplateMapperFactory.newInstance().newRowMapper(Wms.class);
-		String query = "SELECT DISTINCT WMS FROM REWORK";
+		String query = "SELECT DISTINCT WMS FROM REWORK ORDER BY 1";
 		List<Wms> res = jdbcTemplate.query(query, rowMapper);
 		return res;
 	}

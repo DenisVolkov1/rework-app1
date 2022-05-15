@@ -1,37 +1,38 @@
 // MAIN loaded document function
 var selectWms;
 
+var switchingBetweenInputOrSelect = function(_selectExistsButton_obj, inputText, selectText, name ) {
+	
+		if($(_selectExistsButton_obj).text() == inputText) {
+			$('#'+name+'InputDIV').removeClass("d-none");
+			$('#'+name+'Input').attr("isActualElement","true"); 
+			$('#'+name+'SelectDIV').addClass("d-none");
+			$('#'+name+'Input').val(""); 
+			$(_selectExistsButton_obj).text(selectText);
+		} else if($(_selectExistsButton_obj).text() == selectText) {
+			$('#'+name+'SelectDIV').removeClass("d-none");
+			$('#'+name+'InputDIV').addClass("d-none");
+			$('#'+name+'Input').attr("isActualElement","false");
+			$(_selectExistsButton_obj).text(inputText);
+		}
+}	
+
 $(function() {
 	
 	$('#inputNewWmsButton_selectExists').click(function() {
 		
-		if($(this).text() == 'Ввести новую WMS') {
-			$('#wmsInputDIV').removeClass("d-none");
-				$('#wmsInput').attr("isActualElement","true"); 
-			$('#wmsSelectDIV').addClass("d-none");
-			$(this).text('Выбрать WMS');
-		} else if($(this).text() == 'Выбрать WMS') {
-			$('#wmsSelectDIV').removeClass("d-none");
-			$('#wmsInputDIV').addClass("d-none");
-				$('#wmsInput').attr("isActualElement","false"); 
-			$(this).text('Ввести новую WMS');
-		}
-
+		switchingBetweenInputOrSelect ($(this), 'Ввести новую WMS' , 'Выбрать WMS' , 'wms');
+		
 	});
 	
 	$('#inputNewProjectButton_selectExists').click(function() {
-		if($(this).text() == 'Ввести новый проект') {
-			$('#projectInputDIV').removeClass("d-none");
-				$('#projectInput').attr("isActualElement","true"); 
-			$('#projectSelectDIV').addClass("d-none");
-			$(this).text('Выбрать проект');
-			
-		} else if($(this).text() == 'Выбрать проект') {
-			$('#projectSelectDIV').removeClass("d-none");
-			$('#projectInputDIV').addClass("d-none");
-				$('#projectInput').attr("isActualElement","false"); 
-			$(this).text('Ввести новый проект');
-		}
+		
+		switchingBetweenInputOrSelect ($(this), 'Ввести новый проект' , 'Выбрать проект' , 'project');
+
+	});
+	$('#inputNewAddWhoButton_selectExists').click(function() {
+		
+		switchingBetweenInputOrSelect ($(this), 'Ввести нового пользователя' , 'Выбрать пользователя' , 'addWho');
 
 	});
 	
@@ -43,24 +44,34 @@ $(function() {
 		var wikilink = $("#wikilinkInput").val();
 		var resource = $("#resourceInput").val();
 		var descrRework = $("#descrReworkTextarea").val();
-		var project = $("#projectInput").val();
-		var addWhoInput = $("#addWhoInput").val();
+		var project;
+		var addWho = $("#addWhoInput").val();
 		//
 		var serverName = $("#server").val();
 		var port = $("#port").val();
 		
 		if($('#wmsInput').attr("isActualElement") == "true") {
 			wms = $('#wmsInput').val();
-			if(wms.trim() == '') {showErrorMessage($('#wmsInput'), "Заполните поле \'WMS!\'"); isEmptyFields = "true"}
+			if(wms.trim() == '') {showErrorMessage($('#wmsInput'), "Заполните поле \'WMS\'!"); isEmptyFields = "true"}
 		}
-		else {
-			wms = $('#wmsSelect').find(":selected").text();
+		else { wms = $('#wmsSelect').find(":selected").text();}
+		
+		if($('#projectInput').attr("isActualElement") == "true") {
+			project = $("#projectInput").val();
+			if(project.trim() == '') {showErrorMessage($('#projectInput'), "Заполните поле \'Проект\'!"); isEmptyFields = "true"}
 		}
+		//else { project = $('#projectSelect').find(":selected").text();}
+		
+		if($('#addWhoInput').attr("isActualElement") == "true") {
+			addWho = $("#addWhoInput").val();
+			if(addWho.trim() == '') {showErrorMessage($('#addWhoInput'), "Заполните поле \'Кто добавил\'!"); isEmptyFields = "true"}
+		}
+		//else { addWho = $('#addWhoSelect').find(":selected").text();}
+		
 		if(reworkNumber.trim() == '') {showErrorMessage($('#reworkNumberInput'), "Заполните поле \'Номер доработки\'!"); isEmptyFields = "true";}
 		if(wikilink.trim() == '') {showErrorMessage($('#wikilinkInput'), "Заполните поле \'WIKILINK\'!"); isEmptyFields = "true"}
 		if(resource.trim() == '') {showErrorMessage($('#resourceInput'), "Заполните поле \'Ресурс\'!"); isEmptyFields = "true"}
 		if(descrRework.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните \'Описание\'!"); isEmptyFields = "true"}
-		if($('#projectInput').attr("isActualElement") == "true") {if(project.trim() == '') {showErrorMessage($('#projectInput'), "Заполните \'Описание\'!"); isEmptyFields = "true"}}
 		if(addWhoInput.trim() == '') {showErrorMessage($('#addWhoInput'), "Заполните поле \'Кто добавил\'!"); isEmptyFields = "true"}
 		if(isEmptyFields == "true") return;
 		

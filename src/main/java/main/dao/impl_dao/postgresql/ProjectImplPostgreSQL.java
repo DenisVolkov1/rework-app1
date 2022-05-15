@@ -27,7 +27,7 @@ public class ProjectImplPostgreSQL implements ProjectDao {
 	public List<Project> findAll() {
 		 final RowMapper<Project> rowMapper =
 			        JdbcTemplateMapperFactory.newInstance().newRowMapper(Project.class);
-			String query = "SELECT DISTINCT PROJECT FROM REWORKDETAIL";
+			String query = "SELECT DISTINCT PROJECT FROM REWORKDETAIL ORDER BY 1";
 			List<Project> res = jdbcTemplate.query(query, rowMapper);
 		return res;
 	}

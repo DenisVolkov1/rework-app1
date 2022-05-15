@@ -1,10 +1,12 @@
 package main.controllers;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jooq.lambda.tuple.Tuple2;
+import org.simpleflatmapper.util.ArrayListEnumerable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,8 +70,12 @@ public class MainFilterController {
 			} else {
 				modelsForRows = reworkService.findOnWmsAndSearchParams(searchFilter.getWms(), searchFilter.getSearch());
 			}
-			
+			//if not found rows for query
+			if(modelsForRows.size()==0) {
+				modelsForRows.add(new Tuple2<Rework, List<ReworkDetail>>(new Rework(), new ArrayList<ReworkDetail>()));
+			}
 			Tuple2<Rework, List<ReworkDetail>> modelForTitle = modelsForRows.get(0);
+			
 			List<Status> allStatuses = statusService.findAll();
 			List<Wms> allWms = wmsService.findAll();
 			List<String> allWhoUpdate = reworkService.findAllWhoUpdate();
