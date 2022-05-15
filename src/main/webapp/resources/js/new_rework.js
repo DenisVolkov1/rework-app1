@@ -72,7 +72,6 @@ $(function() {
 		if(wikilink.trim() == '') {showErrorMessage($('#wikilinkInput'), "Заполните поле \'WIKILINK\'!"); isEmptyFields = "true"}
 		if(resource.trim() == '') {showErrorMessage($('#resourceInput'), "Заполните поле \'Ресурс\'!"); isEmptyFields = "true"}
 		if(descrRework.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните \'Описание\'!"); isEmptyFields = "true"}
-		if(addWhoInput.trim() == '') {showErrorMessage($('#addWhoInput'), "Заполните поле \'Кто добавил\'!"); isEmptyFields = "true"}
 		if(isEmptyFields == "true") return;
 		
 		//var url = "http://"+ serverName +":"+ port +"/isAlreadyExistsRework?wms="+ wms +"&reworkNumber="+ reworkNumber +"";
@@ -110,6 +109,11 @@ $(function() {
 						$('#projectInputDIV').remove();
 					} else {
 						$('#projectSelectDIV').remove();
+					}
+					if($('#addWhoInput').attr("isActualElement") == "false") {
+						$('#addWhoInputDIV').remove();
+					} else {
+						$('#addWhoSelectDIV').remove();
 					}
 					$('#formNew').submit();
 			    }

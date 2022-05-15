@@ -46,7 +46,7 @@
 						<div id="reworkNumberInputDIV" class="col-3">
 					     	<input id="reworkNumberInput" placeholder="FBR или BUG" th:field= "*{reworkNumber}" type="text" class="form-control" value="" required>
 					     	<div class="form-check mt-2">
-  								<input id="autoAssigmentCheck" th:field="${modelNewRework.isAutoAssigment}" class="form-check-input" value="" type="checkbox">
+  								<input id="autoAssigmentCheck" th:field="${modelNewRework.isAutoAssigment}" class="form-check-input" value="" type="checkbox" checked/>
   								<label class="form-check-label" for="autoAssigmentCheck">Авто присвоение номера</label>
 							</div>
 					    </div>
@@ -118,7 +118,7 @@
 					      <div class="card-header"> Кто добавил </div>
 					    </div>
 					    <div id="addWhoInputDIV" class="col-3 d-none">
-					     	<input id="addWhoInput" placeholder="Имя Фамилия" th:field= "*{addWho}" type="text" class="form-control" isActualElement="false">
+					     	<input id="addWhoInput" placeholder="Фамилия Имя" th:field= "*{addWho}" type="text" class="form-control" isActualElement="false">
 					    </div>
 					    <div id="addWhoSelectDIV" class="col-3">
 					     	<select id="addWhoSelect" th:field= "*{addWho}" class="custom-select" data-style="btn-default">

@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import main.dao.model.AddWho;
 import main.dao.model.NewRework;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 import main.dao.model.SearchFilter;
 import main.dao.model.Status;
 import main.dao.model.Wms;
+import main.dao.service.AddWhoService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
@@ -37,6 +39,9 @@ public class MainFilterController {
 	
 	@Autowired
 	private WmsService wmsService;
+	
+	@Autowired
+	private AddWhoService addWhoService;
 	
 	@GetMapping("/mainfilter/start")
 	public String showMainFilterPage2(
@@ -78,7 +83,7 @@ public class MainFilterController {
 			
 			List<Status> allStatuses = statusService.findAll();
 			List<Wms> allWms = wmsService.findAll();
-			List<String> allWhoUpdate = reworkService.findAllWhoUpdate();
+			List<AddWho> allWhoUpdate = addWhoService.findAll();
 				
 			model.addAttribute("allWhoUpdates", allWhoUpdate);
 			model.addAttribute("modelForTitle", modelForTitle);

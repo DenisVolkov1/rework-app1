@@ -49,10 +49,6 @@ public class ReworkService {
 	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWms(String wms) {
 		return reworkDao.findOnWms(wms);
 	}
-
-	public List<String> findAllWhoUpdate() {
-		return reworkDao.findAllWhoUpdate();
-	}
 	
 	
 }

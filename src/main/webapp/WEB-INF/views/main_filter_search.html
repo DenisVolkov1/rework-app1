@@ -63,7 +63,7 @@
 			    </div>
 			    <div class="col-5">
 			     	<select id="whoUpdatesSelect" class="custom-select" data-style="btn-default">
-	    			  <option th:each="value, index : ${allWhoUpdates}" th:value="${value}" th:utext="${value}"/>
+	    			  <option th:each="v, i : ${allWhoUpdates}" th:value="${v.addWho}" th:utext="${v.addWho}"/>
 	    			</select>
 			    </div>
 			  </div>
