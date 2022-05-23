@@ -18,7 +18,6 @@ import main.dao.model.ReworkDetail;
 import main.dao.model.Status;
 
 @Component
-@Primary /// Current Base PostgreSQL ///
 public class StatusImplPostgreSQL implements StatusDao {
 	
 	private JdbcTemplate jdbcTemplate;  

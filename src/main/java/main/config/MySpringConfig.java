@@ -26,12 +26,20 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-
-
 @Configuration
 @PropertySource("classpath:config.properties")
 @EnableTransactionManagement
-@ComponentScan("main")
+@ComponentScan("main.config")
+@ComponentScan("main.controllers")
+// Сделано чтобы переключаться между "mssql" и "postgresql" базами.
+@ComponentScan("main.dao.impl_dao.mssql")
+//@ComponentScan("main.dao.impl_dao.postgresql") // - используем PostgresSql
+//////////////////////////////////////////////////////////////////////////
+@ComponentScan("main.dao.impl_dao.rowmapper")
+@ComponentScan("main.dao.interface_dao")
+@ComponentScan("main.dao.model")
+@ComponentScan("main.dao.service")
+@ComponentScan("main.util")
 @EnableWebMvc
 public class MySpringConfig implements WebMvcConfigurer {
 

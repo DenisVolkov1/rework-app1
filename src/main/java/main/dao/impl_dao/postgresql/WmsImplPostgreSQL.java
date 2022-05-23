@@ -16,7 +16,6 @@ import main.dao.model.Wms;
 
 
 @Component
-@Primary /// Current Base PostgreSQL ///
 public class WmsImplPostgreSQL implements WmsDao{
 
 private JdbcTemplate jdbcTemplate;  

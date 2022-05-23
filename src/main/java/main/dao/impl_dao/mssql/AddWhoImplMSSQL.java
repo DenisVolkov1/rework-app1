@@ -1,4 +1,4 @@
-package main.dao.impl_dao.postgresql;
+package main.dao.impl_dao.mssql;
 
 import java.util.List;
 import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
@@ -14,11 +14,11 @@ import main.dao.model.AddWho;
 
 
 @Component
-public class AddWhoImplPostgreSQL implements AddWhoDao{
+public class AddWhoImplMSSQL implements AddWhoDao{
 
 	private JdbcTemplate jdbcTemplate;
 	
-	public AddWhoImplPostgreSQL(@Autowired JdbcTemplate jdbcTemplate) {
+	public AddWhoImplMSSQL(@Autowired JdbcTemplate jdbcTemplate) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}

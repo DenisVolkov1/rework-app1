@@ -13,7 +13,6 @@ import main.dao.interface_dao.ProjectDao;
 import main.dao.model.Project;
 
 @Component
-@Primary /// Current Base PostgreSQL ///
 public class ProjectImplPostgreSQL implements ProjectDao {
 	
 	private JdbcTemplate jdbcTemplate; 

@@ -22,7 +22,6 @@ import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 
 @Component
-@Primary /// Current Base PostgreSQL ///
 public class ReworkImplPostgreSQL implements ReworkDao {
 	
 	private JdbcTemplate jdbcTemplate;  

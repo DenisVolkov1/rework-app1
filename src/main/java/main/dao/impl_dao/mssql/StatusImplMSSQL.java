@@ -81,10 +81,10 @@ public class StatusImplMSSQL implements StatusDao {
 							+"REWORKNUMBER, "
 							+"PROJECT, "
 							+"[STATUS], "
-							+"getLocalDateTime(ADDDATE) AS ADDDATE, "
+							+"dbo.getLocalDateTime(ADDDATE) AS ADDDATE, "
 							+"ADDWHO, "
 							+"EDITWHO, "
-							+"getLocalDateTime(EDITDATE) AS EDITDATE "
+							+"dbo.getLocalDateTime(EDITDATE) AS EDITDATE "
 					+ "FROM REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
 	        return (ReworkDetail) jdbcTemplate.queryForObject(
 				sql, 

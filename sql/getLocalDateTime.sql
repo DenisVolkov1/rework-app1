@@ -1,4 +1,4 @@
-USE [SCPRD]
+USE [REWORKBASE]
 GO
 /****** Object:  UserDefinedFunction [dbo].[getLocalDateTime]    Script Date: 19.11.2021 20:47:32 ******/
 SET ANSI_NULLS ON

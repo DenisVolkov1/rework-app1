@@ -1,11 +1,6 @@
 ---START MS SQL-----------------
-USE [master]
-GO
-
-CREATE DATABASE [REWORKAPP]
 -----------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------
-CREATE TABLE [dbo].[REWORK](
+CREATE TABLE [REWORKBASE].[dbo].[REWORK](
 	[SERIALKEY] [int] IDENTITY(1,1) NOT NULL,
 	[WMS] [nvarchar](50) NOT NULL,
 	[REWORKNUMBER] [nvarchar](50) NOT NULL,
@@ -28,20 +23,20 @@ CREATE TABLE [dbo].[REWORK](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[REWORK] ADD  DEFAULT (getutcdate()) FOR [ADDDATE]
+ALTER TABLE [REWORKBASE].[dbo].[REWORK] ADD  DEFAULT (getutcdate()) FOR [ADDDATE]
 GO
 
-ALTER TABLE [dbo].[REWORK] ADD  DEFAULT (user_name()) FOR [ADDWHO]
+ALTER TABLE [REWORKBASE].[dbo].[REWORK] ADD  DEFAULT (user_name()) FOR [ADDWHO]
 GO
 
-ALTER TABLE [dbo].[REWORK] ADD  DEFAULT (user_name()) FOR [EDITWHO]
+ALTER TABLE [REWORKBASE].[dbo].[REWORK] ADD  DEFAULT (user_name()) FOR [EDITWHO]
 GO
 
-ALTER TABLE [dbo].[REWORK] ADD  DEFAULT (getutcdate()) FOR [EDITDATE]
+ALTER TABLE [REWORKBASE].[dbo].[REWORK] ADD  DEFAULT (getutcdate()) FOR [EDITDATE]
 GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
-CREATE TABLE [dbo].[REWORKDETAIL](
+CREATE TABLE [REWORKBASE].[dbo].[REWORKDETAIL](
 	[SERIALKEY] [int] IDENTITY(1,1) NOT NULL,
 	[WMS] [nvarchar](50) NOT NULL,
 	[REWORKNUMBER] [nvarchar](50) NOT NULL,
@@ -64,26 +59,26 @@ CREATE TABLE [dbo].[REWORKDETAIL](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__ADDDA__58D1301D]  DEFAULT (getutcdate()) FOR [ADDDATE]
+ALTER TABLE [REWORKBASE].[dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__ADDDA__58D1301D]  DEFAULT (getutcdate()) FOR [ADDDATE]
 GO
 
-ALTER TABLE [dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__ADDWH__59C55456]  DEFAULT (user_name()) FOR [ADDWHO]
+ALTER TABLE [REWORKBASE].[dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__ADDWH__59C55456]  DEFAULT (user_name()) FOR [ADDWHO]
 GO
 
-ALTER TABLE [dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__EDITW__5AB9788F]  DEFAULT (user_name()) FOR [EDITWHO]
+ALTER TABLE [REWORKBASE].[dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__EDITW__5AB9788F]  DEFAULT (user_name()) FOR [EDITWHO]
 GO
 
-ALTER TABLE [dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__EDITD__5BAD9CC8]  DEFAULT (getutcdate()) FOR [EDITDATE]
+ALTER TABLE [REWORKBASE].[dbo].[REWORKDETAIL] ADD  CONSTRAINT [DF__REWORKPRO__EDITD__5BAD9CC8]  DEFAULT (getutcdate()) FOR [EDITDATE]
 GO
 
-ALTER TABLE [dbo].[REWORKDETAIL]  WITH CHECK ADD  CONSTRAINT [FK_REWORKDETAIL_REWORK] FOREIGN KEY([WMS], [REWORKNUMBER])
-REFERENCES [dbo].[REWORK] ([WMS], [REWORKNUMBER])
+ALTER TABLE [REWORKBASE].[dbo].[REWORKDETAIL]  WITH CHECK ADD  CONSTRAINT [FK_REWORKDETAIL_REWORK] FOREIGN KEY([WMS], [REWORKNUMBER])
+REFERENCES [REWORKBASE].[dbo].[REWORK] ([WMS], [REWORKNUMBER])
 GO
-ALTER TABLE [dbo].[REWORKDETAIL] CHECK CONSTRAINT [FK_REWORKDETAIL_REWORK]
+ALTER TABLE [REWORKBASE].[dbo].[REWORKDETAIL] CHECK CONSTRAINT [FK_REWORKDETAIL_REWORK]
 GO
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
-CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS10](
+CREATE TABLE [REWORKBASE].[dbo].[REWORK_EXCEL_FILE_WMS10](
 	[№ п/п] [float] NULL,
 	[НОМЕР] [nvarchar](255) NULL,
 	[РЕСУРС] [nvarchar](500) NULL,
@@ -111,7 +106,7 @@ GO
 
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
-CREATE TABLE [dbo].[REWORK_EXCEL_FILE_WMS11](
+CREATE TABLE [REWORKBASE].[dbo].[REWORK_EXCEL_FILE_WMS11](
 	[НОМЕР] [nvarchar](255) NULL,
 	[РЕСУРС] [nvarchar](500) NULL,
 	[ССЫЛКА НА WIKI] [nvarchar](255) NULL,
