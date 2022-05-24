@@ -191,7 +191,10 @@ AS SELECT * FROM public.REWORK_EXCEL_FILE_WMS10 WHERE НОМЕР IS NOT NULL;
 	SET RESOURCE = concat('\\10.1.8.66\файловый обмен\_MISHA\UPDATE_SCE10\',RESOURCE)
 	WHERE RESOURCE IS NOT NULL AND WMS = WMS_10 AND LEFT(resource, 7) != 'http://';
 	----Апдейтим 'Уст.'
-	UPDATE public.REWORKDETAIL SET STATUS='Уст.';
+	UPDATE public.REWORKDETAIL SET STATUS='Тест'  where status='?' ;
+	UPDATE public.REWORKDETAIL SET STATUS='Уст.'  where status='X' ;
+	UPDATE public.REWORKDETAIL SET STATUS='Нов.'  where status='Х' ;
+	UPDATE public.REWORKDETAIL SET STATUS='Тест'  where status='N/A' ;
 END;
 $BODY$;
 ALTER PROCEDURE public.insert_into_rework_tables()
