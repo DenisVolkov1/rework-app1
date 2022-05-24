@@ -77,8 +77,11 @@
 				    	<a id="resourceEditA" th:href="@{*{getResource()}}" th:text="*{getResource()}"></a>
 				     	<input id="resourceEditInput" th:field= "*{resource}" type="text" readonly class="form-control-plaintext position-sticky text-primary d-none" value="email@example.com">
 				    </div>
-				    <div class="col">
+				    <div class="col-1">
 				    	<button id="resourceEditButton" type="button" class="btn btn-primary">Править</button>
+				    </div>
+				    <div class="col-1">
+				    	<button id="copyToClickBoardRes" type="button" class="btn btn-primary"><img th:src="@{/resources/icons_svg/clipboard2-plus.svg}" alt="Bootstrap" width="20" height="20"></button>
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center">

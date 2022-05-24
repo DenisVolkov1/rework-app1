@@ -17,11 +17,16 @@ $(function() {
 				$('#resourceEditInput').attr("required",""); 
 			$('#resourceEditA').addClass("d-none");
 	});
-	
 	$('#resourceEditButton').click(function() {
-		$('#resourceEditInput').removeClass("form-control-plaintext");
-		$('#resourceEditInput').prop("readonly",false);
-		$('#resourceEditInput').addClass("form-control");
+			$('#resourceEditInput').removeClass("d-none");
+				$('#resourceEditInput').attr("required",""); 
+			$('#resourceEditA').addClass("d-none");
+	});
+	
+	$('#copyToClickBoardRes').click(function() {
+		
+		copyToClipboard($('#resourceEditA'));
+		
 	});
 	
 

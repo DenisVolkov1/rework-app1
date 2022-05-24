@@ -32,8 +32,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ComponentScan("main.config")
 @ComponentScan("main.controllers")
 // Сделано чтобы переключаться между "mssql" и "postgresql" базами.
-@ComponentScan("main.dao.impl_dao.mssql")
-//@ComponentScan("main.dao.impl_dao.postgresql") // - используем PostgresSql
+//@ComponentScan("main.dao.impl_dao.mssql")
+@ComponentScan("main.dao.impl_dao.postgresql") // - используем PostgresSql
 //////////////////////////////////////////////////////////////////////////
 @ComponentScan("main.dao.impl_dao.rowmapper")
 @ComponentScan("main.dao.interface_dao")

@@ -27,6 +27,13 @@ function hideErrorMessage(elementForMessage,message) {
 		}
 	}
 }
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
 
 function hideError(elementForMessage) {
 	var parent = $(elementForMessage).parent();
@@ -36,6 +43,7 @@ function hideError(elementForMessage) {
 		$(elementForMessage).removeClass("is-invalid");
 	}
 }
+
 function alertDelete(boldMessage, plainMessage) {
 		var $alertDelete=$("<div class=\"alert alert-dark alert-dismissible fade show\" role=\"alert\">"+
 	    				    "<strong>"+ boldMessage +"</strong> "+ plainMessage +
