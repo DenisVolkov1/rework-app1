@@ -2,7 +2,9 @@ package main.controllers;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jooq.lambda.tuple.Tuple2;
@@ -84,6 +86,32 @@ public class MainFilterController {
 			List<Status> allStatuses = statusService.findAll();
 			List<Wms> allWms = wmsService.findAll();
 			List<AddWho> allWhoUpdate = addWhoService.findAll();
+
+			Set<String> unqieStatuses = new HashSet<>();
+
+			for (var x : modelsForRows) {
+				for (ReworkDetail rw : x.v2) {
+					if (rw.getStatus().contains("Нов")) {
+						rw.setStatus("");
+					} else
+					if (rw.getStatus().contains("Уст")) {
+						rw.setStatus("✔");
+					}  else if (rw.getStatus().contains("Тест")){
+						rw.setStatus("\uD83E\uDDEA");
+					}
+				}
+			}
+
+			for (Status rw : allStatuses) {
+				if (rw.getStatus().contains("Нов")) {
+					rw.setStatus("");
+				} else
+				if (rw.getStatus().contains("Уст")) {
+					rw.setStatus("✔");
+				}  else if (rw.getStatus().contains("Тест")){
+					rw.setStatus("\uD83E\uDDEA");
+				}
+			}
 				
 			model.addAttribute("allWhoUpdates", allWhoUpdate);
 			model.addAttribute("modelForTitle", modelForTitle);

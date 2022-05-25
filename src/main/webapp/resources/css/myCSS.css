@@ -17,7 +17,7 @@ div.unselect {
     border-bottom: solid 2px #777;
     border-right: solid 2px #777;
     padding: 1px 1px;
-    width: 70px;
+    width: 30px;
     height: 30px;
     opacity:0.910!important;
   }
@@ -63,7 +63,7 @@ div.unselect {
     border-bottom: solid 2px #0070d1;
     border-right: solid 2px #0070d1;
     padding: 1px 1px;
-    width: 70px;
+    width: 30px;
     height: 30px;
   }
   div.unselect:hover {
@@ -94,7 +94,7 @@ div.unselect {
     box-shadow: none!important;
   }
   .widthcolumn {
-  	width: 70px;
+  	width: 30px;
   	height: 150px;
   }
   .opacity-2 {
@@ -111,7 +111,6 @@ div.unselect {
   .statusDIV {
   	margin: auto;
   	text-align: center;
-  	font-weight: bold;
   }
 
   #topPageButton {
