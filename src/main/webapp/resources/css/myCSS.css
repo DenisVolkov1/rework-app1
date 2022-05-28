@@ -6,21 +6,7 @@ img.download_hover:hover {
  		filter: invert(22%) sepia(50%) saturate(5000%) hue-rotate(225deg) brightness(90%) contrast(156%) drop-shadow(2px 2px 1px blue);
 	}
 
-div.unselect {
-    background: #ccc;
-    text-align: center;
-    transition: background-color .5s;
-    border-radius: 5px;
-    cursor: pointer;
-    border-top: solid 2px #eaeaea;
-    border-left: solid 2px #eaeaea;
-    border-bottom: solid 2px #777;
-    border-right: solid 2px #777;
-    padding: 1px 1px;
-    width: 30px;
-    height: 30px;
-    opacity:0.910!important;
-  }
+
   #reworkTable  {
   	box-shadow: 0 0 9px rgba(0,0,0,0.4);
   }
@@ -52,6 +38,7 @@ div.unselect {
   }
   
   div.selected {
+  	margin: auto;
     color: white;
     background: #058bff;
     text-align: center;
@@ -63,8 +50,24 @@ div.unselect {
     border-bottom: solid 2px #0070d1;
     border-right: solid 2px #0070d1;
     padding: 1px 1px;
-    width: 30px;
+    width: 40px;
     height: 30px;
+  }
+  div.unselect {
+	margin: auto;
+    background: #ccc;
+    text-align: center;
+    transition: background-color .5s;
+    border-radius: 5px;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    padding: 1px 1px;
+    width: 40px;
+    height: 30px;
+    opacity:0.910!important;
   }
   div.unselect:hover {
   	background: #6397e6;
@@ -94,7 +97,7 @@ div.unselect {
     box-shadow: none!important;
   }
   .widthcolumn {
-  	width: 30px;
+  	width: 40px;
   	height: 150px;
   }
   .opacity-2 {
@@ -143,7 +146,7 @@ th, td { /*padding: 6px 8px;*/ height: 100%;}
 th     { background:#eee; }
 
 .wraprow {
-  height: 170px;
+  height: 150px;
   transition: height 0.2s;
 }
 

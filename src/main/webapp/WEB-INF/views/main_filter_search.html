@@ -18,7 +18,6 @@
 
 <body>
 
-<div class="container-fluid">
   <input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
 	<input hidden id ="newInsertRework_wms" th:value= "${newInsertRework_wms}">
@@ -127,7 +126,7 @@
 						</button>
 					</form>
 				</div>
-				<div class="ml-3 legend large" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<div><b>Нов.</b><em> - доработка только добавлена в список.</em><br><b>Тест</b><em> - доработка на тестировании.</em><br><b>Уст.</b><em> - доработка установлена на рабочий сервер.</em></div>"><small>легенда</small></div>
+				<div class="ml-3 legend large" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<div><b>&#128196;</b><em> - доработка только добавлена в список.</em><br><b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена на рабочий сервер.</em></div>"><small>легенда</small></div>
 			</div>
 		</div>
 	<table id ="reworkTable" class="table table-hover table table-bordered tableFixHead">
@@ -137,7 +136,7 @@
 	        	<th style="width: 160px;"> WMS </th>
 	            <th style="width: 90px;"> НОМЕР </th>
 	            <th style="width: 660px;"> ОПИСАНИЕ </th>
-	            <th data-toggle="tooltip" data-placement="top"   th:attr= "title=*{v2[__${itemStat.index}__].project}" th:each="m, itemStat : *{v2}" class="widthcolumn rotate-text">
+	            <th style="width: 50px;" data-toggle="tooltip" data-placement="top"   th:attr= "title=*{v2[__${itemStat.index}__].project}" th:each="m, itemStat : *{v2}" class="widthcolumn rotate-text p-1">
 	            	<div th:text="*{v2[__${itemStat.index}__].project}"></div>
 	            </th>
 	        </tr>
@@ -194,7 +193,6 @@
 </table>
 </div>
 
-</div>
 
 </body>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/jquery-3.5.1.min.js}"></script>

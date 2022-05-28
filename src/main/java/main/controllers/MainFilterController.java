@@ -30,6 +30,7 @@ import main.dao.service.AddWhoService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
+import main.util.Util;
 
 @Controller
 public class MainFilterController {
@@ -87,30 +88,15 @@ public class MainFilterController {
 			List<Wms> allWms = wmsService.findAll();
 			List<AddWho> allWhoUpdate = addWhoService.findAll();
 
-			Set<String> unqieStatuses = new HashSet<>();
-
 			for (var x : modelsForRows) {
 				for (ReworkDetail rw : x.v2) {
-					if (rw.getStatus().contains("Нов")) {
-						rw.setStatus("");
-					} else
-					if (rw.getStatus().contains("Уст")) {
-						rw.setStatus("✔");
-					}  else if (rw.getStatus().contains("Тест")){
-						rw.setStatus("\uD83E\uDDEA");
-					}
+					
+					rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
 				}
 			}
 
 			for (Status rw : allStatuses) {
-				if (rw.getStatus().contains("Нов")) {
-					rw.setStatus("");
-				} else
-				if (rw.getStatus().contains("Уст")) {
-					rw.setStatus("✔");
-				}  else if (rw.getStatus().contains("Тест")){
-					rw.setStatus("\uD83E\uDDEA");
-				}
+				rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
 			}
 				
 			model.addAttribute("allWhoUpdates", allWhoUpdate);

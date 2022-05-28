@@ -28,6 +28,7 @@ import main.dao.service.ProjectService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
+import main.util.Util;
 
 @Controller
 @RequestMapping(produces = "text/plain;charset=UTF-8")
@@ -55,6 +56,10 @@ public class NewReworkController {
 		List<AddWho> allAddWho = addWhoService.findAll();
 		
 		allStatuses.removeIf(s -> s.getStatus().isEmpty());
+		
+		for (Status s : allStatuses) {
+			s.setStatus(Util.getUnicodeStatusWebApp(s.getStatus()));
+		}
 		model.addAttribute("allWms", allWms);
 		model.addAttribute("allProjects", allProjects);
 		model.addAttribute("allStatuses", allStatuses);
@@ -78,7 +83,9 @@ public class NewReworkController {
 		request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
 		
 		System.out.println(newRework);
+			newRework.setStatus(Util.getStatusSql(newRework.getStatus()));
 		reworkService.addNewRework(newRework);
+		
 		String inpuNew_ReworkNumber = newRework.getReworkNumber();
 		String inputNew_Wms = newRework.getWms();
 			searchFilter.setSearch(inpuNew_ReworkNumber);
