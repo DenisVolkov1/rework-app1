@@ -178,7 +178,6 @@
 				                  "Accept": "application/json"
 				                },
 				    }).done(function( data ) {
-			      		console.log( "Sample of data:"+ data);
 						var dateAdd = ' - ';
 						var timeAdd = ' - ';
 						var dateEdit = ' - ';
@@ -232,9 +231,23 @@
 							$('#collapseWrap').removeClass('d-none');
 							$('#expandWrap').addClass('d-none');
 					}
-					
-					
 				});
+				$("#buttonWRAP2").click(function() {
+					if($(this).attr('iswrraped') == 'false') {
+						$(this).attr('iswrraped','true');
+							$('#arrow-bar-right').addClass('d-none');
+							$('#arrow-bar-left').removeClass('d-none');
+							$(this).parent().css('width', '1400px');
+						
+					} else {
+						$(this).attr('iswrraped','false');
+							$('#arrow-bar-left').addClass('d-none');
+							$('#arrow-bar-right').removeClass('d-none');
+							$(this).parent().css('width', '460px');
+							
+					}
+				});
+				
 				$('#loading').addClass('d-none');
 				$('.container-fluid').removeClass('d-none');
 				

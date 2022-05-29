@@ -135,7 +135,10 @@
 	         	<th style="width: 38px;"> </th>
 	        	<th style="width: 160px;"> WMS </th>
 	            <th style="width: 90px;"> НОМЕР </th>
-	            <th style="width: 660px;"> ОПИСАНИЕ </th>
+	            <th style="width: 460px;"><div id="buttonWRAP2" iswrraped="false" title="button" class="">
+	             	<img id="arrow-bar-left" class="d-none icon_hover" src="/rework-app1/resources/icons_svg/arrow-bar-left.svg" alt="Bootstrap" width="20" height="20" >
+	             	<img id="arrow-bar-right" class="icon_hover" src="/rework-app1/resources/icons_svg/arrow-bar-right.svg" alt="Bootstrap" width="20" height="20">
+	             </div> ОПИСАНИЕ </th>
 	            <th style="width: 50px;" data-toggle="tooltip" data-placement="top"   th:attr= "title=*{v2[__${itemStat.index}__].project}" th:each="m, itemStat : *{v2}" class="widthcolumn rotate-text p-1">
 	            	<div th:text="*{v2[__${itemStat.index}__].project}"></div>
 	            </th>
@@ -165,7 +168,7 @@
        	<th:block th:each="row : *{modelsForRows}">
        	<tr class="heightrow" permanentHidden= "false">
        	   <td class="text-truncate" style="vertical-align: middle;">
-           		<a th:href="@{*{row.v1.getResource()}}"><img class="download_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a>
+           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a>
            </td>
        	   <td style="vertical-align: middle;" th:text="*{row.v1.getWms()}"></td>
            <td class="text-truncate" style="vertical-align: middle;">
