@@ -108,7 +108,7 @@ img.download_hover:hover {
   }
   
   .heightrow {
-  	height: 63px;
+  	height: 50px;
   }
   
   .statusDIV {
@@ -157,7 +157,7 @@ th     { background:#eee; }
 
 .cell {
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 19px;
   padding: 2px 2px 2px 2px;
   
 }

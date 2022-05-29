@@ -71,7 +71,9 @@ public class MainFilterController {
 			Model model,HttpServletRequest request) {	
 		
 		System.out.println(searchFilter);
-		if(searchFilter.getWms() != null ) {
+		if(searchFilter.getWms() == null )searchFilter.setWms("Все");
+		if(searchFilter.getSearch() == null )searchFilter.setSearch("");
+		
 			List<Tuple2<Rework, List<ReworkDetail>>> modelsForRows = null;
 			if(searchFilter.getSearch().isEmpty()) {
 				modelsForRows = reworkService.findOnWms(searchFilter.getWms());
@@ -104,7 +106,6 @@ public class MainFilterController {
 			model.addAttribute("modelsForRows", modelsForRows);
 			model.addAttribute("allStatuses", allStatuses);
 			model.addAttribute("allWms", allWms);
-		}
 		
 		return "main_filter_search";
 	}
@@ -118,7 +119,8 @@ public class MainFilterController {
 			@RequestParam("valueStatus")  String valueStatus,
 			@RequestParam("whoUpdate")    String whoUpdate
 			) {
-			statusService.updateStatus(wms, reworkNumber, project, valueStatus, whoUpdate);
+			
+			statusService.updateStatus(wms, reworkNumber, project, Util.getStatusSql(valueStatus), whoUpdate);
 		return "updateIsDone";
 	}
 	/**
