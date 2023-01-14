@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ru.myproject</groupId>
-  <artifactId>rework-app1</artifactId>
+  <artifactId>rework-app1-monetka</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
