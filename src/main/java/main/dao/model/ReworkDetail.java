@@ -7,52 +7,49 @@ import main.util.LocalDateTimeRus;
 public class ReworkDetail {
 	
 	private long serialKey;
-	private String wms;
-	private String reworkNumber;
-	private String project;
+	private int reworkNumber;
+	private String server;
 	private String status;
 	private LocalDateTimeRus addDate;
 	private String addWho;
 	private String editWho;
 	private LocalDateTimeRus editDate;
 	
-	
-	public ReworkDetail(long serialKey,String wms, String reworkNumber, String project, String status, LocalDateTimeRus addDate,
+	public ReworkDetail(long serialKey, int reworkNumber, String server, String status, LocalDateTimeRus addDate,
 			String addWho, String editWho, LocalDateTimeRus editDate) {
 		super();
 		this.serialKey = serialKey;
-		this.wms = wms;
 		this.reworkNumber = reworkNumber;
-		this.project = project;
+		this.server = server;
 		this.status = status;
 		this.addDate = addDate;
 		this.addWho = addWho;
 		this.editWho = editWho;
 		this.editDate = editDate;
 	}
-	public ReworkDetail(String wms, String reworkNumber, String project, String status) {
-		this.wms = wms;
-		this.reworkNumber = reworkNumber;
-		this.project = project;
-		this.status = status;
+
+	public long getSerialKey() {
+		return serialKey;
 	}
 
-	public ReworkDetail() {}
-	
-	public String getReworkNumber() {
+	public void setSerialKey(long serialKey) {
+		this.serialKey = serialKey;
+	}
+
+	public int getReworkNumber() {
 		return reworkNumber;
 	}
 
-	public void setReworkNumber(String reworkNumber) {
+	public void setReworkNumber(int reworkNumber) {
 		this.reworkNumber = reworkNumber;
 	}
 
-	public String getProject() {
-		return project;
+	public String getServer() {
+		return server;
 	}
 
-	public void setProject(String project) {
-		this.project = project;
+	public void setServer(String server) {
+		this.server = server;
 	}
 
 	public String getStatus() {
@@ -94,31 +91,7 @@ public class ReworkDetail {
 	public void setEditDate(LocalDateTimeRus editDate) {
 		this.editDate = editDate;
 	}
-	public void setSerialKey(long long1) {
-		serialKey = long1;
-		
-	}
-	public long getSerialKey() {
-		return serialKey;
-	}
-	public String getWms() {
-		return wms;
-	}
-
-	public void setWms(String wms) {
-		this.wms = wms;
-	}
-	@Override
-	public String toString() {
-		return "[" + reworkNumber + " " + wms +" :  proj=" + project + ", status=" + status + "]";
-	}
-
-
-
-	
-	
-	
+}	
 	
 	
 
-}

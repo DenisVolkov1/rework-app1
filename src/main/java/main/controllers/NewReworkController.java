@@ -19,12 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import main.dao.model.AddWho;
 import main.dao.model.NewRework;
-import main.dao.model.Project;
+import main.dao.model.Server;
 import main.dao.model.SearchFilter;
 import main.dao.model.Status;
 import main.dao.model.Wms;
 import main.dao.service.AddWhoService;
-import main.dao.service.ProjectService;
+import main.dao.service.ServerService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
@@ -40,7 +40,7 @@ public class NewReworkController {
 	@Autowired
 	private ReworkService reworkService;
 	@Autowired
-	private ProjectService projectService;
+	private ServerService projectService;
 	@Autowired
 	private WmsService wmsService;
 	
@@ -51,7 +51,7 @@ public class NewReworkController {
 			Model model) {
 		
 		List<Wms> allWms = wmsService.findAll();
-		List<Project> allProjects = projectService.findAll();
+		List<Server> allProjects = projectService.findAll();
 		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allAddWho = addWhoService.findAll();
 		

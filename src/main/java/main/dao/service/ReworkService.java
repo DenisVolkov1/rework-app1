@@ -16,10 +16,6 @@ public class ReworkService {
 	
 	@Autowired
 	private ReworkDao reworkDao;
-
-	public List<Tuple2<Rework, List<ReworkDetail>>> findAll() {
-		return reworkDao.findAll();
-	}
 	
 	public Rework getRework(Integer serialkey) {
 		return reworkDao.getRework(serialkey);
@@ -31,23 +27,14 @@ public class ReworkService {
 
 	public void deleteRework(String wms, String reworkNumber) {
 		reworkDao.deleteRework(wms, reworkNumber);
-		
-	}
-
-	public boolean isAlreadyExistsRework(String wms, String reworkNumber) {
-		return reworkDao.isAlreadyExistsRework(wms, reworkNumber);
 	}
 
 	public void addNewRework(NewRework newRework) {
 		reworkDao.addNewRework(newRework);
 	}
 
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWmsAndSearchParams(String wms, String search) {
-		return reworkDao.findOnWmsAndSearchParams(wms, search);
-	}
-
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWms(String wms) {
-		return reworkDao.findOnWms(wms);
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWmsAndSearchParams(String search) {
+		return reworkDao.findOnSearchParam(search);
 	}
 	
 	

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/myCSS.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradientText.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap4/css/bootstrap.min.css" th:href="@{/resources/bootstrap4/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" th:href="@{/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css}"/>
+    <!-- for FF, Chrome, Opera -->
+	<link rel="icon" type="image/png" th:href="@{/resources/icons_favicon/favicon-16x16.png}" sizes="16x16">
+	<link rel="icon" type="image/png" th:href="@{/resources/icons_favicon/favicon-32x32.png}" sizes="32x32">
+	<!-- for IE -->
+	<link rel="icon" type="image/x-icon" th:href="@{/resources/icons_favicon/favicon-16x16.ico}" >
+	<link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/icons_favicon/favicon-32x32.ico}"/>
+</head>
+<body>
+
+<div class="container-fluid">
+  <input hidden id ="server" th:value= "${server}">
+	<input hidden id ="port" th:value= "${port}">
+	<input hidden id ="deleteRework_wms" th:value= "${deleteRework_wms}">
+	<input hidden id ="deleteRework_reworknumber" th:value= "${deleteRework_reworknumber}">
+
+	<button id="topPageButton" title="Go to top">Вверх</button>
+
+	<div id ="loading" class="spinner-border text-primary" style="position: absolute; top: 50%; left: 50%; margin-top: -1.5rem; margin-left: -1.5rem; width: 3rem; height: 3rem;" role="status">
+    	<span class="sr-only">Loading...</span>
+  	</div>
+	<div class="container-fluid d-none gradientbackground">
+		<form id="formSearchFilter" th:method="POST" th:action="@{/mainfilter/search}" th:object="${modelFilter}">
+			<div class="row justify-content-start">
+			  <div class="col-12 mb-3">
+			  	<div class= "gradientbackgroundHeader"><h1 class="gradient-text" style="opacity:0.7">ДОРАБОТКИ</h1></div>
+			  </div>
+			  <div class="col-3">
+				<div class="input-group mb-3">
+					<input id ="searchInput" th:field= "*{search}" type="text" class="form-control" placeholder="Поиск по ключевому слову" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+					  <input id ="formSearchButton" class="btn btn-primary" type="submit" value="Найти">
+					</div>
+				</div>
+			  </div>
+			  <div class="col-3">
+				<div>
+					<form th:method="GET" th:action="@{/newrework}" th:object="${modelFilter}">
+						<input hidden th:field= "*{wms}" type="text">
+						<input hidden th:field= "*{search}" type="text">
+						<button id ="newReworkButton" class="btn btn-primary align-items-center text-white rounded" type="submit">
+							<img class="mr-2" th:src="@{/resources/icons_svg/plus-circle-fill.svg}" alt="Bootstrap" width="20" height="20">
+							Добавить доработку
+						</button>
+					</form>
+				</div>
+			  </div>
+			</div>
+		</form>
+	</div>
+	<table id ="reworkTable" class="table table-hover table table-bordered tableFixHead">
+	    <thead id="headerMainTable">
+	        <tr>
+	         	<th style="width: 38px;"> </th>
+	        	<th style="width: 460px;"> Название доработки/исправления
+	        		<div id="buttonWRAP2" iswrraped="false" title="button" class="">
+		             	<img id="arrow-bar-left" class="d-none icon_hover" src="/rework-app1/resources/icons_svg/arrow-bar-left.svg" alt="Bootstrap" width="20" height="20" >
+		             	<img id="arrow-bar-right" class="icon_hover" src="/rework-app1/resources/icons_svg/arrow-bar-right.svg" alt="Bootstrap" width="20" height="20">
+		             </div>  
+	        	</th>
+	            <th style="width: 80px; text-align: center;"> Задача </th>
+	            <th style="width: 100px; text-align: center;"> Задача Монетки </th>	            	        	            
+	            <th:block th:each="s, si : ${serversNameForTitle}" >
+		        	<th colspan="2" th:text="${s.server}" style="width: 160px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
+ 		        </th:block>	        
+	        </tr>
+	        <tr>
+	         	<th style="width: 38px;"></th>
+	        	<th style="width: 460px;"></th>
+	            <th style="width: 80px; text-align: center;"></th>
+	            <th style="width: 100px; text-align: center;"></th>	            	        	            
+	            <th:block th:each="s, si : ${serversNameForTitle}" >
+		        	<th style="width: 80px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Уст.</th>
+		        	<th style="width: 80px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Дата</th>
+ 		        </th:block>	        
+	        </tr>
+	     </thead>
+	     <tbody>
+<!-- 	     	 <tr id="wrapRow" class="wraprow" th:object="${modelForTitle}"> -->
+<!-- 		         <td> -->
+<!-- 		             <div id="buttonWRAP" iswrraped = "false" title="button" class="unselect"> -->
+<!-- 		             	<img id="collapseWrap" th:src="@{/resources/icons_svg/arrows-collapse.svg}" alt="Bootstrap" width="20" height="20"> -->
+<!-- 		             	<img id="expandWrap" class="d-none" th:src="@{/resources/icons_svg/arrows-expand.svg}" alt="Bootstrap" width="20" height="20"> -->
+<!-- 		             </div> -->
+<!-- 		         </td> -->
+<!-- 		         <td></td> -->
+<!-- 		         <td></td> -->
+<!-- 		         <td></td> -->
+<!-- 		         <th:block th:each="row, i : ${modelForTitle.v2}"> -->
+<!-- 		         <td style="vertical-align: middle; padding-left: 1px; padding-right: 1px;"> -->
+<!-- 		             <div th:attr="id = 'filter_header_'+${i.index}"> -->
+<!-- 		             	 <th:block th:each="s, si : ${allStatuses}"> -->
+<!-- 		             	 	<div th:attr="id = 'filter_status_'+${i.index}+''+${si.index}" isSelected = "false" title="button" class="unselect" th:text="${s.status}">X</div> -->
+<!-- 		             	 </th:block> -->
+<!-- 		             </div> -->
+<!-- 		         </td> -->
+<!-- 		         </th:block> -->
+<!-- 	         </tr> -->
+<!-- 	       	<th:block th:each="row : *{modelsForRows}"> -->
+<!-- 	       	<tr class="heightrow" permanentHidden= "false"> -->
+<!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
+<!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
+<!-- 	           </td> -->
+<!-- 	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getWms()}"></td> -->
+<!-- 	           <td class="text-truncate" style="vertical-align: middle;"> -->
+<!-- 	                <div> -->
+<!-- 						<form th:method="GET" th:action="@{/showrework/{serialkeyrework}(serialkeyrework = 'serialkeyrework_'+${row.v1.getSerialKey()})}" th:object="${modelFilter}"> -->
+<!-- 							<input hidden th:field= "*{wms}" type="text"> -->
+<!-- 							<input hidden th:field= "*{search}" type="text"> -->
+<!-- 							<a class="aLink" submitLinkShowReworkForm th:text="${row.v1.getReworkNumber()}"></a> -->
+<!-- 						</form> -->
+<!-- 					</div> -->
+<!-- 	           </td> -->
+	
+<!-- 	           <td class="text-truncate" style="vertical-align: middle;" th:text="*{row.v1.getDescription()}"></td> -->
+<!-- 	           <th:block th:each="rowProject : *{row.v2}"> -->
+<!-- 	           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title=""> -->
+<!-- 	           		<div class="statusDIV" th:text="*{rowProject.getStatus()}"></div> -->
+<!-- 	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px"> -->
+<!-- 	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/> -->
+<!-- 	       			 </select> -->
+<!-- 	           	 </td> -->
+<!-- 	           </th:block> -->
+<!-- 	        </tr> -->
+<!-- 	    	</th:block> -->
+	    </tbody>
+	</table>
+	
+	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+	  </li>
+	</ul>
+	<div class="tab-content" id="pills-tabContent">
+	  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
+	  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
+	  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" th:src="@{/resources/bootstrap4/js/jquery-3.5.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/bootstrap4/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/i18n/defaults-ru_RU.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/util/main_util.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/main_filter_start.js}"></script>
+</html>

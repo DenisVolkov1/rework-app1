@@ -1,6 +1,6 @@
 USE [REWORKBASE]
 GO
-/****** Object:  StoredProcedure [wmwhse1].[INSERT_INTO_REWORK_TABLES]    Script Date: 13.01.2023 1:00:35 ******/
+/****** Object:  StoredProcedure [dbo].[INSERT_INTO_REWORK_TABLES]    Script Date: 15.01.2023 0:11:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12,9 +12,10 @@ GO
 -- Перенос данных из обменнных таблиц M22 соответственно.
 -- =============================================
 
-ALTER PROCEDURE [wmwhse1].[INSERT_INTO_REWORK_TABLES]
+ALTER PROCEDURE [dbo].[INSERT_INTO_REWORK_TABLES]
 AS
 BEGIN
+	DELETE FROM dbo.M22 WHERE [Название доработки/исправления, ссылкой на Redmine] IS NULL;
 	-------------------------------------------
 	;WITH cde AS (
 
@@ -41,32 +42,32 @@ BEGIN
 	----
 	INSERT INTO [dbo].[REWORKDETAIL] 
 		 ([REWORKNUMBER] ,[SERVER] ,[STATUS] ,[ADDDATE] ,[EDITDATE])
-	SELECT r.[REWORKNUMBER],'DEV'  ,[DEV]      ,[DEV Дата],[DEV Дата]
+	SELECT r.[REWORKNUMBER],'Дев сервер'  ,[DEV]      ,[DEV Дата],[DEV Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
 	UNION ALL
-	SELECT r.[REWORKNUMBER],'BER-RC'  ,[BER-RC]      ,[BER-RC Дата],[BER-RC Дата]
+	SELECT r.[REWORKNUMBER],'ЕКБ ТЭЦ'  ,[BER-RC]      ,[BER-RC Дата],[BER-RC Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
 	UNION ALL
-	SELECT r.[REWORKNUMBER],'BER'  ,[BER]      ,[BER Дата],[BER Дата]
+	SELECT r.[REWORKNUMBER],'ЕКБ РЦ Берёзовский'  ,[BER]      ,[BER Дата],[BER Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
 	UNION ALL
-	SELECT r.[REWORKNUMBER],'NSK'  ,[NSK]      ,[NSK Дата],[NSK Дата]
+	SELECT r.[REWORKNUMBER],'Новосибирск'  ,[NSK]      ,[NSK Дата],[NSK Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
 	UNION ALL
-	SELECT r.[REWORKNUMBER],'NFU'  ,[NFU]      ,[NFU Дата],[NFU Дата]
+	SELECT r.[REWORKNUMBER],'Нефтеюганск'  ,[NFU]      ,[NFU Дата],[NFU Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
 	UNION ALL
-	SELECT r.[REWORKNUMBER],'UFA'  ,[UFA]      ,[UFA Дата],[UFA Дата]
+	SELECT r.[REWORKNUMBER],'Уфа'  ,[UFA]      ,[UFA Дата],[UFA Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION

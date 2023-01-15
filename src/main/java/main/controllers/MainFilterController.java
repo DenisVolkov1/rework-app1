@@ -2,6 +2,7 @@ package main.controllers;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,9 +25,11 @@ import main.dao.model.NewRework;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 import main.dao.model.SearchFilter;
+import main.dao.model.Server;
 import main.dao.model.Status;
 import main.dao.model.Wms;
 import main.dao.service.AddWhoService;
+import main.dao.service.ServerService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
@@ -41,24 +44,28 @@ public class MainFilterController {
 	private ReworkService reworkService;
 	
 	@Autowired
-	private WmsService wmsService;
+	private ServerService serverService;
 	
 	@Autowired
 	private AddWhoService addWhoService;
 	
-	@GetMapping("/mainfilter/start")
+	@GetMapping("/main")
 	public String showMainFilterPage2(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
 			@ModelAttribute("deleteRework_wms") String deleteRework_wms,
 			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
 			Model model,HttpServletRequest request) {	
 		
-		List<Wms> allWms = wmsService.findAll();
-		model.addAttribute("allWms", allWms);
-		model.addAttribute("deleteRework_wms", deleteRework_wms);
-		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
+		List<Server> serversNameForTitle = serverService.findAll();
+
 		
-		return "main_filter_start";
+//		List<Wms> allWms = wmsService.findAll();
+//		model.addAttribute("allWms", allWms);
+//		model.addAttribute("deleteRework_wms", deleteRework_wms);
+//		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
+		model.addAttribute("serversNameForTitle", serversNameForTitle);
+		
+		return "main";
 	}
 	
 	@PostMapping("/mainfilter/search")
@@ -87,7 +94,7 @@ public class MainFilterController {
 			Tuple2<Rework, List<ReworkDetail>> modelForTitle = modelsForRows.get(0);
 			
 			List<Status> allStatuses = statusService.findAll();
-			List<Wms> allWms = wmsService.findAll();
+			//List<Wms> allWms = wmsService.findAll();
 			List<AddWho> allWhoUpdate = addWhoService.findAll();
 
 			for (var x : modelsForRows) {
@@ -105,7 +112,7 @@ public class MainFilterController {
 			model.addAttribute("modelForTitle", modelForTitle);
 			model.addAttribute("modelsForRows", modelsForRows);
 			model.addAttribute("allStatuses", allStatuses);
-			model.addAttribute("allWms", allWms);
+			//model.addAttribute("allWms", allWms);
 		
 		return "main_filter_search";
 	}

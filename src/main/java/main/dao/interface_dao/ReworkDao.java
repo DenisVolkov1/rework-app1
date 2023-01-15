@@ -10,8 +10,6 @@ import main.dao.model.ReworkDetail;
 
 public interface ReworkDao {
 	
-	public List<Tuple2<Rework, List<ReworkDetail>>> findAll();
-	
 	public List<String> findAllWhoUpdate();
 	
 	public Rework getRework(Integer serialkey);
@@ -19,13 +17,10 @@ public interface ReworkDao {
     public void updateRework(int serialkey, Rework rework);
 
 	public void deleteRework(String wms, String reworkNumber);
-
-	public boolean isAlreadyExistsRework(String wms, String reworkNumber);
 	
 	public void addNewRework(NewRework newRework);
 
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWmsAndSearchParams(String wms, String search);
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search);
 
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWms(String wms);
 
 }

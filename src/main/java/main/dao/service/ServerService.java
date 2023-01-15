@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import main.dao.interface_dao.ProjectDao;
-import main.dao.model.Project;
+import main.dao.interface_dao.ServerDao;
+import main.dao.model.Server;
 
 @Service
-public class ProjectService {
+public class ServerService {
 
 	@Autowired
-	private ProjectDao projectDao;
+	private ServerDao projectDao;
 
-	public List<Project> findAll() {
+	public List<Server> findAll() {
 		return projectDao.findAll();
 	}
 }

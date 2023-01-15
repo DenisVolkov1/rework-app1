@@ -1,6 +1,6 @@
+-- CREATE DATABASE [REWORKBASE] 
 USE [REWORKBASE]
 GO
-
 /****** Create tables  ******/
 --DROP TABLE [dbo].[REWORK] 
 CREATE TABLE [dbo].[REWORK](

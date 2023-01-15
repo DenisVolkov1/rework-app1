@@ -40,23 +40,19 @@ public class ReworkImplMSSQL implements ReworkDao {
 					+ " JOIN REWORKDETAIL AS rd "
 					+ "		ON rd.WMS = r.WMS AND rd.REWORKNUMBER = r.REWORKNUMBER ";
 	
-	private final static String WHERE = " WHERE "; 
-	private final static String AND = " AND "; 
-	private final static String OR = " OR "; 
 	
 	public ReworkImplMSSQL(@Autowired JdbcTemplate jdbcTemplate) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	
 	private boolean isContainsProject(List<ReworkDetail> rdList, String project) {
-		for(ReworkDetail fr : rdList) {
-			if(fr.getProject().equals(project)) {
-				//System.out.println(fr.getProject() +" == "+project);
-				return true;
-			}
-		}
+//		for(ReworkDetail fr : rdList) {
+//			if(fr.getProject().equals(project)) {
+//				//System.out.println(fr.getProject() +" == "+project);
+//				return true;
+//			}
+//		}
 		return false;
 	}
 
@@ -74,14 +70,14 @@ public class ReworkImplMSSQL implements ReworkDao {
 
 	@Override
 	public void updateRework(int serialkey, Rework rework) {
-		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
-		String descr = rework.getDescription();
-		String wikilink = rework.getWikiLink();
-		String resource = rework.getResource();
-		
-		jdbcTemplate.update(
-				sqlUpdate, 
-				resource, descr, wikilink, serialkey);
+//		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
+//		String descr = rework.getDescription();
+//		String wikilink = rework.getWikiLink();
+//		String resource = rework.getResource();
+//		
+//		jdbcTemplate.update(
+//				sqlUpdate, 
+//				resource, descr, wikilink, serialkey);
 		
 	}
 
@@ -95,12 +91,6 @@ public class ReworkImplMSSQL implements ReworkDao {
 		
 	}
 
-	@Override
-	public boolean isAlreadyExistsRework(String wms, String reworkNumber) {
-		 String sqlisExists = "SELECT REWORKNUMBER FROM REWORK WHERE WMS = ? AND REWORKNUMBER = ? ";
-		 List<Map<String, Object>> reworks = jdbcTemplate.queryForList(sqlisExists, wms,reworkNumber);
-		return !reworks.isEmpty();
-	}
 
 	@Transactional()
 	@Override
@@ -132,87 +122,47 @@ public class ReworkImplMSSQL implements ReworkDao {
 	}
 
 	@Override
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWmsAndSearchParams(String wms, String search) {
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search) {
 		
 		ResultSetExtractor<List<Tuple2<Rework, List<ReworkDetail>>>> resultSetExtractor = 
 		        JdbcTemplateMapperFactory
 		            .newInstance()
-		            .addKeys("REWORKNUMBER","WMS") // the column name you expect the user id to be on
+		            .addKeys("REWORKNUMBER") // the column name you expect the user id to be on
 		            .newResultSetExtractor(new TypeReference<Tuple2<Rework, List<ReworkDetail>>>(){});
 
-		String sqlSelectFilter = MAIN_FILTER_QUERY;
+		String sqlSelectFilter = 
+				"SELECT "
+				+ " r.REWORKNUMBER, "
+				+ " r.DESCRIPTION, "
+				+ " r.TASK, "
+				+ " r.TASKMONETKA, "
+				+ " rd.REWORKNUMBER AS rd_REWORKNUMBER, "
+				+ " rd.SERVER, "
+				+ " rd.STATUS, "
+				+ " rd.ADDDATE, "
+				+ " rd.ADDWHO, "
+				+ " rd.EDITWHO, "
+				+ " rd.EDITDATE "
+			+ " FROM REWORK AS r "
+				+ " JOIN REWORKDETAIL AS rd "
+					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
+			+ " WHERE r.ISDELETED = 0 ";
+		
 		Object[] paramsSqlSelectFilter = null;
 		
-		if(!wms.equals("Все")) { 
-			sqlSelectFilter += WHERE+ " r.WMS = ? ";
-				sqlSelectFilter += AND;
-				sqlSelectFilter += "(r.REWORKNUMBER LIKE ? OR r.DESCRIPTION LIKE ?)";
-			paramsSqlSelectFilter = new Object[] { wms ,"%"+search+"%", "%"+search+"%"};
-		} else if (wms.equals("Все")) {
-			sqlSelectFilter += WHERE;
-				sqlSelectFilter += " r.REWORKNUMBER LIKE ? OR r.DESCRIPTION LIKE ? ";
-			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%" };
+		if(search == null) { 
+			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+	
+		} else {
+				sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+					sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
 		}
 		
 		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
 		
-		List<Tuple2<Rework, List<ReworkDetail>>> afterAddingMisProject = addMissingProjects(result);
-		return afterAddingMisProject;
-	}
-
-	@Override
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWms(String wms) {
-		
-		ResultSetExtractor<List<Tuple2<Rework, List<ReworkDetail>>>> resultSetExtractor = 
-		        JdbcTemplateMapperFactory
-		            .newInstance()
-		            .addKeys("REWORKNUMBER","WMS") // the column name you expect the user id to be on
-		            .newResultSetExtractor(new TypeReference<Tuple2<Rework, List<ReworkDetail>>>(){});
-		
-		List<Tuple2<Rework, List<ReworkDetail>>> result = null;
-		String sqlSelectFilter = MAIN_FILTER_QUERY;
-
-		if(!wms.equals("Все")) {
-			sqlSelectFilter += WHERE+ " r.WMS = ? ";
-		}
-		if(!wms.equals("Все")) result = jdbcTemplate.query(sqlSelectFilter, new Object[] { wms }, resultSetExtractor);
-		else result = jdbcTemplate.query(MAIN_FILTER_QUERY, resultSetExtractor);		
-		
-		List<Tuple2<Rework, List<ReworkDetail>>> afterAddingMisProject = addMissingProjects(result);
-		return afterAddingMisProject;
-	}
-
-	private List<Tuple2<Rework, List<ReworkDetail>>> addMissingProjects(
-			List<Tuple2<Rework, List<ReworkDetail>>> result) {
-		
-		 String sqlALL_PROJECT = "SELECT DISTINCT PROJECT FROM REWORKDETAIL";
-		 List<String> dataAllProject = jdbcTemplate.queryForList(sqlALL_PROJECT, String.class);
-		
-		
-		Comparator<ReworkDetail> comparator = new Comparator<ReworkDetail>() {
-			@Override
-			public int compare(ReworkDetail o1, ReworkDetail o2) {
-				return o1.getProject().compareTo(o2.getProject());
-			}
-		};
-
-		for (Tuple2<Rework, List<ReworkDetail>> tuple : result) {
-			List<ReworkDetail> rdList = tuple.v2;
-			for(String project : dataAllProject) {
-				
-				boolean isContProj = isContainsProject(rdList,project);
-				if(!isContProj) {
-					rdList.add(new ReworkDetail(rdList.get(0).getWms(), rdList.get(0).getReworkNumber(), project, ""));
-				}
-			}
-			Collections.sort(rdList, comparator);
-		}
+		//List<Tuple2<Rework, List<ReworkDetail>>> afterAddingMisProject = addMissingProjects(result);
 		return result;
-	}
-
-	@Override
-	public List<Tuple2<Rework, List<ReworkDetail>>> findAll() {
-		return null;//unused!
 	}
 
 	@Override
