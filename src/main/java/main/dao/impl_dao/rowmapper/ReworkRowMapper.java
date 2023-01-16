@@ -16,12 +16,10 @@ public class ReworkRowMapper implements RowMapper<Rework> {
 	public Rework mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		Rework resultRework = new Rework();
-			resultRework.setSerialKey(rs.getLong("SERIALKEY"));
-			resultRework.setWms(rs.getString("WMS"));
-			resultRework.setReworkNumber(rs.getString("REWORKNUMBER"));
-			resultRework.setWikiLink(rs.getString("WIKILINK"));
-			resultRework.setResource(rs.getString("RESOURCE"));
+			resultRework.setReworkNumber(rs.getInt("REWORKNUMBER"));
 			resultRework.setDescription(rs.getString("DESCRIPTION"));
+			resultRework.setTask(rs.getString("TASK"));	
+			resultRework.setTaskMonetka(rs.getString("TASKMONETKA"));
 			resultRework.setAddDate(new LocalDateTimeRus(rs.getTimestamp("ADDDATE").toLocalDateTime()));
 			resultRework.setAddWho(rs.getString("ADDWHO"));
 			resultRework.setEditWho(rs.getString("EDITWHO"));

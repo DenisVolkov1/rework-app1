@@ -33,7 +33,7 @@ public class ReworkService {
 		reworkDao.addNewRework(newRework);
 	}
 
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnWmsAndSearchParams(String search) {
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search) {
 		return reworkDao.findOnSearchParam(search);
 	}
 	

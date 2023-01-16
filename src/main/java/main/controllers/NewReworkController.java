@@ -89,7 +89,7 @@ public class NewReworkController {
 		String inpuNew_ReworkNumber = newRework.getReworkNumber();
 		String inputNew_Wms = newRework.getWms();
 			searchFilter.setSearch(inpuNew_ReworkNumber);
-			searchFilter.setWms(inputNew_Wms);
+			//searchFilter.setWms(inputNew_Wms);
 			
 			newInsertRework_wms = inputNew_Wms;
 			newInsertRework_reworknumber = inpuNew_ReworkNumber;
@@ -104,17 +104,6 @@ public class NewReworkController {
 		return "redirect:/mainfilter/search";
 	}
 	
-	@GetMapping("/isAlreadyExistsRework")
-	@ResponseBody
-	public String isAlreadyExistsRework(
-			@RequestParam("wms") String wms, 
-			@RequestParam("reworkNumber") String reworkNumber) {
-		
-		boolean isAlreadyExistsRework = reworkService.isAlreadyExistsRework(wms, reworkNumber);
-		
-	    return isAlreadyExistsRework ? "true" : "false";
-
-	}
 	@ModelAttribute("server")	
 	public String serverNameAttribute(HttpServletRequest servletRequest) {
 		String server = servletRequest.getServerName().toString();

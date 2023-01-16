@@ -6,18 +6,16 @@ public class Util {
 	
 	public static String getUnicodeStatusWebApp(String sqlStatus) {
 		
+		
 		String ret = "";
 		switch (sqlStatus) {
 	        case  (""):
 	     	   ret= "";
 	            break;
-           case  ("Нов."):
-        	   ret= "\uD83D\uDCC4";
-               break;
-           case ("Уст."):
+           case ("OK"):
         	   ret= "✔";
                break;
-           case ("Тест"):
+           case ("TEST"):
         	   ret= "\uD83E\uDDEA";
                break;
            default:
@@ -31,20 +29,16 @@ public class Util {
 		
 		String ret = "";
 		switch (sqlStatus) {
-           case  ("\uD83D\uDCC4"):
-        	   ret= "Нов.";
-               break;
            case ("✔"):
-        	   ret= "Уст.";
+        	   ret= "OK";
                break;
            case ("\uD83E\uDDEA"):
-        	   ret= "Тест";
+        	   ret= "TEST";
                break;
            default:
-        	   ret= "Уст.";
+        	   ret= "OK";
                break;
 		}
 		return ret;
 	}
-
 }

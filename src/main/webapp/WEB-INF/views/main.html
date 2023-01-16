@@ -46,7 +46,7 @@
 			  <div class="col-3">
 				<div>
 					<form th:method="GET" th:action="@{/newrework}" th:object="${modelFilter}">
-						<input hidden th:field= "*{wms}" type="text">
+						<input hidden th:field= "*{year}" type="text">
 						<input hidden th:field= "*{search}" type="text">
 						<button id ="newReworkButton" class="btn btn-primary align-items-center text-white rounded" type="submit">
 							<img class="mr-2" th:src="@{/resources/icons_svg/plus-circle-fill.svg}" alt="Bootstrap" width="20" height="20">
@@ -85,33 +85,19 @@
  		        </th:block>	        
 	        </tr>
 	     </thead>
+	     
+	     
+	     
 	     <tbody>
-<!-- 	     	 <tr id="wrapRow" class="wraprow" th:object="${modelForTitle}"> -->
-<!-- 		         <td> -->
-<!-- 		             <div id="buttonWRAP" iswrraped = "false" title="button" class="unselect"> -->
-<!-- 		             	<img id="collapseWrap" th:src="@{/resources/icons_svg/arrows-collapse.svg}" alt="Bootstrap" width="20" height="20"> -->
-<!-- 		             	<img id="expandWrap" class="d-none" th:src="@{/resources/icons_svg/arrows-expand.svg}" alt="Bootstrap" width="20" height="20"> -->
-<!-- 		             </div> -->
-<!-- 		         </td> -->
-<!-- 		         <td></td> -->
-<!-- 		         <td></td> -->
-<!-- 		         <td></td> -->
-<!-- 		         <th:block th:each="row, i : ${modelForTitle.v2}"> -->
-<!-- 		         <td style="vertical-align: middle; padding-left: 1px; padding-right: 1px;"> -->
-<!-- 		             <div th:attr="id = 'filter_header_'+${i.index}"> -->
-<!-- 		             	 <th:block th:each="s, si : ${allStatuses}"> -->
-<!-- 		             	 	<div th:attr="id = 'filter_status_'+${i.index}+''+${si.index}" isSelected = "false" title="button" class="unselect" th:text="${s.status}">X</div> -->
-<!-- 		             	 </th:block> -->
-<!-- 		             </div> -->
-<!-- 		         </td> -->
-<!-- 		         </th:block> -->
-<!-- 	         </tr> -->
-<!-- 	       	<th:block th:each="row : *{modelsForRows}"> -->
-<!-- 	       	<tr class="heightrow" permanentHidden= "false"> -->
+	       	<th:block th:each="row : *{mainListReworks}">
+	       	<tr class="heightrow" permanentHidden= "false">
 <!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
 <!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
 <!-- 	           </td> -->
-<!-- 	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getWms()}"></td> -->
+			   <td></td>
+	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getDescription()}"></td>
+	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getTask()}"></td>
+	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getTaskMonetka()}"></td>
 <!-- 	           <td class="text-truncate" style="vertical-align: middle;"> -->
 <!-- 	                <div> -->
 <!-- 						<form th:method="GET" th:action="@{/showrework/{serialkeyrework}(serialkeyrework = 'serialkeyrework_'+${row.v1.getSerialKey()})}" th:object="${modelFilter}"> -->
@@ -121,19 +107,22 @@
 <!-- 						</form> -->
 <!-- 					</div> -->
 <!-- 	           </td> -->
-	
-<!-- 	           <td class="text-truncate" style="vertical-align: middle;" th:text="*{row.v1.getDescription()}"></td> -->
-<!-- 	           <th:block th:each="rowProject : *{row.v2}"> -->
-<!-- 	           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title=""> -->
-<!-- 	           		<div class="statusDIV" th:text="*{rowProject.getStatus()}"></div> -->
-<!-- 	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px"> -->
-<!-- 	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/> -->
-<!-- 	       			 </select> -->
-<!-- 	           	 </td> -->
-<!-- 	           </th:block> -->
-<!-- 	        </tr> -->
-<!-- 	    	</th:block> -->
+
+	           <th:block th:each="rowProject : *{row.v2}">
+	           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
+	           		<div class="statusDIV" th:text="*{rowProject.getStatus()}"></div>
+	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
+	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
+	       			 </select>
+	           	 </td>
+	           </th:block>
+	        </tr>
+	    	</th:block>
 	    </tbody>
+	    
+	    
+	    
+	    
 	</table>
 	
 	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">

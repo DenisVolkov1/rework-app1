@@ -1,6 +1,6 @@
 USE [REWORKBASE]
 GO
-/****** Object:  StoredProcedure [dbo].[INSERT_INTO_REWORK_TABLES]    Script Date: 15.01.2023 0:11:34 ******/
+/****** Object:  StoredProcedure [dbo].[INSERT_INTO_REWORK_TABLES]    Script Date: 17.01.2023 0:14:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -42,7 +42,7 @@ BEGIN
 	----
 	INSERT INTO [dbo].[REWORKDETAIL] 
 		 ([REWORKNUMBER] ,[SERVER] ,[STATUS] ,[ADDDATE] ,[EDITDATE])
-	SELECT r.[REWORKNUMBER],'Дев сервер'  ,[DEV]      ,[DEV Дата],[DEV Дата]
+	SELECT r.[REWORKNUMBER],'DEV'  ,[DEV]      ,[DEV Дата],[DEV Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
@@ -84,7 +84,7 @@ BEGIN
 
 	UPDATE dbo.REWORKDETAIL 
 		SET STATUS= (CASE  
-						WHEN STATUS IS NULL THEN 'NEW'
+						WHEN STATUS IS NULL THEN ''
 						WHEN STATUS = 'V'   THEN 'OK' 
 					END)
 END;

@@ -2,23 +2,23 @@ package main.dao.model;
 
 public class SearchFilter {
 
-	private String wms;
+	private String year;
 	private String search;
 	
 	
-	public SearchFilter(String wms, String search) {
+	public SearchFilter(String year, String search) {
 		super();
-		this.wms = wms;
+		this.year = year;
 		this.search = search;
 	}
 
 	public SearchFilter() {}
 	
-	public String getWms() {
-		return wms;
+	public String getYear() {
+		return year;
 	}
-	public void setWms(String wms) {
-		this.wms = wms;
+	public void setYear(String wms) {
+		this.year = wms;
 	}
 	public String getSearch() {
 		return search;
@@ -29,7 +29,7 @@ public class SearchFilter {
 
 	@Override
 	public String toString() {
-		return "SearchFilter [wms=" + wms + ", search=" + search + "]";
+		return "SearchFilter [year=" + year + ", search=" + search + "]";
 	}
 	
 }

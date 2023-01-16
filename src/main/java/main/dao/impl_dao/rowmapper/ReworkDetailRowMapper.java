@@ -14,9 +14,8 @@ public class ReworkDetailRowMapper implements RowMapper<ReworkDetail> {
 	public ReworkDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ReworkDetail resultRework = new ReworkDetail();
 		resultRework.setSerialKey(rs.getLong("SERIALKEY"));
-		resultRework.setWms(rs.getString("WMS"));
-		resultRework.setReworkNumber(rs.getString("REWORKNUMBER"));
-		resultRework.setProject(rs.getString("PROJECT"));
+		resultRework.setServer(rs.getString("SERVER"));
+		resultRework.setReworkNumber(rs.getInt("REWORKNUMBER"));
 		resultRework.setStatus(rs.getString("STATUS"));
 		resultRework.setAddDate(new LocalDateTimeRus(rs.getTimestamp("ADDDATE").toLocalDateTime()));
 		resultRework.setAddWho(rs.getString("ADDWHO"));

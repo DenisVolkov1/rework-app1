@@ -50,17 +50,27 @@ public class MainFilterController {
 	private AddWhoService addWhoService;
 	
 	@GetMapping("/main")
-	public String showMainFilterPage2(
+	public String showMainPage(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
 			@ModelAttribute("deleteRework_wms") String deleteRework_wms,
 			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
 			Model model,HttpServletRequest request) {	
 		
 		List<Server> serversNameForTitle = serverService.findAll();
-
+		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
+		List<Status> allStatuses = statusService.findAll();
 		
-//		List<Wms> allWms = wmsService.findAll();
-//		model.addAttribute("allWms", allWms);
+		
+		for (var x : mainListReworks) {
+			for (ReworkDetail rw : x.v2) {
+				rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
+			}
+		}
+
+		for (Status rw : allStatuses) {
+			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
+		}
+		model.addAttribute("mainListReworks", mainListReworks);
 //		model.addAttribute("deleteRework_wms", deleteRework_wms);
 //		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
 		model.addAttribute("serversNameForTitle", serversNameForTitle);
@@ -68,54 +78,6 @@ public class MainFilterController {
 		return "main";
 	}
 	
-	@PostMapping("/mainfilter/search")
-	public String showMainFilterSearch(
-			@ModelAttribute("modelFilter") SearchFilter searchFilter , 
-			@ModelAttribute("newInsertRework_wms") String newInsertRework_wms,
-			@ModelAttribute("newInsertRework_reworknumber") String newInsertRework_reworknumber,
-			@ModelAttribute("newInsertRework_project") String newInsertRework_project,
-			@ModelAttribute("newInsertRework_status") String newInsertRework_status,	
-			Model model,HttpServletRequest request) {	
-		
-		System.out.println(searchFilter);
-		if(searchFilter.getWms() == null )searchFilter.setWms("Все");
-		if(searchFilter.getSearch() == null )searchFilter.setSearch("");
-		
-			List<Tuple2<Rework, List<ReworkDetail>>> modelsForRows = null;
-			if(searchFilter.getSearch().isEmpty()) {
-				modelsForRows = reworkService.findOnWms(searchFilter.getWms());
-			} else {
-				modelsForRows = reworkService.findOnWmsAndSearchParams(searchFilter.getWms(), searchFilter.getSearch());
-			}
-			//if not found rows for query
-			if(modelsForRows.size()==0) {
-				modelsForRows.add(new Tuple2<Rework, List<ReworkDetail>>(new Rework(), new ArrayList<ReworkDetail>()));
-			}
-			Tuple2<Rework, List<ReworkDetail>> modelForTitle = modelsForRows.get(0);
-			
-			List<Status> allStatuses = statusService.findAll();
-			//List<Wms> allWms = wmsService.findAll();
-			List<AddWho> allWhoUpdate = addWhoService.findAll();
-
-			for (var x : modelsForRows) {
-				for (ReworkDetail rw : x.v2) {
-					
-					rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
-				}
-			}
-
-			for (Status rw : allStatuses) {
-				rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
-			}
-				
-			model.addAttribute("allWhoUpdates", allWhoUpdate);
-			model.addAttribute("modelForTitle", modelForTitle);
-			model.addAttribute("modelsForRows", modelsForRows);
-			model.addAttribute("allStatuses", allStatuses);
-			//model.addAttribute("allWms", allWms);
-		
-		return "main_filter_search";
-	}
 	
 	@GetMapping("/mainfilter/updatestatus")
 	@ResponseBody
@@ -130,23 +92,7 @@ public class MainFilterController {
 			statusService.updateStatus(wms, reworkNumber, project, Util.getStatusSql(valueStatus), whoUpdate);
 		return "updateIsDone";
 	}
-	/**
-	 * like as  href="/showrework/serialkeyrework_2300 - 2300 is serialkey in dbo.REWORK
-	 * */
-	@GetMapping("/showrework/{serialkeyrework}")
-	public String showrework(
-							@RequestParam(value="isUpdate",required = false) String isUpdate,
-							@PathVariable("serialkeyrework") String serialkeyrework,
-							@ModelAttribute("modelFilter") SearchFilter searchFilter,
-							Model model) {
-		Integer serialkey = Integer.valueOf(serialkeyrework.replace("serialkeyrework_", ""));
-		Rework modelRework = reworkService.getRework(serialkey);
-			modelRework.toStringAll();
-		if(isUpdate != null) model.addAttribute("isUpdate","true");
-		model.addAttribute("modelRework",modelRework);
-		
-		return "show_rework";
-	}
+
 	
 	@ModelAttribute("server")	
 	public String serverNameAttribute(HttpServletRequest servletRequest) {

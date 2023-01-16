@@ -30,42 +30,75 @@ public class Rework {
 		this.editDate = editDate;
 	}
 	
+	public Rework() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getReworkNumber() {
 		return reworkNumber;
 	}
+
 	public void setReworkNumber(int reworkNumber) {
 		this.reworkNumber = reworkNumber;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getTask() {
+		return task;
+	}
+
+	public void setTask(String task) {
+		this.task = task;
+	}
+
+	public String getTaskMonetka() {
+		return taskMonetka;
+	}
+
+	public void setTaskMonetka(String taskMonetka) {
+		this.taskMonetka = taskMonetka;
+	}
+
 	public LocalDateTimeRus getAddDate() {
 		return addDate;
 	}
+
 	public void setAddDate(LocalDateTimeRus addDate) {
 		this.addDate = addDate;
 	}
+
 	public String getAddWho() {
 		return addWho;
 	}
+
 	public void setAddWho(String addWho) {
 		this.addWho = addWho;
 	}
+
 	public String getEditWho() {
 		return editWho;
 	}
+
 	public void setEditWho(String editWho) {
 		this.editWho = editWho;
 	}
+
 	public LocalDateTimeRus getEditDate() {
 		return editDate;
 	}
+
 	public void setEditDate(LocalDateTimeRus editDate) {
 		this.editDate = editDate;
 	}
+
+	
 	
 	
 	

@@ -28,6 +28,10 @@ public class ReworkDetail {
 		this.editDate = editDate;
 	}
 
+	public ReworkDetail() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getSerialKey() {
 		return serialKey;
 	}

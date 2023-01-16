@@ -24,21 +24,6 @@ import main.dao.model.ReworkDetail;
 public class ReworkImplMSSQL implements ReworkDao {
 	
 	private JdbcTemplate jdbcTemplate;  
-	private final static String MAIN_FILTER_QUERY = 
-			"SELECT "
-					+ "	r.SERIALKEY, "
-					+ " r.WMS, "
-					+ "	r.REWORKNUMBER, "
-					+ " r.RESOURCE, " 
-					+ "	r.WMS AS rd_WMS, "
-			        + "	r.REWORKNUMBER AS rd_REWORKNUMBER, "
-			        + "	ISNULL(r.WIKILINK,'') AS WIKILINK, "
-			        + "	ISNULL(r.DESCRIPTION,'') AS DESCRIPTION, "					
-					+ "	PROJECT AS rd_PROJECT, "
-					+ "	ISNULL(rd.STATUS,'') AS rd_STATUS "
-				+ " FROM REWORK AS r"
-					+ " JOIN REWORKDETAIL AS rd "
-					+ "		ON rd.WMS = r.WMS AND rd.REWORKNUMBER = r.REWORKNUMBER ";
 	
 	
 	public ReworkImplMSSQL(@Autowired JdbcTemplate jdbcTemplate) {
