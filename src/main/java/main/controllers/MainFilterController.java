@@ -33,6 +33,8 @@ import main.dao.service.ServerService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
+import main.dto.ReworkDetailDto;
+import main.dto.ReworkDto;
 import main.util.Util;
 
 @Controller
@@ -58,19 +60,67 @@ public class MainFilterController {
 		
 		List<Server> serversNameForTitle = serverService.findAll();
 		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
+		
+		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
+		
+		for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
+			List<ReworkDetailDto> detailDtos = new ArrayList<>();
+			ReworkDto reworkDto = new ReworkDto(t.v1); 
+			
+			for(ReworkDetail listrd : t.v2) {
+				switch (listrd.getServer()) {
+					case "Дев сервер" : 
+						{
+							detailDtos.add(0, new ReworkDetailDto(listrd));
+						}
+						break;
+					case "ЕКБ ТЭЦ" : 
+						{
+							detailDtos.add(1, new ReworkDetailDto(listrd));
+						}
+						break;
+					case "ЕКБ РЦ Берёзовский" : 
+						{
+							detailDtos.add(2, new ReworkDetailDto(listrd));
+						}
+						break;
+					case "Нефтеюганск" : 
+						{
+							detailDtos.add(3, new ReworkDetailDto(listrd));
+						}
+						break;
+					case "Новосибирск" : 
+						{
+							detailDtos.add(4, new ReworkDetailDto(listrd));
+						}
+					break;
+					case "Уфа" : 
+						{
+							detailDtos.add(5, new ReworkDetailDto(listrd));
+						}
+					break;
+					default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
+				}
+				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
+				mainListReworksDto.add(tupleDto);
+			}
+		}
+		
+		
+		
 		List<Status> allStatuses = statusService.findAll();
 		
 		
-		for (var x : mainListReworks) {
-			for (ReworkDetail rw : x.v2) {
-				rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
-			}
-		}
+//		for (var x : mainListReworks) {
+//			for (ReworkDetail rw : x.v2) {
+//				rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
+//			}
+//		}
 
 		for (Status rw : allStatuses) {
 			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
 		}
-		model.addAttribute("mainListReworks", mainListReworks);
+		model.addAttribute("mainListReworksDto", mainListReworksDto);
 //		model.addAttribute("deleteRework_wms", deleteRework_wms);
 //		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
 		model.addAttribute("serversNameForTitle", serversNameForTitle);
