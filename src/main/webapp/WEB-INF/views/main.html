@@ -26,10 +26,10 @@
 
 	<button id="topPageButton" title="Go to top">Вверх</button>
 
-	<div id ="loading" class="spinner-border text-primary" style="position: absolute; top: 50%; left: 50%; margin-top: -1.5rem; margin-left: -1.5rem; width: 3rem; height: 3rem;" role="status">
-    	<span class="sr-only">Loading...</span>
-  	</div>
-	<div class="container-fluid d-none gradientbackground">
+<!-- 	<div id ="loading" class="spinner-border text-primary" style="position: absolute; top: 50%; left: 50%; margin-top: -1.5rem; margin-left: -1.5rem; width: 3rem; height: 3rem;" role="status"> -->
+<!--     	<span class="sr-only">Loading...</span> -->
+<!--   	</div> -->
+	<div class="container-fluid gradientbackground">
 		<form id="formSearchFilter" th:method="POST" th:action="@{/mainfilter/search}" th:object="${modelFilter}">
 			<div class="row justify-content-start">
 			  <div class="col-12 mb-3">
@@ -111,9 +111,9 @@
 	           <th:block th:each="rowProject : *{row.v2}">
 	           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
 	           		<div class="statusDIV" th:text="*{rowProject.getStatus()}"></div>
-	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
-	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
-	       			 </select>
+<!-- 	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px"> -->
+<!-- 	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/> -->
+<!-- 	       			 </select> -->
 	           	 </td>
 	           </th:block>
 	        </tr>

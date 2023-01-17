@@ -38,7 +38,6 @@ public class ReworkDetailDto {
 		this.reworkNumber = reworkDetail.getReworkNumber();
 		this.server = reworkDetail.getServer();
 		this.status = Util.getUnicodeStatusWebApp(reworkDetail.getStatus());
-		this.status = reworkDetail.getStatus();
 		this.addDate = reworkDetail.getAddDate();
 		this.addWho = reworkDetail.getAddWho();
 		this.editWho = reworkDetail.getEditWho();
@@ -70,6 +69,7 @@ public class ReworkDetailDto {
 	}
 
 	public String getStatus() {
+		System.out.println("status"+status);
 		return status;
 	}
 
