@@ -1,4 +1,4 @@
-/*
+
 	var beginFilterIndexRows = 2;
 	var beginFilterIndexColumn = 4;
 	var indexFilterRow = 1;
@@ -8,15 +8,14 @@
 	var reworkTable;
 
 	$(function() {
-		
+	
   		$('[data-toggle="tooltip"]').tooltip();
-		
-		//$('#reworkTable').find('select').attr('data-style','btn-default btn-lg');
 		$('#reworkTable').find('select').selectpicker();
 		$('#reworkTable').find('select').selectpicker('hide');
 		
 				//table FIlter
 				reworkTable = document.getElementById("reworkTable");
+/*				
 				//set filters and children
 				filterParents = getListElementsByPartId('filter_header');
 				filterChildren = getListElementsByPartId('filter_status');
@@ -28,7 +27,8 @@
 					}
 				}
 				// 
-				var filterCountColumn = reworkTable.rows[0].cells.length;
+*/				
+				var filterCountColumn = reworkTable.rows[1].cells.length;
 				for (let indexRow = beginFilterIndexRows; indexRow < reworkTable.rows.length; indexRow++) {
 					for (var i = beginFilterIndexColumn; i < filterCountColumn; i++) {
 						var cell = reworkTable.rows[indexRow].cells[i];
@@ -36,7 +36,7 @@
 					}
 				}
 		
-		
+/*		
 				$("#reworkTable").find("tr").each(function( index ) {
 					var row = $(this);
 					var tdArray = row.find("td")
@@ -99,6 +99,7 @@
 					$("body").before($alertInsert);
 				}
 				///
+*/				
 				// update status show form start////////////////////////////////////////////////////////////////////////////////
 				$(".selectpicker").change(function() {
 					var serverName = $("#server").val();
@@ -109,19 +110,18 @@
 					var response;
 					var column_index = $(this).closest("td").index();
 					//
-					var wms = $(this).closest("tr").children('td').eq(1).text();
+					var name = $(this).closest("tr").children('td').eq(1).text();
 					var reworkNumber = $(this).closest("tr").children('td').eq(2).text().trim();
 					var project = $('#headerMainTable > tr').children('th').eq(column_index).children('div').eq(0).text().trim();
 
-
 					$('#updateStatusModal').on('show.bs.modal', function (e) {
-						$('#wmsUpdateStatusLabel').text(wms);
-						$('#reworkNumberUpdateStatusLabel').text(reworkNumber);
-						$('#projectUpdateStatusLabel').text(project);
+						$('#nameUpdateStatusLabel').text(name);
+						$('#taskUpdateStatusLabel').text(reworkNumber);
+						$('#serverUpdateStatusLabel').text(project);
 						$('#statusUpdateStatusLabel').text(valueStatus);
 					});
-					
-					$("#updateStatusButton").click(function() {
+					console.log(wms);
+					/*$("#updateStatusButton").click(function() {
 						var	wms =	        $('#wmsUpdateStatusLabel').text();
 						var	reworkNumber =	$('#reworkNumberUpdateStatusLabel').text();
 						var	project =	    $('#projectUpdateStatusLabel').text();
@@ -151,11 +151,11 @@
 							hideUpdateStatusModal.call();
 						});
 						
-					});
+					});*/
 					
 					$('#updateStatusModal').modal('show');
 				});
-				// update status show form end//////////////////////////////////////////////////////////////////////
+/*				// update status show form end//////////////////////////////////////////////////////////////////////
 				// tooltip cell stauts start////////////////////////////////////////////////////////////////////////
 				$(".cell").on('mouseenter', function () {
 					var serverName = $("#server").val();
@@ -273,8 +273,9 @@
 				
 				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);
 				
-
+*/
 	});
+/*
 	function submitLinkShowReworkForm() {
 		$('#formBack').submit();
 	}
@@ -315,6 +316,7 @@
 		  }
 	}
 
+*/
 	var showSelectedList = function (event) {
 		var $target = $(event.target);
 	
@@ -352,7 +354,7 @@
 			});
 		}
 	 };
-
+/*
 	var addClassChange = function (event) {
 		if(event.target.className == 'unselect') {
 			event.target.className = 'selected'

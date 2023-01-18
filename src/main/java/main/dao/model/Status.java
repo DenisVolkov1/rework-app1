@@ -5,7 +5,6 @@ public class Status {
 	private String status;
 
 	public Status(String status) {
-		super();
 		this.status = status;
 	}
 
@@ -21,6 +20,4 @@ public class Status {
 	public String toString() {
 		return "Status [status=" + status + "]";
 	}
-	
-	
 }

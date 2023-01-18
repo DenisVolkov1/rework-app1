@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.dao.impl_dao.rowmapper.ReworkDetailRowMapper;
-import main.dao.impl_dao.rowmapper.ReworkRowMapper;
 import main.dao.interface_dao.StatusDao;
-import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 import main.dao.model.Status;
 
@@ -30,14 +28,10 @@ public class StatusImplMSSQL implements StatusDao {
 	public List<Status> findAll() {
 		 final RowMapper<Status> rowMapper =
 		        JdbcTemplateMapperFactory.newInstance().newRowMapper(Status.class);
-		String query = "SELECT DISTINCT STATUS FROM REWORKDETAIL";
+		String query = "SELECT DISTINCT STATUS FROM REWORKDETAIL ORDER BY 1;";
 		List<Status> res = jdbcTemplate.query(query, rowMapper);
-		res.add(new Status(""));
-		
 		return res;
-		
 	}
-	
 	
 	@Transactional()
 	@Override

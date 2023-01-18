@@ -1,6 +1,6 @@
 USE [REWORKBASE]
 GO
-/****** Object:  StoredProcedure [dbo].[INSERT_INTO_REWORK_TABLES]    Script Date: 17.01.2023 0:14:17 ******/
+/****** Object:  StoredProcedure [dbo].[INSERT_INTO_REWORK_TABLES]    Script Date: 19.01.2023 1:39:42 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,5 +87,6 @@ BEGIN
 						WHEN STATUS IS NULL THEN ''
 						WHEN STATUS = 'V'   THEN 'OK' 
 					END)
+	UPDATE dbo.REWORKDETAIL set STATUS='TEST' where SERIALKEY=(SELECT TOP 1 SERIALKEY FROM REWORKDETAIL);
 END;
 

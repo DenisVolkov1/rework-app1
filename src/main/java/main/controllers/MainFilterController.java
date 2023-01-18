@@ -117,10 +117,8 @@ public class MainFilterController {
 			mainListReworksDto.add(tupleDto);
 		}
 		
-		
 		List<ReworkDetailDto> serversNameForTitle = (mainListReworksDto.get(0)).v2;
 		List<Status> allStatuses = statusService.findAll();
-		
 		
 //		for (var x : mainListReworks) {
 //			for (ReworkDetail rw : x.v2) {
@@ -131,8 +129,10 @@ public class MainFilterController {
 		for (Status rw : allStatuses) {
 			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
 		}
+		System.out.println(allStatuses);
 		model.addAttribute("serversNameForTitle", serversNameForTitle);		
 		model.addAttribute("mainListReworksDto", mainListReworksDto);
+		model.addAttribute("allStatuses", allStatuses);
 //		model.addAttribute("deleteRework_wms", deleteRework_wms);
 //		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
 

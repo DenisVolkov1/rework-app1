@@ -19,7 +19,7 @@ public class Util {
         	   ret= "\uD83E\uDDEA";
                break;
            default:
-        	   ret= "✔";
+        	   ret= sqlStatus;
                break;
 		}
 		return ret;
@@ -36,7 +36,7 @@ public class Util {
         	   ret= "TEST";
                break;
            default:
-        	   ret= "OK";
+        	   ret= sqlStatus;
                break;
 		}
 		return ret;

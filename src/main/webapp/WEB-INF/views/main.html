@@ -19,11 +19,65 @@
 <body>
 
 <div class="container-fluid">
-  <input hidden id ="server" th:value= "${server}">
+  	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
 	<input hidden id ="deleteRework_wms" th:value= "${deleteRework_wms}">
 	<input hidden id ="deleteRework_reworknumber" th:value= "${deleteRework_reworknumber}">
-
+	
+	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
+	<div class="modal fade" id="updateStatusModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="updateStatusModalLabel">Обновить статус</h5>
+	      </div>
+	      <div class="modal-body">
+			<div class="container mt-3">
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Название доработки </div>
+			    </div>
+			    <div id="nameUpdateStatusLabel" class="col-7"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Задача </div>
+			    </div>
+			    <div id="taskUpdateStatusLabel" class="col-7"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Сервер </div>
+			    </div>
+				<div id="serverUpdateStatusLabel" class="col-7"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Установить статус </div>
+			    </div>
+				<div id="statusUpdateStatusLabel" class="col-7 font-weight-bold"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Кто обновил </div>
+			    </div>
+			    <div class="col-5">
+			     	<select id="whoUpdatesSelect" class="custom-select" data-style="btn-default">
+	    			  <option th:each="v, i : ${allWhoUpdates}" th:value="${v.addWho}" th:utext="${v.addWho}"/>
+	    			</select>
+			    </div>
+			  </div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button id = "cancelUpdateStatusModal" type="button" class="btn btn-secondary">Отмена</button>
+	        <button id = "updateStatusButton" type="button" class="btn btn-warning ml-2">Обновить статус</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
+	<!-- BUTTON UP TO TOP -->
 	<button id="topPageButton" title="Go to top">Вверх</button>
 
 <!-- 	<div id ="loading" class="spinner-border text-primary" style="position: absolute; top: 50%; left: 50%; margin-top: -1.5rem; margin-left: -1.5rem; width: 3rem; height: 3rem;" role="status"> -->
@@ -89,15 +143,15 @@
 	     
 	     
 	     <tbody>
-	       	<th:block th:each="row : *{mainListReworksDto}">
+	       	<th:block th:each="rowRework : *{mainListReworksDto}">
 	       	<tr class="heightrow" permanentHidden= "false">
 <!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
 <!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
 <!-- 	           </td> -->
 			   <td></td>
-	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getDescription()}"></td>
-	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getTask()}"></td>
-	       	   <td style="vertical-align: middle;" th:text="*{row.v1.getTaskMonetka()}"></td>
+	       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getDescription()}"></td>
+	       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTask()}"></td>
+	       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
 <!-- 	           <td class="text-truncate" style="vertical-align: middle;"> -->
 <!-- 	                <div> -->
 <!-- 						<form th:method="GET" th:action="@{/showrework/{serialkeyrework}(serialkeyrework = 'serialkeyrework_'+${row.v1.getSerialKey()})}" th:object="${modelFilter}"> -->
@@ -108,15 +162,15 @@
 <!-- 					</div> -->
 <!-- 	           </td> -->
 
-	           <th:block th:each="rowProject : *{row.v2}">
+	           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
 	           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
-	           		<div class="statusDIV" th:text="*{rowProject.getStatus()}"></div>
-<!-- 	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px"> -->
-<!-- 	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/> -->
-<!-- 	       			 </select> -->
+	           		<div class="statusDIV" th:text="*{rowReworkDetailDto.getStatus()}"></div>
+	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
+	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
+	       			 </select>
 	           	 </td>
 	           	 <td class="p-1" style="vertical-align: middle;">
-	           	 	<div th:text="*{rowProject.getEditDate()}"></div>
+	           	 	<div th:text="*{rowReworkDetailDto.getEditDate()}"></div>
 	           	 </td>
 	           </th:block>
 	        </tr>
