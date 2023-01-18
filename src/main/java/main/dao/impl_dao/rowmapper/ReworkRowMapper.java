@@ -20,10 +20,10 @@ public class ReworkRowMapper implements RowMapper<Rework> {
 			resultRework.setDescription(rs.getString("DESCRIPTION"));
 			resultRework.setTask(rs.getString("TASK"));	
 			resultRework.setTaskMonetka(rs.getString("TASKMONETKA"));
-			resultRework.setAddDate(new LocalDateTimeRus(rs.getTimestamp("ADDDATE").toLocalDateTime()));
+			resultRework.setReworkAddDate(rs.getTimestamp("ADDDATE"));
 			resultRework.setAddWho(rs.getString("ADDWHO"));
 			resultRework.setEditWho(rs.getString("EDITWHO"));
-			resultRework.setEditDate(new LocalDateTimeRus(rs.getTimestamp("EDITDATE").toLocalDateTime()));		
+			resultRework.setReworkEditDate(rs.getTimestamp("EDITDATE"));		
 		return resultRework;
 	}
 

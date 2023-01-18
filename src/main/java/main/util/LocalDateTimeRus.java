@@ -21,11 +21,10 @@ public class LocalDateTimeRus {
 
 	@Override
 	public String toString() {
-		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-	        String formatDateTime = localDateTime.format(formatter);
-		return formatDateTime;
-	}
-	
-	
-	
+		if(localDateTime != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
+		    String formatDateTime = localDateTime.format(formatter);
+		    return formatDateTime;
+		} else return "";
+	}	
 }

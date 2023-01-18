@@ -1,5 +1,6 @@
 package main.dao.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import main.util.LocalDateTimeRus;
@@ -10,24 +11,24 @@ public class Rework {
 	private String description;
 	private String task;
 	private String taskMonetka;
-	private LocalDateTimeRus addDate;
+	private Timestamp reworkAddDate;
 	private String addWho;
 	private String editWho;
-	private LocalDateTimeRus editDate;
+	private Timestamp reworkEditDate;
 	
 	
 	
-	public Rework(int reworkNumber, String description,String task,String taskMonetka, LocalDateTimeRus addDate, String addWho, String editWho,
-			LocalDateTimeRus editDate) {
+	public Rework(int reworkNumber, String description,String task,String taskMonetka, Timestamp addDate, String addWho, String editWho,
+			Timestamp editDate) {
 		super();
 		this.reworkNumber = reworkNumber;
 		this.description = description;
 		this.task = task;
 		this.taskMonetka = taskMonetka;
-		this.addDate = addDate;
+		this.reworkAddDate = addDate;
 		this.addWho = addWho;
 		this.editWho = editWho;
-		this.editDate = editDate;
+		this.reworkEditDate = editDate;
 	}
 	
 	public Rework() {
@@ -66,12 +67,12 @@ public class Rework {
 		this.taskMonetka = taskMonetka;
 	}
 
-	public LocalDateTimeRus getAddDate() {
-		return addDate;
+	public Timestamp getReworkAddDate() {
+		return reworkAddDate;
 	}
 
-	public void setAddDate(LocalDateTimeRus addDate) {
-		this.addDate = addDate;
+	public void setReworkAddDate(Timestamp addDate) {
+		this.reworkAddDate = addDate;
 	}
 
 	public String getAddWho() {
@@ -90,22 +91,21 @@ public class Rework {
 		this.editWho = editWho;
 	}
 
-	public LocalDateTimeRus getEditDate() {
-		return editDate;
+	public Timestamp getReworkEditDate() {
+		return reworkEditDate;
 	}
 
-	public void setEditDate(LocalDateTimeRus editDate) {
-		this.editDate = editDate;
+	public void setReworkEditDate(Timestamp editDate) {
+		this.reworkEditDate = editDate;
 	}
 
-	
-	
-	
-	
 
-	
-	
-	
-	
 
+
+	@Override
+	public String toString() {
+		return "Rework [reworkNumber=" + reworkNumber + ", description=" + description + ", task=" + task
+				+ ", taskMonetka=" + taskMonetka + ", addDate=" + reworkAddDate + ", addWho=" + addWho + ", editWho="
+				+ editWho + ", editDate=" + reworkEditDate + "]";
+	}
 }

@@ -17,10 +17,10 @@ public class ReworkDetailRowMapper implements RowMapper<ReworkDetail> {
 		resultRework.setServer(rs.getString("SERVER"));
 		resultRework.setReworkNumber(rs.getInt("REWORKNUMBER"));
 		resultRework.setStatus(rs.getString("STATUS"));
-		resultRework.setAddDate(new LocalDateTimeRus(rs.getTimestamp("ADDDATE").toLocalDateTime()));
+		resultRework.setAddDate(rs.getTimestamp("ADDDATE"));
 		resultRework.setAddWho(rs.getString("ADDWHO"));
 		resultRework.setEditWho(rs.getString("EDITWHO"));
-		resultRework.setEditDate(new LocalDateTimeRus(rs.getTimestamp("EDITDATE").toLocalDateTime()));	
+		resultRework.setEditDate(rs.getTimestamp("EDITDATE"));	
 	return resultRework;
 	}
 

@@ -1,5 +1,6 @@
 package main.dao.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import main.util.LocalDateTimeRus;
@@ -10,13 +11,13 @@ public class ReworkDetail {
 	private int reworkNumber;
 	private String server;
 	private String status;
-	private LocalDateTimeRus addDate;
+	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
-	private LocalDateTimeRus editDate;
+	private Timestamp editDate;
 	
-	public ReworkDetail(long serialKey, int reworkNumber, String server, String status, LocalDateTimeRus addDate,
-			String addWho, String editWho, LocalDateTimeRus editDate) {
+	public ReworkDetail(long serialKey, int reworkNumber, String server, String status, Timestamp addDate,
+			String addWho, String editWho, Timestamp editDate) {
 		super();
 		this.serialKey = serialKey;
 		this.reworkNumber = reworkNumber;
@@ -29,7 +30,7 @@ public class ReworkDetail {
 	}
 
 	public ReworkDetail() {
-		// TODO Auto-generated constructor stub
+		//
 	}
 
 	public long getSerialKey() {
@@ -64,11 +65,11 @@ public class ReworkDetail {
 		this.status = status;
 	}
 
-	public LocalDateTimeRus getAddDate() {
+	public Timestamp getAddDate() {
 		return addDate;
 	}
 
-	public void setAddDate(LocalDateTimeRus addDate) {
+	public void setAddDate(Timestamp addDate) {
 		this.addDate = addDate;
 	}
 
@@ -88,13 +89,20 @@ public class ReworkDetail {
 		this.editWho = editWho;
 	}
 
-	public LocalDateTimeRus getEditDate() {
+	public Timestamp getEditDate() {
 		return editDate;
 	}
 
-	public void setEditDate(LocalDateTimeRus editDate) {
+	public void setEditDate(Timestamp editDate) {
 		this.editDate = editDate;
 	}
+
+	@Override
+	public String toString() {
+		return "ReworkDetail [serialKey=" + serialKey + ", reworkNumber=" + reworkNumber + ", server=" + server
+				+ ", status=" + status + ", addDate=" + addDate + ", addWho=" + addWho + ", editWho=" + editWho
+				+ ", editDate=" + editDate + "]";
+	}	
 }	
 	
 	

@@ -58,56 +58,67 @@ public class MainFilterController {
 			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
 			Model model,HttpServletRequest request) {	
 		
-		List<Server> serversNameForTitle = serverService.findAll();
+//		List<Server> serversNameForTitle = serverService.findAll();
+//		serversNameForTitle.clear();
+		
 		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
 		
+		
+//		for (int i = 0; i < mainListReworks.size(); i++) {
+//			Tuple2<Rework, List<ReworkDetail>> it = mainListReworks.get(i);	
+//			System.out.println(it.v1);
+//			for (ReworkDetail tuple2 : it.v2) {
+//				//System.out.println("----"+tuple2);
+//			}
+//		}
+
 		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
 		
 		for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
-			List<ReworkDetailDto> detailDtos = new ArrayList<>();
+			List<ReworkDetailDto> detailDtos = new ArrayList<>(6);
 			ReworkDto reworkDto = new ReworkDto(t.v1); 
 			
 			for(ReworkDetail listrd : t.v2) {
 				switch (listrd.getServer()) {
-					case "Дев сервер" : 
+					case "Дев сервер" :
 						{
-							detailDtos.add(0, new ReworkDetailDto(listrd));
+							detailDtos.add( new ReworkDetailDto(listrd));
 						}
 						break;
-					case "ЕКБ ТЭЦ" : 
+					case "ЕКБ ТЭЦ" :
 						{
-							detailDtos.add(1, new ReworkDetailDto(listrd));
+							detailDtos.add( new ReworkDetailDto(listrd));
 						}
 						break;
-					case "ЕКБ РЦ Берёзовский" : 
+					case "ЕКБ РЦ Берёзовский" :
 						{
-							detailDtos.add(2, new ReworkDetailDto(listrd));
+							detailDtos.add( new ReworkDetailDto(listrd));
 						}
 						break;
-					case "Нефтеюганск" : 
+					case "Нефтеюганск" :
 						{
-							detailDtos.add(3, new ReworkDetailDto(listrd));
+							detailDtos.add( new ReworkDetailDto(listrd));
 						}
 						break;
-					case "Новосибирск" : 
+					case "Новосибирск" :
 						{
-							detailDtos.add(4, new ReworkDetailDto(listrd));
+							detailDtos.add( new ReworkDetailDto(listrd));
 						}
 					break;
-					case "Уфа" : 
+					case "Уфа" :
 						{
-							detailDtos.add(5, new ReworkDetailDto(listrd));
+							detailDtos.add( new ReworkDetailDto(listrd));
 						}
 					break;
 					default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
 				}
-				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
-				mainListReworksDto.add(tupleDto);
 			}
+			Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
+			mainListReworksDto.add(tupleDto);
 		}
 		
 		
-		
+		List<ReworkDetailDto> serversNameForTitle = (mainListReworksDto.get(0)).v2;
 		List<Status> allStatuses = statusService.findAll();
 		
 		
@@ -120,10 +131,11 @@ public class MainFilterController {
 		for (Status rw : allStatuses) {
 			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
 		}
+		model.addAttribute("serversNameForTitle", serversNameForTitle);		
 		model.addAttribute("mainListReworksDto", mainListReworksDto);
 //		model.addAttribute("deleteRework_wms", deleteRework_wms);
 //		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
-		model.addAttribute("serversNameForTitle", serversNameForTitle);
+
 		
 		return "main";
 	}

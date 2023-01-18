@@ -11,10 +11,10 @@ public class ReworkDto {
 	private String description;
 	private String task;
 	private String taskMonetka;
-	private LocalDateTimeRus addDate;
+	private String addDate;
 	private String addWho;
 	private String editWho;
-	private LocalDateTimeRus editDate;
+	private String editDate;
 	
 	public ReworkDto(Rework rework) {
 		this.rework = rework;
@@ -22,11 +22,11 @@ public class ReworkDto {
 		this.reworkNumber = rework.getReworkNumber();
 		this.description = rework.getDescription();
 		this.task = rework.getTask();
-		this.taskMonetka = rework.getTaskMonetka();
-		this.addDate = rework.getAddDate();
+		this.taskMonetka = rework.getTaskMonetka();	
+		this.addDate =  new LocalDateTimeRus(rework.getReworkAddDate().toLocalDateTime()).toString();
 		this.addWho = rework.getAddWho();
 		this.editWho = rework.getEditWho();
-		this.editDate = rework.getEditDate();
+		this.editDate = new LocalDateTimeRus(rework.getReworkEditDate().toLocalDateTime()).toString();
 	}
 
 	public int getReworkNumber() {
@@ -61,12 +61,12 @@ public class ReworkDto {
 		this.taskMonetka = taskMonetka;
 	}
 
-	public LocalDateTimeRus getAddDate() {
-		return addDate;
+	public String getAddDate() {
+		return addDate.toString();
 	}
 
 	public void setAddDate(LocalDateTimeRus addDate) {
-		this.addDate = addDate;
+		this.addDate = addDate.toString();
 	}
 
 	public String getAddWho() {
@@ -85,12 +85,12 @@ public class ReworkDto {
 		this.editWho = editWho;
 	}
 
-	public LocalDateTimeRus getEditDate() {
+	public String getEditDate() {
 		return editDate;
 	}
 
 	public void setEditDate(LocalDateTimeRus editDate) {
-		this.editDate = editDate;
+		this.editDate = editDate.toString();
 	}
 
 	public Rework getRework() {

@@ -71,7 +71,7 @@
 	            <th style="width: 80px; text-align: center;"> Задача </th>
 	            <th style="width: 100px; text-align: center;"> Задача Монетки </th>	            	        	            
 	            <th:block th:each="s, si : ${serversNameForTitle}" >
-		        	<th colspan="2" th:text="${s.server}" style="width: 160px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
+		        	<th colspan="2" th:text="${s.getServer()}" style="width: 100px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
  		        </th:block>	        
 	        </tr>
 	        <tr>
@@ -80,8 +80,8 @@
 	            <th style="width: 80px; text-align: center;"></th>
 	            <th style="width: 100px; text-align: center;"></th>	            	        	            
 	            <th:block th:each="s, si : ${serversNameForTitle}" >
-		        	<th style="width: 80px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Уст.</th>
-		        	<th style="width: 80px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Дата</th>
+		        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Уст.</th>
+		        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Дата</th>
  		        </th:block>	        
 	        </tr>
 	     </thead>
@@ -89,7 +89,7 @@
 	     
 	     
 	     <tbody>
-	       	<th:block th:each="row : *{mainListReworks}">
+	       	<th:block th:each="row : *{mainListReworksDto}">
 	       	<tr class="heightrow" permanentHidden= "false">
 <!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
 <!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
@@ -114,6 +114,9 @@
 <!-- 	       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px"> -->
 <!-- 	       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/> -->
 <!-- 	       			 </select> -->
+	           	 </td>
+	           	 <td class="p-1" style="vertical-align: middle;">
+	           	 	<div th:text="*{rowProject.getEditDate()}"></div>
 	           	 </td>
 	           </th:block>
 	        </tr>

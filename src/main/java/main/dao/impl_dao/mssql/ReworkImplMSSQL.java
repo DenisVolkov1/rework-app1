@@ -118,16 +118,19 @@ public class ReworkImplMSSQL implements ReworkDao {
 		String sqlSelectFilter = 
 				"SELECT "
 				+ " r.REWORKNUMBER, "
-				+ " r.DESCRIPTION, "
-				+ " r.TASK, "
-				+ " r.TASKMONETKA, "
-				+ " rd.REWORKNUMBER AS rd_REWORKNUMBER, "
-				+ " rd.SERVER, "
-				+ " rd.STATUS, "
-				+ " rd.ADDDATE, "
-				+ " rd.ADDWHO, "
-				+ " rd.EDITWHO, "
-				+ " rd.EDITDATE "
+				+ " r.DESCRIPTION AS r_DESCRIPTION, "
+				+ " r.TASK AS r_TASK, "
+				+ " r.TASKMONETKA AS r_TASKMONETKA, "
+				+ " r.ADDDATE AS REWORKADDDATE, "
+				+ " r.EDITDATE AS REWORKEDITDATE, "
+				
+				+ " r.REWORKNUMBER AS rd_REWORKNUMBER, "
+				+ " rd.SERVER AS rd_SERVER, "
+				+ " ISNULL(rd.STATUS,'') AS rd_STATUS, "
+				+ " rd.ADDDATE AS rd_ADDDATE, "
+				+ " rd.ADDWHO AS rd_ADDWHO, "
+				+ " rd.EDITWHO AS rd_EDITWHO, "
+				+ " rd.EDITDATE AS rd_EDITDATE"
 			+ " FROM REWORK AS r "
 				+ " JOIN REWORKDETAIL AS rd "
 					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
@@ -146,7 +149,6 @@ public class ReworkImplMSSQL implements ReworkDao {
 		
 		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
 		
-		//List<Tuple2<Rework, List<ReworkDetail>>> afterAddingMisProject = addMissingProjects(result);
 		return result;
 	}
 

@@ -26,10 +26,10 @@ public class ReworkDetailDto {
 	private int reworkNumber;
 	private String server;
 	private String status;
-	private LocalDateTimeRus addDate;
+	private String addDate;
 	private String addWho;
 	private String editWho;
-	private LocalDateTimeRus editDate;
+	private String editDate;
 	
 	public ReworkDetailDto(ReworkDetail reworkDetail) {
 		this.reworkDetail = reworkDetail;
@@ -37,11 +37,11 @@ public class ReworkDetailDto {
 		this.serialKey = reworkDetail.getSerialKey();
 		this.reworkNumber = reworkDetail.getReworkNumber();
 		this.server = reworkDetail.getServer();
-		this.status = Util.getUnicodeStatusWebApp(reworkDetail.getStatus());
-		this.addDate = reworkDetail.getAddDate();
+		this.status = Util.getUnicodeStatusWebApp(reworkDetail.getStatus());	
+		this.addDate = (reworkDetail.getAddDate()) == null ? "" : new LocalDateTimeRus(reworkDetail.getAddDate().toLocalDateTime()).toString();
 		this.addWho = reworkDetail.getAddWho();
 		this.editWho = reworkDetail.getEditWho();
-		this.editDate = reworkDetail.getEditDate();
+		this.editDate = (reworkDetail.getEditDate()) == null ? "" : new LocalDateTimeRus(reworkDetail.getEditDate().toLocalDateTime()).toString();
 	}
 
 	public long getSerialKey() {
@@ -69,7 +69,6 @@ public class ReworkDetailDto {
 	}
 
 	public String getStatus() {
-		System.out.println("status"+status);
 		return status;
 	}
 
@@ -77,12 +76,12 @@ public class ReworkDetailDto {
 		this.status = status;
 	}
 
-	public LocalDateTimeRus getAddDate() {
+	public String getAddDate() {
 		return addDate;
 	}
 
 	public void setAddDate(LocalDateTimeRus addDate) {
-		this.addDate = addDate;
+		this.addDate = addDate.toString();
 	}
 
 	public String getAddWho() {
@@ -101,11 +100,11 @@ public class ReworkDetailDto {
 		this.editWho = editWho;
 	}
 
-	public LocalDateTimeRus getEditDate() {
+	public String getEditDate() {
 		return editDate;
 	}
 
 	public void setEditDate(LocalDateTimeRus editDate) {
-		this.editDate = editDate;
+		this.editDate = editDate.toString();
 	}
 }

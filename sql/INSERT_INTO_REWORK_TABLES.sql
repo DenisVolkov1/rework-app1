@@ -42,7 +42,7 @@ BEGIN
 	----
 	INSERT INTO [dbo].[REWORKDETAIL] 
 		 ([REWORKNUMBER] ,[SERVER] ,[STATUS] ,[ADDDATE] ,[EDITDATE])
-	SELECT r.[REWORKNUMBER],'DEV'  ,[DEV]      ,[DEV Дата],[DEV Дата]
+	SELECT r.[REWORKNUMBER],'Дев сервер'  ,[DEV]      ,[DEV Дата],[DEV Дата]
 	FROM dbo.REWORK as r
 		JOIN dbo.M22 as m
 			ON m.[Название доработки/исправления, ссылкой на Redmine] = r.DESCRIPTION
