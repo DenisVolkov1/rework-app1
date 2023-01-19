@@ -254,7 +254,7 @@
 							
 					}
 				});
-				
+*/				
 				$('#loading').addClass('d-none');
 				$('.container-fluid').removeClass('d-none');
 				
@@ -276,12 +276,7 @@
 				}
 				$('[submitLinkShowReworkForm]').click(function() {
 					$(this).closest('form').submit();
-				});
-*/	
-		
-	$('#topPageButton').click(function() {
-			upToPage();
-	});				
+				});				
 
 });
 /*

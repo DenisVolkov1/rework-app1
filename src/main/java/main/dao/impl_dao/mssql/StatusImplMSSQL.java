@@ -36,11 +36,7 @@ public class StatusImplMSSQL implements StatusDao {
 	@Transactional()
 	@Override
 	public void updateStatus(String reworkNumber, String server, String status, String whoUpdate) {
-		//String sqlSelectCountRows = "SELECT COUNT(*) FROM REWORKDETAIL WHERE REWORKNUMBER = ? AND SERVER = ?; ";
-		//Integer countRows = jdbcTemplate.queryForObject(sqlSelectCountRows, new Object[] {reworkNumber,server}, Integer.class);
-		
-		/*if(countRows == 1) {*/
-			/*if(!status.equals("")) {*/
+
 				String sqlUpdateStatus = "UPDATE REWORKDETAIL "
 										 + "set STATUS = ?,"
 											+ " EDITDATE = GETDATE(),"
@@ -49,19 +45,6 @@ public class StatusImplMSSQL implements StatusDao {
 				jdbcTemplate.update(
 						sqlUpdateStatus, 
 						status, whoUpdate, reworkNumber, server);
-			/*} else {
-				String sqlDelete = "DELETE FROM REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
-				jdbcTemplate.update(sqlDelete, wms, reworkNumber, project);
-			}*/
-		/*} else if (countRows == 0) {
-			if(!status.equals("")) {
-				String sqlInsertReworkDetail = "INSERT INTO REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO,EDITWHO) "
-						 + "VALUES(?,?,?,?,?,?) ";
-				jdbcTemplate.update(
-						sqlInsertReworkDetail,
-						wms, reworkNumber, project, status, whoUpdate, whoUpdate);
-			}
-		}*/
 	}
 
 	@Override
