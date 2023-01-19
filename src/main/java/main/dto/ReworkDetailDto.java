@@ -22,8 +22,8 @@ public class ReworkDetailDto {
 	
 	private ReworkDetail reworkDetail;
 	
-	private long serialKey;
-	private int reworkNumber;
+	private Long serialKey;
+	private Integer reworkNumber;
 	private String server;
 	private String status;
 	private String addDate;
@@ -44,7 +44,7 @@ public class ReworkDetailDto {
 		this.editDate = (reworkDetail.getEditDate()) == null ? "" : new LocalDateTimeRus(reworkDetail.getEditDate().toLocalDateTime()).toString();
 	}
 
-	public long getSerialKey() {
+	public Long getSerialKey() {
 		return serialKey;
 	}
 
@@ -52,7 +52,7 @@ public class ReworkDetailDto {
 		this.serialKey = serialKey;
 	}
 
-	public int getReworkNumber() {
+	public Integer getReworkNumber() {
 		return reworkNumber;
 	}
 

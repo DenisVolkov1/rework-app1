@@ -7,8 +7,8 @@ import main.util.LocalDateTimeRus;
 
 public class ReworkDetail {
 	
-	private long serialKey;
-	private int reworkNumber;
+	private Long serialKey;
+	private Integer reworkNumber;
 	private String server;
 	private String status;
 	private Timestamp addDate;
@@ -33,7 +33,7 @@ public class ReworkDetail {
 		//
 	}
 
-	public long getSerialKey() {
+	public Long getSerialKey() {
 		return serialKey;
 	}
 
@@ -41,7 +41,7 @@ public class ReworkDetail {
 		this.serialKey = serialKey;
 	}
 
-	public int getReworkNumber() {
+	public Integer getReworkNumber() {
 		return reworkNumber;
 	}
 

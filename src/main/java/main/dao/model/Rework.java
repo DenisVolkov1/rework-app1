@@ -7,7 +7,7 @@ import main.util.LocalDateTimeRus;
 
 public class Rework {
 	
-	private int reworkNumber;
+	private Integer reworkNumber;
 	private String description;
 	private String task;
 	private String taskMonetka;
@@ -35,7 +35,7 @@ public class Rework {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getReworkNumber() {
+	public Integer getReworkNumber() {
 		return reworkNumber;
 	}
 

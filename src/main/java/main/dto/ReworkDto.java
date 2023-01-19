@@ -7,7 +7,7 @@ public class ReworkDto {
 	
 	private Rework rework;
 	
-	private int reworkNumber;
+	private Integer reworkNumber;
 	private String description;
 	private String task;
 	private String taskMonetka;
@@ -29,7 +29,7 @@ public class ReworkDto {
 		this.editDate = new LocalDateTimeRus(rework.getReworkEditDate().toLocalDateTime()).toString();
 	}
 
-	public int getReworkNumber() {
+	public Integer getReworkNumber() {
 		return reworkNumber;
 	}
 

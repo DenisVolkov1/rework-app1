@@ -33,6 +33,7 @@
 	      </div>
 	      <div class="modal-body">
 			<div class="container mt-3">
+			  <div id="reworkNumberUpdateStatusLabel" class="d-none"></div>
 			  <div class="row mt-2 align-items-center">
 			    <div class="col-3">
 			      <div class="card-header p-1"> Название доработки </div>
@@ -118,8 +119,8 @@
 	         	<th style="width: 38px;"> </th>
 	        	<th style="width: 460px;"> Название доработки/исправления
 	        		<div id="buttonWRAP2" iswrraped="false" title="button" class="">
-		             	<img id="arrow-bar-left" class="d-none icon_hover" src="/rework-app1/resources/icons_svg/arrow-bar-left.svg" alt="Bootstrap" width="20" height="20" >
-		             	<img id="arrow-bar-right" class="icon_hover" src="/rework-app1/resources/icons_svg/arrow-bar-right.svg" alt="Bootstrap" width="20" height="20">
+		             	<img id="arrow-bar-left" class="d-none icon_hover" src="/rework-app1-monetka/resources/icons_svg/arrow-bar-left.svg" alt="Bootstrap" width="20" height="20" >
+		             	<img id="arrow-bar-right" class="icon_hover" src="/rework-app1-monetka/resources/icons_svg/arrow-bar-right.svg" alt="Bootstrap" width="20" height="20">
 		             </div>  
 	        	</th>
 	            <th style="width: 80px; text-align: center;"> Задача </th>
@@ -141,14 +142,13 @@
 	     </thead>
 	     
 	     
-	     
 	     <tbody>
 	       	<th:block th:each="rowRework : *{mainListReworksDto}">
 	       	<tr class="heightrow" permanentHidden= "false">
 <!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
 <!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
 <!-- 	           </td> -->
-			   <td></td>
+			   <td style="vertical-align: middle; color: rgb(122, 122, 122)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
 	       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getDescription()}"></td>
 	       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTask()}"></td>
 	       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
@@ -161,7 +161,6 @@
 <!-- 						</form> -->
 <!-- 					</div> -->
 <!-- 	           </td> -->
-
 	           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
 	           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
 	           		<div class="statusDIV" th:text="*{rowReworkDetailDto.getStatus()}"></div>

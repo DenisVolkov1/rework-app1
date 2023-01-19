@@ -106,55 +106,62 @@
 					var port = $("#port").val();
 					var $parentThis = $(this);
 					var valueStatus = $(this).find(":selected").text();
-					//var row_index = $(this).closest("tr").index();
+
 					var response;
 					var column_index = $(this).closest("td").index();
+						if(column_index>4) column_index -= 1;
 					//
+					var reworkNumber = $(this).closest("tr").children('td').eq(0).text();
 					var name = $(this).closest("tr").children('td').eq(1).text();
-					var reworkNumber = $(this).closest("tr").children('td').eq(2).text().trim();
-					var project = $('#headerMainTable > tr').children('th').eq(column_index).children('div').eq(0).text().trim();
+					var task = $(this).closest("tr").children('td').eq(2).text().trim();
+					var server = $('#headerMainTable > tr').children('th').eq(column_index).text().trim();
 
 					$('#updateStatusModal').on('show.bs.modal', function (e) {
 						$('#nameUpdateStatusLabel').text(name);
-						$('#taskUpdateStatusLabel').text(reworkNumber);
-						$('#serverUpdateStatusLabel').text(project);
+						$('#taskUpdateStatusLabel').text(task);
+						$('#serverUpdateStatusLabel').text(server);
 						$('#statusUpdateStatusLabel').text(valueStatus);
+						$('#reworkNumberUpdateStatusLabel').text(reworkNumber);
 					});
-					console.log(wms);
-					/*$("#updateStatusButton").click(function() {
-						var	wms =	        $('#wmsUpdateStatusLabel').text();
+				
+					$("#updateStatusButton").click(function() {
+						var	name =	        $('#nameUpdateStatusLabel').text();
 						var	reworkNumber =	$('#reworkNumberUpdateStatusLabel').text();
-						var	project =	    $('#projectUpdateStatusLabel').text();
+						var	server =	    $('#serverUpdateStatusLabel').text();
 						var	valueStatus =	$('#statusUpdateStatusLabel').text();
 						var	whoUpdate =     $('#whoUpdatesSelect').find(":selected").text();
 						//
-						var updateStatusUrl = "http://"+ serverName +":"+ port +"/rework-app1/mainfilter/updatestatus?"
-						+"wms="+ wms 
-						+"&reworkNumber="+ reworkNumber 
-						+"&project="+ project 
+						var updateStatusUrl = "http://"+ serverName +":"+ port +"/rework-app1-monetka/main/updatestatus?"
+						+"reworkNumber="+ reworkNumber 
+						+"&server="+ server
 						+"&valueStatus="+valueStatus
-						+"&whoUpdate="+whoUpdate;
-						
+						+"&whoUpdate="+whoUpdate;					
+												
 						$.get(updateStatusUrl, function( data ) {
 							response = ""+data;
-							var $alertUpdate = alertUpdate(reworkNumber +" : "+wms+" : "+project, " статус был обновлён!");
-							var $alertErr = alertErr(reworkNumber +" : "+wms+" : "+project, "status is not updated!");
+							var $alertUpdate = alertUpdate(name +" : "+server, " статус был обновлён!");
+							var $alertErr = alertErr(name +" : "+server, "status is not updated!");
 							if(response == 'updateIsDone') {
 								$("body").before($alertUpdate);
 									upToPage();
 										var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
 										$visibleValueStatusDIV.text(valueStatus);
+											setTimeout(() => {
+												$('.alert').alert('close');
+											}, 2100);
 							} else {
 								$("body").before($alertErr);//unexpected error!
 									upToPage();
 							}
 							hideUpdateStatusModal.call();
 						});
-						
-					});*/
+					});
 					
 					$('#updateStatusModal').modal('show');
 				});
+				
+				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);
+				
 /*				// update status show form end//////////////////////////////////////////////////////////////////////
 				// tooltip cell stauts start////////////////////////////////////////////////////////////////////////
 				$(".cell").on('mouseenter', function () {
@@ -270,16 +277,20 @@
 				$('[submitLinkShowReworkForm]').click(function() {
 					$(this).closest('form').submit();
 				});
-				
-				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);
-				
-*/
-	});
+*/	
+		
+	$('#topPageButton').click(function() {
+			upToPage();
+	});				
+
+});
 /*
 	function submitLinkShowReworkForm() {
 		$('#formBack').submit();
 	}
-	
+
+*/	
+
 	var hideUpdateStatusModal = function(){
 		$('#updateStatusModal').modal('hide');
 		$('#reworkTable').find('select').selectpicker('hide');
@@ -293,7 +304,7 @@
   		document.documentElement.scrollTop = 0;
 		document.documentElement.scrollLeft = 0;
 	}
-	
+/*	
 	function escapeRegExp(text) {
   		return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 	}

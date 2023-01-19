@@ -2,10 +2,13 @@ package main.controllers;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.jooq.lambda.tuple.Tuple2;
@@ -75,44 +78,50 @@ public class MainFilterController {
 		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
 		
 		for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
-			List<ReworkDetailDto> detailDtos = new ArrayList<>(6);
+			List<ReworkDetailDto> detailDtos ;//= new ArrayList<>();
+			int countServers = t.v2.size();
+			ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
+						
 			ReworkDto reworkDto = new ReworkDto(t.v1); 
 			
 			for(ReworkDetail listrd : t.v2) {
 				switch (listrd.getServer()) {
 					case "Дев сервер" :
 						{
-							detailDtos.add( new ReworkDetailDto(listrd));
+							arrayDetailDtos[0] = new ReworkDetailDto(listrd);
 						}
 						break;
 					case "ЕКБ ТЭЦ" :
 						{
-							detailDtos.add( new ReworkDetailDto(listrd));
+							arrayDetailDtos[1] = new ReworkDetailDto(listrd);
 						}
 						break;
 					case "ЕКБ РЦ Берёзовский" :
 						{
-							detailDtos.add( new ReworkDetailDto(listrd));
+							arrayDetailDtos[2] = new ReworkDetailDto(listrd);
 						}
 						break;
 					case "Нефтеюганск" :
 						{
-							detailDtos.add( new ReworkDetailDto(listrd));
+							arrayDetailDtos[3] = new ReworkDetailDto(listrd);
 						}
 						break;
 					case "Новосибирск" :
 						{
-							detailDtos.add( new ReworkDetailDto(listrd));
+							arrayDetailDtos[4] = new ReworkDetailDto(listrd);
 						}
 					break;
 					case "Уфа" :
 						{
-							detailDtos.add( new ReworkDetailDto(listrd));
+							arrayDetailDtos[5] = new ReworkDetailDto(listrd);
 						}
 					break;
 					default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
 				}
-			}
+			}		
+			
+			detailDtos = Arrays.asList(arrayDetailDtos); 
+			
 			Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
 			mainListReworksDto.add(tupleDto);
 		}
@@ -120,16 +129,11 @@ public class MainFilterController {
 		List<ReworkDetailDto> serversNameForTitle = (mainListReworksDto.get(0)).v2;
 		List<Status> allStatuses = statusService.findAll();
 		
-//		for (var x : mainListReworks) {
-//			for (ReworkDetail rw : x.v2) {
-//				rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
-//			}
-//		}
 
 		for (Status rw : allStatuses) {
 			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
 		}
-		System.out.println(allStatuses);
+
 		model.addAttribute("serversNameForTitle", serversNameForTitle);		
 		model.addAttribute("mainListReworksDto", mainListReworksDto);
 		model.addAttribute("allStatuses", allStatuses);
@@ -141,17 +145,18 @@ public class MainFilterController {
 	}
 	
 	
-	@GetMapping("/mainfilter/updatestatus")
+	@GetMapping("/main/updatestatus")
 	@ResponseBody
 	public String updateStatus(
-			@RequestParam("wms")          String wms,
 			@RequestParam("reworkNumber") String reworkNumber,
-			@RequestParam("project")      String project,
+			@RequestParam("server") String server,
 			@RequestParam("valueStatus")  String valueStatus,
 			@RequestParam("whoUpdate")    String whoUpdate
 			) {
+		
+		System.out.println( reworkNumber+" "+ server+" "+ Util.getStatusSql(valueStatus)+" "+ whoUpdate);
 			
-			statusService.updateStatus(wms, reworkNumber, project, Util.getStatusSql(valueStatus), whoUpdate);
+			statusService.updateStatus( reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
 		return "updateIsDone";
 	}
 

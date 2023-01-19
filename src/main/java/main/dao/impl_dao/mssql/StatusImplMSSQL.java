@@ -35,25 +35,25 @@ public class StatusImplMSSQL implements StatusDao {
 	
 	@Transactional()
 	@Override
-	public void updateStatus(String wms, String reworkNumber, String project, String status, String whoUpdate) {
-		String sqlSelectCountRows = "SELECT COUNT(*) FROM REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
-		Integer countRows = jdbcTemplate.queryForObject(sqlSelectCountRows, new Object[] {wms,reworkNumber,project}, Integer.class);
+	public void updateStatus(String reworkNumber, String server, String status, String whoUpdate) {
+		//String sqlSelectCountRows = "SELECT COUNT(*) FROM REWORKDETAIL WHERE REWORKNUMBER = ? AND SERVER = ?; ";
+		//Integer countRows = jdbcTemplate.queryForObject(sqlSelectCountRows, new Object[] {reworkNumber,server}, Integer.class);
 		
-		if(countRows == 1) {
-			if(!status.equals("")) {
+		/*if(countRows == 1) {*/
+			/*if(!status.equals("")) {*/
 				String sqlUpdateStatus = "UPDATE REWORKDETAIL "
 										 + "set STATUS = ?,"
-											+ " EDITDATE = GETUTCDATE(),"
+											+ " EDITDATE = GETDATE(),"
 											+ " EDITWHO = ? "
-										+ "WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
+										+ "WHERE REWORKNUMBER = ? AND SERVER = ?; ";
 				jdbcTemplate.update(
 						sqlUpdateStatus, 
-						status, whoUpdate, wms, reworkNumber, project);
-			} else {
+						status, whoUpdate, reworkNumber, server);
+			/*} else {
 				String sqlDelete = "DELETE FROM REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ? AND PROJECT = ?; ";
 				jdbcTemplate.update(sqlDelete, wms, reworkNumber, project);
-			}
-		} else if (countRows == 0) {
+			}*/
+		/*} else if (countRows == 0) {
 			if(!status.equals("")) {
 				String sqlInsertReworkDetail = "INSERT INTO REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO,EDITWHO) "
 						 + "VALUES(?,?,?,?,?,?) ";
@@ -61,7 +61,7 @@ public class StatusImplMSSQL implements StatusDao {
 						sqlInsertReworkDetail,
 						wms, reworkNumber, project, status, whoUpdate, whoUpdate);
 			}
-		}
+		}*/
 	}
 
 	@Override
