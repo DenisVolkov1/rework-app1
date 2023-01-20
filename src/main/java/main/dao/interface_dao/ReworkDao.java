@@ -22,5 +22,7 @@ public interface ReworkDao {
 
 	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search);
 
+	boolean isAlreadyExistsRework(String description);
+
 
 }

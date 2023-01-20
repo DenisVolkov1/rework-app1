@@ -36,6 +36,10 @@ public class ReworkService {
 	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search) {
 		return reworkDao.findOnSearchParam(search);
 	}
+
+	public boolean isAlreadyExistsRework(String description) {
+		return reworkDao.isAlreadyExistsRework(description);
+	}
 	
 	
 }

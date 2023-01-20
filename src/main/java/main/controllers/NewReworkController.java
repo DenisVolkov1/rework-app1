@@ -50,19 +50,19 @@ public class NewReworkController {
 			@ModelAttribute("modelNewRework") NewRework rework, 
 			Model model) {
 		
-		List<Wms> allWms = wmsService.findAll();
-		List<Server> allProjects = projectService.findAll();
-		List<Status> allStatuses = statusService.findAll();
+//		List<Wms> allWms = wmsService.findAll();
+//		List<Server> allServers = projectService.findAll();
+//		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allAddWho = addWhoService.findAll();
-		
-		allStatuses.removeIf(s -> s.getStatus().isEmpty());
-		
-		for (Status s : allStatuses) {
-			s.setStatus(Util.getUnicodeStatusWebApp(s.getStatus()));
-		}
-		model.addAttribute("allWms", allWms);
-		model.addAttribute("allProjects", allProjects);
-		model.addAttribute("allStatuses", allStatuses);
+//		
+//		allStatuses.removeIf(s -> s.getStatus().isEmpty());
+//		
+//		for (Status s : allStatuses) {
+//			s.setStatus(Util.getUnicodeStatusWebApp(s.getStatus()));
+//		}
+//		model.addAttribute("allWms", allWms);
+//		model.addAttribute("allProjects", allServers);
+//		model.addAttribute("allStatuses", allStatuses);
 		model.addAttribute("allAddWho", allAddWho);
 		
 		return "new_rework";
@@ -73,8 +73,7 @@ public class NewReworkController {
 			@ModelAttribute("modelFilter") 		   SearchFilter searchFilter,
 			@ModelAttribute("modelNewRework")      NewRework newRework,
 			@ModelAttribute("newInsertRework_wms") String newInsertRework_wms,
-			@ModelAttribute("newInsertRework_reworknumber") String newInsertRework_reworknumber,
-			@ModelAttribute("newInsertRework_project") String newInsertRework_project,
+			@ModelAttribute("newInsertRework_reworknumber") String newInsertRework_description,
 			@ModelAttribute("newInsertRework_status") String newInsertRework_status,	
 			Model model,
 			HttpServletRequest request,
@@ -82,26 +81,29 @@ public class NewReworkController {
 		
 		request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
 		
-		System.out.println(newRework);
-			newRework.setStatus(Util.getStatusSql(newRework.getStatus()));
-		reworkService.addNewRework(newRework);
+
+			//newRework.setStatus(Util.getStatusSql(newRework.getStatus()));
+		// Save rework to base	
+		reworkService.addNewRework(newRework); 
 		
-		String inpuNew_ReworkNumber = newRework.getReworkNumber();
-		String inputNew_Wms = newRework.getWms();
-			searchFilter.setSearch(inpuNew_ReworkNumber);
-			//searchFilter.setWms(inputNew_Wms);
-			
-			newInsertRework_wms = inputNew_Wms;
-			newInsertRework_reworknumber = inpuNew_ReworkNumber;
-			newInsertRework_project = newRework.getProject();
-			newInsertRework_status =  newRework.getStatus();
+			//newInsertRework_server = newRework.getServer();
+
 			
 			redirectAttributes.addFlashAttribute("modelFilter", searchFilter);
-			redirectAttributes.addFlashAttribute("newInsertRework_wms", newInsertRework_wms);
-			redirectAttributes.addFlashAttribute("newInsertRework_reworknumber", newInsertRework_reworknumber);
-			redirectAttributes.addFlashAttribute("newInsertRework_project", newInsertRework_project);
+			//redirectAttributes.addFlashAttribute("newInsertRework_server", newInsertRework_server);
 			redirectAttributes.addFlashAttribute("newInsertRework_status", newInsertRework_status);
-		return "redirect:/mainfilter/search";
+		return "redirect:/main";
+	}
+	
+	@GetMapping("/isAlreadyExistsRework")
+	@ResponseBody
+	public String isAlreadyExistsRework(
+			@RequestParam("description") String description) {
+		
+		boolean isAlreadyExistsRework = reworkService.isAlreadyExistsRework(description);
+		
+	    return isAlreadyExistsRework ? "true" : "false";
+
 	}
 	
 	@ModelAttribute("server")	

@@ -62,8 +62,10 @@ public class MainFilterController {
 			Model model,HttpServletRequest request) {
 		
 		main(searchFilter, deleteRework_wms, deleteRework_reworknumber,model, request);
+		
 		return "main";
 	}
+	
 	@GetMapping("/main")
 	public String showMainPage(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
@@ -72,163 +74,71 @@ public class MainFilterController {
 			Model model,HttpServletRequest request) {	
 		
 		main(searchFilter, deleteRework_wms, deleteRework_reworknumber,model, request);
-			
-/*		
-//		List<Server> serversNameForTitle = serverService.findAll();
-//		serversNameForTitle.clear();
-		
-		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
-		
-		
-//		for (int i = 0; i < mainListReworks.size(); i++) {
-//			Tuple2<Rework, List<ReworkDetail>> it = mainListReworks.get(i);	
-//			System.out.println(it.v1);
-//			for (ReworkDetail tuple2 : it.v2) {
-//				//System.out.println("----"+tuple2);
-//			}
-//		}
-
-		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
-		
-		for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
-			List<ReworkDetailDto> detailDtos ;//= new ArrayList<>();
-			int countServers = t.v2.size();
-			ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
-						
-			ReworkDto reworkDto = new ReworkDto(t.v1); 
-			
-			for(ReworkDetail listrd : t.v2) {
-				switch (listrd.getServer()) {
-					case "Дев сервер" :
-						{
-							arrayDetailDtos[0] = new ReworkDetailDto(listrd);
-						}
-						break;
-					case "ЕКБ ТЭЦ" :
-						{
-							arrayDetailDtos[1] = new ReworkDetailDto(listrd);
-						}
-						break;
-					case "ЕКБ РЦ Берёзовский" :
-						{
-							arrayDetailDtos[2] = new ReworkDetailDto(listrd);
-						}
-						break;
-					case "Нефтеюганск" :
-						{
-							arrayDetailDtos[3] = new ReworkDetailDto(listrd);
-						}
-						break;
-					case "Новосибирск" :
-						{
-							arrayDetailDtos[4] = new ReworkDetailDto(listrd);
-						}
-					break;
-					case "Уфа" :
-						{
-							arrayDetailDtos[5] = new ReworkDetailDto(listrd);
-						}
-					break;
-					default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
-				}
-			}		
-			
-			detailDtos = Arrays.asList(arrayDetailDtos); 
-			
-			Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
-			mainListReworksDto.add(tupleDto);
-		}
-		
-		List<ReworkDetailDto> serversNameForTitle = (mainListReworksDto.get(0)).v2;
-		List<Status> allStatuses = statusService.findAll();
-		List<AddWho> allWhoUpdates = addWhoService.findAll();
-		
-
-		for (Status rw : allStatuses) {
-			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
-		}
-
-		model.addAttribute("serversNameForTitle", serversNameForTitle);		
-		model.addAttribute("mainListReworksDto", mainListReworksDto);
-		model.addAttribute("allStatuses", allStatuses);
-		model.addAttribute("allWhoUpdates", allWhoUpdates);
-		
-//		model.addAttribute("deleteRework_wms", deleteRework_wms);
-//		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
-
-*/		
+					
 		return "main";
 	}
 	
-	
 	private void main(SearchFilter searchFilter, String deleteRework_wms, String deleteRework_reworknumber, Model model,
 			HttpServletRequest request) {
-//		List<Server> serversNameForTitle = serverService.findAll();
-//		serversNameForTitle.clear();
-		
+	
 		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
-		
-		
-//		for (int i = 0; i < mainListReworks.size(); i++) {
-//			Tuple2<Rework, List<ReworkDetail>> it = mainListReworks.get(i);	
-//			System.out.println(it.v1);
-//			for (ReworkDetail tuple2 : it.v2) {
-//				//System.out.println("----"+tuple2);
-//			}
-//		}
-
 		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
+		List<ReworkDetailDto> serversNameForTitle = new ArrayList<>();
 		
-		for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
-			List<ReworkDetailDto> detailDtos ;//= new ArrayList<>();
-			int countServers = t.v2.size();
-			ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
-						
-			ReworkDto reworkDto = new ReworkDto(t.v1); 
+		if(mainListReworks.size() != 0) {
 			
-			for(ReworkDetail listrd : t.v2) {
-				switch (listrd.getServer()) {
-					case "Дев сервер" :
-						{
-							arrayDetailDtos[0] = new ReworkDetailDto(listrd);
-						}
+			for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
+				List<ReworkDetailDto> detailDtos ;//= new ArrayList<>();
+				int countServers = t.v2.size();
+				ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
+							
+				ReworkDto reworkDto = new ReworkDto(t.v1); 
+				
+				for(ReworkDetail listrd : t.v2) {
+					switch (listrd.getServer()) {
+						case "Дев сервер" :
+							{
+								arrayDetailDtos[0] = new ReworkDetailDto(listrd);
+							}
+							break;
+						case "ЕКБ ТЭЦ" :
+							{
+								arrayDetailDtos[1] = new ReworkDetailDto(listrd);
+							}
+							break;
+						case "ЕКБ РЦ Берёзовский" :
+							{
+								arrayDetailDtos[2] = new ReworkDetailDto(listrd);
+							}
+							break;
+						case "Нефтеюганск" :
+							{
+								arrayDetailDtos[3] = new ReworkDetailDto(listrd);
+							}
+							break;
+						case "Новосибирск" :
+							{
+								arrayDetailDtos[4] = new ReworkDetailDto(listrd);
+							}
 						break;
-					case "ЕКБ ТЭЦ" :
-						{
-							arrayDetailDtos[1] = new ReworkDetailDto(listrd);
-						}
+						case "Уфа" :
+							{
+								arrayDetailDtos[5] = new ReworkDetailDto(listrd);
+							}
 						break;
-					case "ЕКБ РЦ Берёзовский" :
-						{
-							arrayDetailDtos[2] = new ReworkDetailDto(listrd);
-						}
-						break;
-					case "Нефтеюганск" :
-						{
-							arrayDetailDtos[3] = new ReworkDetailDto(listrd);
-						}
-						break;
-					case "Новосибирск" :
-						{
-							arrayDetailDtos[4] = new ReworkDetailDto(listrd);
-						}
-					break;
-					case "Уфа" :
-						{
-							arrayDetailDtos[5] = new ReworkDetailDto(listrd);
-						}
-					break;
-					default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
-				}
-			}		
+						default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
+					}
+				}		
+				
+				detailDtos = Arrays.asList(arrayDetailDtos); 
+				
+				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
+				mainListReworksDto.add(tupleDto);
+			}
 			
-			detailDtos = Arrays.asList(arrayDetailDtos); 
-			
-			Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
-			mainListReworksDto.add(tupleDto);
+			serversNameForTitle.addAll((mainListReworksDto.get(0)).v2);
 		}
 		
-		List<ReworkDetailDto> serversNameForTitle = (mainListReworksDto.get(0)).v2;
 		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allWhoUpdates = addWhoService.findAll();
 		

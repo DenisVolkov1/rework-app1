@@ -54,13 +54,13 @@
 			    <div class="col-3">
 			      <div class="card-header p-1"> Установить статус </div>
 			    </div>
-				<div id="statusUpdateStatusLabel" class="col-7 font-weight-bold"></div>
+				<div id="statusUpdateStatusLabel" class="col-7 h4"></div>
 			  </div>
 			  <div class="row mt-2 align-items-center">
 			    <div class="col-3">
 			      <div class="card-header p-1"> Кто обновил </div>
 			    </div>
-			    <div class="col-5">
+			    <div class="col-3">
 			     	<select id="whoUpdatesSelect" class="custom-select" data-style="btn-default">
 	    			  <option th:each="v, i : ${allWhoUpdates}" th:value="${v.addWho}" th:utext="${v.addWho}"/>
 	    			</select>
@@ -113,7 +113,7 @@
 					</form>
 				</div>				
 				</div>
-				<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена на рабочий сервер.</em></div>"><small>легенда</small></div>				
+				<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена сервер.</em></div>"><small>легенда</small></div>				
 			</div>	  
 		</div>
 		<table id ="reworkTable" class="table table-hover table table-bordered tableFixHead">
@@ -137,8 +137,8 @@
 		        	<th style="width: 460px;"></th>
 		            <th style="width: 80px; text-align: center;"></th>
 		            <th style="width: 100px; text-align: center;"></th>	            	        	            
-		            <th:block th:each="s, si : ${serversNameForTitle}" >
-			        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Уст.</th>
+		            <th:block th:each="s, si : ${serversNameForTitle}">
+			        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Стат.</th>
 			        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Дата</th>
 	 		        </th:block>	        
 		        </tr>
@@ -151,8 +151,15 @@
 	<!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
 	<!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
 	<!-- 	           </td> -->
-				   <td style="vertical-align: middle; color: rgb(122, 122, 122)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
-		       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getDescription()}"></td>
+				   <td style="vertical-align: middle; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
+		       	   <td class="text-truncate" style="vertical-align: middle;" th:text="*{rowRework.v1.getDescription()}">
+		                <div>
+							<form th:method="GET" th:action="@{/showrework/{reworkNumber}(reworkNumber = 'reworkNumber_'+${rowRework.v1.getSerialKey()})}" th:object="${modelFilter}">
+								<input hidden th:field= "*{search}" type="text">
+								<a class="aLink" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
+							</form>
+						</div>
+		       	   </td>
 		       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTask()}"></td>
 		       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
 	<!-- 	           <td class="text-truncate" style="vertical-align: middle;"> -->

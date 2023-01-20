@@ -1,5 +1,8 @@
 package main.dao.impl_dao.mssql;
 
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +14,8 @@ import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +24,8 @@ import main.dao.interface_dao.ReworkDao;
 import main.dao.model.NewRework;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
+import main.dao.model.Server;
+import main.dao.service.ServerService;
 
 @Component
 public class ReworkImplMSSQL implements ReworkDao {
@@ -76,34 +83,49 @@ public class ReworkImplMSSQL implements ReworkDao {
 		
 	}
 
-
+	@Autowired
+	ServerService serverService;
 	@Transactional()
 	@Override
 	public void addNewRework(NewRework newRework) {
-		String wms = newRework.getWms().replace(",", "");
-		String reworkNumber = newRework.getReworkNumber();
-		String resource = newRework.getResource();
-		String wlkiLink = newRework.getWikiLink();
 		String description = newRework.getDescription();
+		String task = newRework.getTask();
+		String taskMonetka = newRework.getTaskMonetka();
 		String addwho = newRework.getAddWho();
 		
-		String status = newRework.getStatus();
-		String project = newRework.getProject().replace(",", "");
-		
-		String sqlInsertRework = "INSERT INTO REWORK (WMS,REWORKNUMBER,RESOURCE,WIKILINK,DESCRIPTION,ADDWHO,EDITWHO) "
-			    				+ "VALUES(?,?,?,?,?,?,?) ";
+		String sqlInsertRework = "INSERT INTO REWORK (DESCRIPTION,TASK,TASKMONETKA,ADDWHO,EDITWHO) "
+			    				+ "VALUES(?,?,?,?,?) ";
 		
 		jdbcTemplate.update(
 				sqlInsertRework,
-				wms, reworkNumber,resource, wlkiLink, description, addwho, addwho
-		);
-		String sqlInsertReworkDetail = "INSERT INTO REWORKDETAIL (WMS,REWORKNUMBER,PROJECT,STATUS,ADDWHO, EDITWHO) "
-									 + "VALUES(?,?,?,?,?,?) ";
-		jdbcTemplate.update(
-				sqlInsertReworkDetail,
-				wms, reworkNumber, project, status, addwho, addwho
-		);
+				description, task, taskMonetka, addwho, addwho);
 		
+		String sqlSelectMaxReworkNumber = "SELECT MAX(REWORKNUMBER) FROM REWORK";
+		Integer reworkNumber = jdbcTemplate.queryForObject(sqlSelectMaxReworkNumber, new Object[] {}, Integer.class);
+		List<Server> servers = serverService.findAll();
+
+		String sqlInsertReworkDetail = "INSERT INTO REWORKDETAIL (REWORKNUMBER,SERVER,ADDWHO,EDITWHO) "		
+									 + "VALUES (?,?,?,?)";
+		
+		List<Object[]> argsList = new ArrayList<>();
+		
+		for (int i = 0; i < servers.size(); i++) {
+			Object[] args = new Object[4];
+			args[0] = (int)reworkNumber;
+			args[1] = servers.get(i).getServer();
+			args[2] = addwho;
+			args[3] = addwho;
+			argsList.add(args);
+		}
+
+		int[] types = new int[4];
+			types[0]=Types.INTEGER;
+			types[1]=Types.NVARCHAR;
+			types[2]=Types.NVARCHAR;
+			types[3]=Types.NVARCHAR;
+		
+		jdbcTemplate.batchUpdate(
+				sqlInsertReworkDetail,argsList, types);
 	}
 
 	@Override
@@ -150,6 +172,13 @@ public class ReworkImplMSSQL implements ReworkDao {
 		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
 		
 		return result;
+	}
+	
+	@Override
+	public boolean isAlreadyExistsRework(String description) {
+		 String sqlisExists = "SELECT REWORKNUMBER FROM REWORK WHERE DESCRIPTION = ? ";
+		 List<Map<String, Object>> reworks = jdbcTemplate.queryForList(sqlisExists, description );
+		return !reworks.isEmpty();
 	}
 
 	@Override

@@ -25,15 +25,7 @@ public class ServerImplMSSQL implements ServerDao {
 	public List<Server> findAll() {
 		 final RowMapper<Server> rowMapper =
 			        JdbcTemplateMapperFactory.newInstance().newRowMapper(Server.class);
-			String query = "SELECT DISTINCT SERVER, (CASE "
-					+ "									WHEN SERVER = 'Дев сервер' THEN 1 "
-					+ "									WHEN SERVER = 'ЕКБ ТЭЦ' THEN 2 "
-					+ "									WHEN SERVER = 'ЕКБ РЦ Берёзовский' THEN 3 "
-					+ "									WHEN SERVER = 'Нефтеюганск' THEN 4 "
-					+ "									WHEN SERVER = 'Новосибирск' THEN 5 "
-					+ "									WHEN SERVER = 'Уфа' THEN 6 "
-					+ "									ELSE 9999 "
-					+ "								END) AS OURorder FROM REWORKDETAIL ORDER BY OURorder";
+			String query = "SELECT DISTINCT SERVER FROM REWORKDETAIL";
 			List<Server> res = jdbcTemplate.query(query, rowMapper);
 		return res;
 	}

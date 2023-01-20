@@ -19,52 +19,24 @@
 	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
 	<div class="container">
-		<form id="formNew" th:method="POST" th:action="@{/newrework/new}" th:object="${modelNewRework}" class="container bg-light">
+		<form id="formNew" th:method="POST" th:action="@{/newrework/new}" th:object="${modelNewRework}" class="container rounded bg-light">
 			<div class="form-row">
 				<div class="col-11">
 					<div class="container mt-3">
 					  <div class="row mt-3 align-items-top">
 					    <div class="col-2">
-					      <div class="card-header"> WMS </div>
+					      <div class="card-header p-2"> Задача </div>
 					    </div>
-					    <div id="wmsInputDIV" class="col-3 d-none">
-					     	<input id="wmsInput" placeholder="Название WMS" th:field= "*{wms}" type="text" class="form-control" isActualElement="false">
-					    </div>
-					    <div id="wmsSelectDIV" class="col-3">
-					     	<select id="wmsSelect" th:field= "*{wms}" class="custom-select" data-style="btn-default">
-       			 				<option th:each="w, si : ${allWms}" th:value="${w.wms}" th:utext="${w.wms}"/>
-       			 			</select>
-					    </div>
-					    <div class="col">
-					    	<button id="inputNewWmsButton_selectExists" type="button" class="btn btn-primary">Ввести новую WMS</button>
+					    <div id="taskInputDIV" class="col-3">
+					     	<input id="taskInput" placeholder="номер задачи" th:field= "*{task}" type="text" class="form-control" isActualElement="false">
 					    </div>
 					  </div>
 					  <div class="row mt-3 align-items-top">
 					    <div class="col-2">
-					      <div class="card-header"> Номер доработки </div>
+					      <div class="card-header p-2"> Задача монетки </div>
 					    </div>
-						<div id="reworkNumberInputDIV" class="col-3">
-					     	<input id="reworkNumberInput" placeholder="FBR или BUG" th:field= "*{reworkNumber}" type="text" class="form-control" value="" required>
-					     	<div class="form-check mt-2">
-  								<input id="autoAssigmentCheck" th:field="${modelNewRework.isAutoAssigment}" class="form-check-input" value="" type="checkbox" checked/>
-  								<label class="form-check-label" for="autoAssigmentCheck">Авто присвоение номера</label>
-							</div>
-					    </div>
-					  </div>
-					  <div class="row mt-3 align-items-top">
-					    <div class="col-2">
-					      <div class="card-header"> РЕСУРС </div>
-					    </div>
-					    <div id="resourceInputDIV" class="col-10">
-					     	<input id="resourceInput" placeholder="Ссылка Redmine или путь до файла" th:field= "*{resource}" type="text" class="form-control" value="" required>
-					    </div>
-					  </div>
-					  <div class="row mt-3 align-items-top">
-					    <div class="col-2">
-					      <div class="card-header"> WIKILINK </div>
-					    </div>
-					    <div id="wikilinkInputDIV" class="col-7">
-					     	<input id="wikilinkInput" placeholder="Ссылка на вики" th:field= "*{wikiLink}" type="text" class="form-control" value="" required>
+						<div id="taskMonetkaInputDIV" class="col-4">
+					     	<input id="taskMonetkaInput" placeholder="номер задачи монетки" th:field= "*{taskMonetka}" type="text" class="form-control" value="" required>
 					    </div>
 					  </div>
 					  <div class="row mt-3">
@@ -74,7 +46,7 @@
 						      <div class="card-header mb-0 pb-0 pt-0 pl-0" id="headingOne">
 						        <h5 class="mb-0">
 						          <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						             Описание
+						             Название доработки/исправления
 						          </a>
 						        </h5>
 						      </div>
@@ -89,32 +61,6 @@
 					  </div>
 					  <div class="row mt-3 align-items-top">
 					    <div class="col-2">
-					      <div class="card-header"> Проект </div>
-					    </div>
-					    <div id="projectInputDIV" class="col-3 d-none">
-					     	<input id="projectInput" placeholder="Название проекта" th:field= "*{project}" type="text" class="form-control" value="" isActualElement="false">
-					    </div>
-					    <div id="projectSelectDIV" class="col-3">
-					     	<select th:field= "*{project}" class="custom-select" data-style="btn-default">
-       			 				<option th:each="p, index : ${allProjects}" th:value="${p.project}" th:utext="${p.project}"/>
-       			 			</select>
-					    </div>
-					    <div class="col">
-					    	<button id="inputNewProjectButton_selectExists" type="button" class="btn btn-primary">Ввести новый проект</button>
-					    </div>
-					  </div>
-					  <div class="row mt-3 align-items-center">
-					    <div class="col-2">
-					      <div class="card-header"> Статус </div>
-					    </div>
-					    <div class="col-7">
-					     	<select id="statusSelect" th:field= "*{status}" class="selectpicker show-tick border rounded" data-style="btn-default" data-width="fit">
-       			 				<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
-       			 			</select>
-					    </div>
-					  </div>
-					  <div class="row mt-3 align-items-top">
-					    <div class="col-3">
 					      <div class="card-header"> Кто добавил </div>
 					    </div>
 					    <div id="addWhoInputDIV" class="col-3 d-none">
@@ -135,7 +81,7 @@
 			<div class="container">
 				<div class="row justify-content-between bg-light mt-5 p-3 rounded border">
 					<div class="col-md-auto">
-						<input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary" ><!-- th:href="@{/mainfilter}" -->
+						<input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary" >
 					</div>
 					<div class="col-md-auto">
 						<input id = "formNewSubmitButton" type="button" value="Добавить" class="btn btn-success">
@@ -143,11 +89,10 @@
 				</div>
 			</div>	
 		</form>
-		<form hidden id="formBack" th:method="POST" th:action="@{/mainfilter/search}" th:object="${modelFilter}">
-			<input id="wmsBack" th:field= "*{wms}" type="text">
+		<form hidden id="formBack" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">
 			<input id="searchBack" th:field= "*{search}" type="text">
 		</form>
-		<a hidden id="startLink" th:href="@{/mainfilter/start}"></a>
+		<a hidden id="startLink" th:href="@{/main}"></a>
 	</div>
 </body>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/jquery-3.5.1.min.js}"></script>
