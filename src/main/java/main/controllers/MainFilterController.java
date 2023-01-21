@@ -128,14 +128,12 @@ public class MainFilterController {
 						break;
 						default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
 					}
-				}		
-				
+				}
 				detailDtos = Arrays.asList(arrayDetailDtos); 
 				
 				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
 				mainListReworksDto.add(tupleDto);
 			}
-			
 			serversNameForTitle.addAll((mainListReworksDto.get(0)).v2);
 		}
 		
@@ -151,15 +149,7 @@ public class MainFilterController {
 		model.addAttribute("mainListReworksDto", mainListReworksDto);
 		model.addAttribute("allStatuses", allStatuses);
 		model.addAttribute("allWhoUpdates", allWhoUpdates);
-		
-//		model.addAttribute("deleteRework_wms", deleteRework_wms);
-//		model.addAttribute("deleteRework_reworknumber", deleteRework_reworknumber);
-
-		
-		//return "main";
-		
 	}
-
 
 	@GetMapping("/main/updatestatus")
 	@ResponseBody
@@ -176,6 +166,9 @@ public class MainFilterController {
 		return "updateIsDone";
 	}
 
+	/**
+	 * like as  href="/showrework/reworknumber_2300 - 2300 is serialkey in dbo.REWORK
+	 * */
 	
 	@ModelAttribute("server")	
 	public String serverNameAttribute(HttpServletRequest servletRequest) {

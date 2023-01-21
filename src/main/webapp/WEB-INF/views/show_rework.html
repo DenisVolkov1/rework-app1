@@ -43,59 +43,37 @@
 	</div>
 <!-- Modal -->
 
-	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{/showrework/update/{serialkeyrework}(serialkeyrework = *{getSerialKey()})}" th:object="${modelRework}" class="container bg-light">
+	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{/showrework/update/{reworkNumber}(reworkNumber = 'reworknumber_'+*{getReworkNumber()})}" th:object="${reworkDto}" class="container rounded-bottom myShadow bg-light">
 		<div class="row">
 			<div class="col-12">
 				<div class="container">
+				<div id="reworkNumberDiv" th:text=*{getReworkNumber()} class="d-none"></div>
 				  <div class="row mt-2 align-items-center border-bottom">
 				    <div class="card-header col-2">
-				      <div> WMS </div>
+				      <div> Задача </div>
 				    </div>
 				    <div class="col">
-				      <div th:text=*{getWms()}></div>
+				      <div id="taskEditDiv" class="col" th:text=*{getTask()}></div>
+				      <input id="taskEditInput" th:field= "*{task}" type="text"  class="col-5 form-control d-none">
 				    </div>
-				    <div class="col">
+					<div class="col-1">
+				    	<button id="taskEditButton" type="button" class="btn btn-primary">Править</button>
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
 				    <div class="card-header col-2">
-				      <div> Номер доработки </div>
+				      <div > Задача монетки </div>
 				    </div>
 				    <div class="col">
-				      <div th:field=*{getReworkNumber()} th:text=*{getReworkNumber()}></div>
+				      <div id="taskMonetkaEditDiv" class="col" th:text=*{getTaskMonetka()}></div>
+				      <input id="taskMonetkaEditInput" th:field= "*{taskMonetka}" type="text" class="col-5 form-control d-none">
 				    </div>
-				    <div class="col">
+					<div class="col-1">
+				    	<button id="taskMonetkaEditButton" type="button" class="btn btn-primary">Править</button>
 				    </div>
 				  </div>
 				</div>
 				<div class="container mt-3">
-				  <div class="row mt-2 align-items-center">
-				    <div class="col-2">
-				      <div class="card-header"> РЕСУРС </div>
-				    </div>
-				    <div id="resourceEditDIV" class="col-8">
-				    	<a id="resourceEditA" th:href="@{*{getResource()}}" th:text="*{getResource()}"></a>
-				     	<input id="resourceEditInput" th:field= "*{resource}" type="text" readonly class="form-control-plaintext position-sticky text-primary d-none" value="email@example.com">
-				    </div>
-				    <div class="col-1">
-				    	<button id="resourceEditButton" type="button" class="btn btn-primary">Править</button>
-				    </div>
-				    <div class="col-1">
-				    	<button id="copyToClickBoardRes" type="button" class="btn btn-primary"><img th:src="@{/resources/icons_svg/clipboard2-plus.svg}" alt="Bootstrap" width="20" height="20"></button>
-				    </div>
-				  </div>
-				  <div class="row mt-2 align-items-center">
-				    <div class="col-2">
-				      <div class="card-header"> WIKILINK </div>
-				    </div>
-				    <div id="wikilinkEditDIV"class="col-8">
-				    	<a id="wikilinkEditA" th:href="@{*{getWikiLink()}}" th:text="*{getWikiLink()}"></a>
-				     	<input id="wikilinkEditInput" th:field= "*{wikiLink}" type="text" readonly class="form-control-plaintext position-sticky text-primary d-none" value="email@example.com">
-				    </div>
-				    <div class="col">
-				    	<button id="wikilinkEditButton" type="button" class="btn btn-primary">Править</button>
-				    </div>
-				  </div>
 				  <div class="row mt-2">
 				    <div class="col mt-2">
 				    <div id="accordion">
@@ -103,7 +81,7 @@
 					      <div class="card-header mb-0 pb-0 pt-0 pl-0" id="headingOne">
 					        <h5 class="mb-0">
 					          <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					             Описание
+					             Название доработки/исправления
 					          </a>
 					        </h5>
 					      </div>
@@ -141,7 +119,7 @@
 				      <div class="card-header p-1"> Когда добавлено </div>
 				    </div>
 				    <div class="col">
-				      <div th:text=*{getAddDate()}></div>
+				      <div th:text=*{getAddDateDT()}></div>
 				    </div>
 				    <div class="col">
 				    </div>
@@ -151,7 +129,7 @@
 				      <div class="card-header p-1"> Когда обновлено </div>
 				    </div>
 				    <div class="col">
-				      <div th:text=*{getEditDate()}></div>
+				      <div th:text=*{getEditDateDT()}></div>
 				    </div>
 				    	<div class="col">
 				    </div>
@@ -165,17 +143,16 @@
 				  <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary">
 				  <input id="updateButton" type="button" value="Обновить" class="btn btn-warning mx-3">
 				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить</a>
-				  <a hidden id="deleteReworkLink" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()},wms=*{getWms()})}"></a>
+				  <a hidden id="deleteReworkLink" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()})}"></a>
 				</div>
 			</div>
 		</div>
 
 	</form>
-	<form hidden id="formBack" th:method="POST" th:action="@{/mainfilter/search}" th:object="${modelFilter}">
-		<input id="wmsBack" th:field= "*{wms}" type="text">
+	<form hidden id="formBack" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">
 		<input id="searchBack" th:field= "*{search}" type="text">
 	</form>
-	<a hidden id="startLink" th:href="@{/mainfilter/start}"></a>
+	<a hidden id="startLink" th:href="@{/main}"></a>
 </body>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/jquery-3.5.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/bootstrap.bundle.min.js}"></script>

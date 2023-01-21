@@ -8,7 +8,7 @@ html {
   }
 
 
-  #reworkTable  {
+  .myShadow  {
   	box-shadow: 0 0 9px rgba(0,0,0,0.4);
   }
   .animate-load {
@@ -109,7 +109,7 @@ html {
   }
   
   .heightrow {
-  	height: 50px;
+  	height: 35px;
   }
   
   .statusDIV {
@@ -163,18 +163,14 @@ th     { background:#eee; }
   
 }
 .aLink {
-   color: #007bff;
+   color: rgb(0 ,116, 241);
    text-decoration: none;
    background-color: transparent; 
    -webkit-text-decoration-skip: objects; 
     cursor: pointer;
-
-   @include hover {
-      color: #0070d1;
-      cursor: pointer;
-      text-decoration: underline; 
-   }
 }
+
+
 .legend {
  
 	opacity:0.3;

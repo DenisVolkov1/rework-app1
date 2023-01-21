@@ -19,7 +19,6 @@
 <body>
   	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
-	<input hidden id ="deleteRework_wms" th:value= "${deleteRework_wms}">
 	<input hidden id ="deleteRework_reworknumber" th:value= "${deleteRework_reworknumber}">
 	
 	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
@@ -116,7 +115,9 @@
 				<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена сервер.</em></div>"><small>легенда</small></div>				
 			</div>	  
 		</div>
-		<table id ="reworkTable" class="table table-hover table table-bordered tableFixHead">
+		
+		
+		<table id ="reworkTable" class="myShadow table-hover table-bordered tableFixHead">
 		    <thead id="headerMainTable">
 		        <tr>
 		         	<th style="width: 38px;"> </th>
@@ -151,26 +152,17 @@
 	<!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
 	<!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
 	<!-- 	           </td> -->
-				   <td style="vertical-align: middle; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
-		       	   <td class="text-truncate" style="vertical-align: middle;" th:text="*{rowRework.v1.getDescription()}">
+				   <td class="p-1" style="vertical-align: middle; text-align: center; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
+		       	   <td style="vertical-align: middle;">
 		                <div>
-							<form th:method="GET" th:action="@{/showrework/{reworkNumber}(reworkNumber = 'reworkNumber_'+${rowRework.v1.getSerialKey()})}" th:object="${modelFilter}">
+							<form class="text-truncate" th:method="GET" th:action="@{/showrework/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">
 								<input hidden th:field= "*{search}" type="text">
-								<a class="aLink" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
+								<a class="pl-3 aLink" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
 							</form>
 						</div>
 		       	   </td>
-		       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTask()}"></td>
-		       	   <td style="vertical-align: middle;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
-	<!-- 	           <td class="text-truncate" style="vertical-align: middle;"> -->
-	<!-- 	                <div> -->
-	<!-- 						<form th:method="GET" th:action="@{/showrework/{serialkeyrework}(serialkeyrework = 'serialkeyrework_'+${row.v1.getSerialKey()})}" th:object="${modelFilter}"> -->
-	<!-- 							<input hidden th:field= "*{wms}" type="text"> -->
-	<!-- 							<input hidden th:field= "*{search}" type="text"> -->
-	<!-- 							<a class="aLink" submitLinkShowReworkForm th:text="${row.v1.getReworkNumber()}"></a> -->
-	<!-- 						</form> -->
-	<!-- 					</div> -->
-	<!-- 	           </td> -->
+		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTask()}"></td>
+		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
 		           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
 		           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
 		           		<div class="statusDIV" th:text="*{rowReworkDetailDto.getStatus()}"></div>
@@ -203,7 +195,6 @@
 		  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div>
 		</div>
 	</div>
-
 </body>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/jquery-3.5.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/bootstrap.bundle.min.js}"></script>

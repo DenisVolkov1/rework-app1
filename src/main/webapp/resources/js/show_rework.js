@@ -1,38 +1,24 @@
 // MAIN loaded document function
 $(function() {
 	
-	$('#wikilinkEditButton').click(function() {
-			$('#wikilinkEditInput').removeClass("d-none");
-				$('#wikilinkEditInput').attr("required",""); 
-			$('#wikilinkEditA').addClass("d-none");
+	$('#taskEditButton').click(function() {
+			$('#taskEditInput').removeClass("d-none");
+				$('#taskEditDiv').attr("required","");
+			$('#taskEditDiv').addClass("d-none");
+			$('#taskEditButton').addClass("d-none");
 	});
 	
-	$('#wikilinkEditButton').click(function() {
-		$('#wikilinkEditInput').removeClass("form-control-plaintext");
-		$('#wikilinkEditInput').prop("readonly",false);
-		$('#wikilinkEditInput').addClass("form-control");
-	});
-	$('#resourceEditButton').click(function() {
-			$('#resourceEditInput').removeClass("d-none");
-				$('#resourceEditInput').attr("required",""); 
-			$('#resourceEditA').addClass("d-none");
-	});
-	$('#resourceEditButton').click(function() {
-			$('#resourceEditInput').removeClass("d-none");
-				$('#resourceEditInput').attr("required",""); 
-			$('#resourceEditA').addClass("d-none");
-	});
-	
-	$('#copyToClickBoardRes').click(function() {
-		
-		copyToClipboard($('#resourceEditA'));
-		
+	$('#taskMonetkaEditButton').click(function() {
+			$('#taskMonetkaEditInput').removeClass("d-none");
+				$('#taskMonetkaEditDiv').attr("required","");
+			$('#taskMonetkaEditDiv').addClass("d-none");
+			$('#taskMonetkaEditButton').addClass("d-none");
 	});
 	
 
-	var reworkNumber = ($(".row.mt-2.align-items-center.border-bottom").eq(1).children()[1]).innerText;
+	var reworkNumber = $("#reworkNumberDiv").text();
 	
-	var $alertUpdate = alertUpdate(reworkNumber, "This rework was updated!");
+	var $alertUpdate = alertUpdate(reworkNumber, "Данная доработка была обновлена!");
 	var $alertErr = alertErr(reworkNumber, "rework was not updated!");
 	
 	if($("#formUpdate").attr("isUpdate") == 'true') {
@@ -50,17 +36,9 @@ $(function() {
 
 	$('#updateButton').click(function() {
 		var isEmptyFields;
-		var wikilink = $("#wikilinkEditInput").val();
-		var resource = $("#resourceEditInput").val();
 		var descrRework = $("#descrReworkTextarea").val();
 		
-		if($('#resourceEditInput').attr("required") == "required") {
-			if(resource.trim() == '') {showErrorMessage($('#resourceEditInput'), "Заполните поле \'Ресурс\'!"); isEmptyFields = "true";}
-		}
-		if($('#wikilinkEditInput').attr("required") == "required") {
-			if(wikilink.trim() == '') {showErrorMessage($('#wikilinkEditInput'), "Заполните поле \'WIKILINK\'!"); isEmptyFields = "true";}
-		}
-		if(descrRework.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните поле \'Описание\'!"); isEmptyFields = "true";}
+		if(descrRework.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните поле \'Название доработки/исправления\'!"); isEmptyFields = "true";}
 		
 		if(isEmptyFields == "true") return;
 		$('#formUpdate').submit();
@@ -69,15 +47,12 @@ $(function() {
 		hideError($(this));
 	});
 	$('#deleteReworkButton').click(function() {
-		console.log('ENTER!!!');
 		$('#myModal').modal('show');
 	});	
 	
 	$('#formBackSubmitButton').click(function() {
-		if ($('#wmsBack').val() == '') {
-			//$('#startLink')[0].click();
-			window.location = document.getElementById('startLink').href;
-		} else { $('#formBack').submit(); }
+
+			$('#formBack').submit(); 
 	});	
 
 });

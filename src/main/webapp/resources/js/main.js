@@ -99,7 +99,14 @@
 					$("body").before($alertInsert);
 				}
 				///
-*/				
+*/	
+				///delete rework show modal////////////////////////////////////////////////////////////////////////////////
+				var deleteRework_reworknumber=$("#deleteRework_reworknumber").val();	
+					
+				if(deleteRework_reworknumber !='') {
+					var $alertDelete = alertDelete(deleteRework_reworknumber +" : ", " доработка была удалена!");
+					$("body").before($alertDelete);
+				}		
 				// update status show form start////////////////////////////////////////////////////////////////////////////////
 				$(".selectpicker").change(function() {
 					var serverName = $("#server").val();

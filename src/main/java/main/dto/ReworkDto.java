@@ -1,7 +1,10 @@
 package main.dto;
 
+import java.sql.Timestamp;
+
 import main.dao.model.Rework;
 import main.util.LocalDateTimeRus;
+import main.util.LocalDateTimeRus.Pattern;
 
 public class ReworkDto {
 	
@@ -11,10 +14,10 @@ public class ReworkDto {
 	private String description;
 	private String task;
 	private String taskMonetka;
-	private String addDate;
+	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
-	private String editDate;
+	private Timestamp editDate;
 	
 	public ReworkDto(Rework rework) {
 		this.rework = rework;
@@ -23,10 +26,12 @@ public class ReworkDto {
 		this.description = rework.getDescription();
 		this.task = rework.getTask();
 		this.taskMonetka = rework.getTaskMonetka();	
-		this.addDate =  new LocalDateTimeRus(rework.getReworkAddDate().toLocalDateTime()).toString();
+		//this.addDate =  new LocalDateTimeRus(rework.getReworkAddDate().toLocalDateTime()).toString();
+		this.addDate = rework.getReworkAddDate();
 		this.addWho = rework.getAddWho();
 		this.editWho = rework.getEditWho();
-		this.editDate = new LocalDateTimeRus(rework.getReworkEditDate().toLocalDateTime()).toString();
+		this.editDate = rework.getReworkEditDate();
+		//this.editDate = new LocalDateTimeRus(rework.getReworkEditDate().toLocalDateTime()).toString();
 	}
 
 	public Integer getReworkNumber() {
@@ -61,14 +66,6 @@ public class ReworkDto {
 		this.taskMonetka = taskMonetka;
 	}
 
-	public String getAddDate() {
-		return addDate.toString();
-	}
-
-	public void setAddDate(LocalDateTimeRus addDate) {
-		this.addDate = addDate.toString();
-	}
-
 	public String getAddWho() {
 		return addWho;
 	}
@@ -85,12 +82,28 @@ public class ReworkDto {
 		this.editWho = editWho;
 	}
 
-	public String getEditDate() {
-		return editDate;
+	public String getAddDateDT() {	
+		return new LocalDateTimeRus(addDate.toLocalDateTime(), Pattern.DATE_TIME).toString();
 	}
-
-	public void setEditDate(LocalDateTimeRus editDate) {
-		this.editDate = editDate.toString();
+	
+	public String getEditDateDT() {
+		return  new LocalDateTimeRus(editDate.toLocalDateTime(), Pattern.DATE_TIME).toString();
+	}
+	
+	public String getAddDate() {	
+		return new LocalDateTimeRus(addDate.toLocalDateTime(), Pattern.DATE).toString();
+	}
+	
+	public String getEditDate() {
+		return  new LocalDateTimeRus(editDate.toLocalDateTime(), Pattern.DATE).toString();
+	}
+	
+	public void setAddDate(Timestamp addDate) {
+		this.addDate = addDate;
+	}
+	
+	public void setEditDate(Timestamp editDate) {
+		this.editDate = editDate;
 	}
 
 	public Rework getRework() {

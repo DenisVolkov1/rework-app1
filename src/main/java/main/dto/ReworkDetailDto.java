@@ -1,24 +1,13 @@
 package main.dto;
 
+import java.sql.Timestamp;
+
 import main.dao.model.ReworkDetail;
 import main.util.LocalDateTimeRus;
 import main.util.Util;
+import main.util.LocalDateTimeRus.Pattern;
 
 public class ReworkDetailDto {
-	
-//	enum Server {
-//		DEV("Дев сервер"),
-//		EKB("ЕКБ ТЭЦ"),
-//		EKB_BER("ЕКБ РЦ Берёзовский"),
-//		NFU("Нефтеюганск"),
-//		NSK("Новосибирск"),
-//		UFA("Уфа");
-//		
-//		String name;
-//		Server(String name) {
-//			this.name = name;
-//		}
-//	}
 	
 	private ReworkDetail reworkDetail;
 	
@@ -26,10 +15,10 @@ public class ReworkDetailDto {
 	private Integer reworkNumber;
 	private String server;
 	private String status;
-	private String addDate;
+	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
-	private String editDate;
+	private Timestamp editDate;
 	
 	public ReworkDetailDto(ReworkDetail reworkDetail) {
 		this.reworkDetail = reworkDetail;
@@ -38,10 +27,10 @@ public class ReworkDetailDto {
 		this.reworkNumber = reworkDetail.getReworkNumber();
 		this.server = reworkDetail.getServer();
 		this.status = Util.getUnicodeStatusWebApp(reworkDetail.getStatus());	
-		this.addDate = (reworkDetail.getAddDate()) == null ? "" : new LocalDateTimeRus(reworkDetail.getAddDate().toLocalDateTime()).toString();
+		this.addDate = reworkDetail.getAddDate();
 		this.addWho = reworkDetail.getAddWho();
 		this.editWho = reworkDetail.getEditWho();
-		this.editDate = (reworkDetail.getEditDate()) == null ? "" : new LocalDateTimeRus(reworkDetail.getEditDate().toLocalDateTime()).toString();
+		this.editDate = reworkDetail.getEditDate();
 	}
 
 	public Long getSerialKey() {
@@ -76,14 +65,6 @@ public class ReworkDetailDto {
 		this.status = status;
 	}
 
-	public String getAddDate() {
-		return addDate;
-	}
-
-	public void setAddDate(LocalDateTimeRus addDate) {
-		this.addDate = addDate.toString();
-	}
-
 	public String getAddWho() {
 		return addWho;
 	}
@@ -96,15 +77,30 @@ public class ReworkDetailDto {
 		return editWho;
 	}
 
-	public void setEditWho(String editWho) {
-		this.editWho = editWho;
+	public String getAddDateDT() {
+		if(addDate == null) return "";
+		return new LocalDateTimeRus(addDate.toLocalDateTime(), Pattern.DATE_TIME).toString();
 	}
-
+	
+	public String getEditDateDT() {
+		if(editDate == null) return "";
+		else return  new LocalDateTimeRus(editDate.toLocalDateTime(), Pattern.DATE_TIME).toString();
+	}
+	
+	public String getAddDate() {
+		if(addDate == null) return "";
+		else return new LocalDateTimeRus(addDate.toLocalDateTime(), Pattern.DATE).toString();
+	}
+	
 	public String getEditDate() {
-		return editDate;
+		if(editDate == null) return "";
+		else return  new LocalDateTimeRus(editDate.toLocalDateTime(), Pattern.DATE).toString();
 	}
 
-	public void setEditDate(LocalDateTimeRus editDate) {
-		this.editDate = editDate.toString();
+	public void setEditDate(Timestamp editDate) {
+		this.editDate = editDate;
+	}
+	public void setAddDate(Timestamp addDate) {
+		this.addDate = addDate;
 	}
 }

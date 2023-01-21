@@ -18,6 +18,7 @@ import main.dao.model.SearchFilter;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
 import main.dao.service.WmsService;
+import main.dto.ReworkDto;
 
 @Controller
 public class ShowReworkController {
@@ -29,28 +30,47 @@ public class ShowReworkController {
 	
 	@Autowired
 	private WmsService wmsService;	
+	
+	/**
+	 * like as  href="/showrework/reworknumber_2300 - 2300 is serialkey in dbo.REWORK
+	 * */
+	@GetMapping("/showrework/{reworknumber}")
+	public String showrework(
+							@RequestParam(value="isUpdate",required = false) String isUpdate,
+							@PathVariable("reworknumber") String reworknumber,
+							@ModelAttribute("modelFilter") SearchFilter searchFilter,
+							Model model) {
+		
+		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
+		Rework rework = reworkService.getRework(serialkey);
+		ReworkDto reworkDto = new ReworkDto(rework);
+			//modelRework.toStringAll();
+		if(isUpdate != null) model.addAttribute("isUpdate","true");
+		model.addAttribute("reworkDto",reworkDto);
+		
+		return "show_rework";
+	}
 
-	@PostMapping("/showrework/update/{serialkeyrework}")
+	@PostMapping("/showrework/update/{reworknumber}")
 	public String update(@ModelAttribute("modelRework") Rework rework, 
-						 @PathVariable("serialkeyrework") int serialkeyrework, 
+						 @PathVariable("reworknumber") String reworknumber, 
 						 Model model) {
-		Integer serialkey = Integer.valueOf(serialkeyrework);
+		
+		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
 			reworkService.updateRework(serialkey, rework);
 				model.addAttribute("isUpdate","true");
-		return "redirect:/showrework/serialkeyrework_{serialkeyrework}";
+		return "redirect:/showrework/reworknumber_{reworknumber}";
 	}
 	
 	@GetMapping("/showrework/delete")
 	public String delete(Model model, 
 			@RequestParam(value="reworkNumber",required = false) String reworkNumber,
-			@RequestParam(value="wms",required = false)          String wms,
 			RedirectAttributes attributes) {
 		
-			reworkService.deleteRework(wms, reworkNumber);			
+			reworkService.deleteRework(reworkNumber);			
 			
-			attributes.addAttribute("deleteRework_wms", wms);
 			attributes.addAttribute("deleteRework_reworknumber", reworkNumber);
-		return "redirect:/mainfilter/start";
+		return "redirect:/main";
 	}
 	
 	@ModelAttribute("server")	

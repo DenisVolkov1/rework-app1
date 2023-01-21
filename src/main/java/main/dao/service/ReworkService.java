@@ -17,16 +17,16 @@ public class ReworkService {
 	@Autowired
 	private ReworkDao reworkDao;
 	
-	public Rework getRework(Integer serialkey) {
-		return reworkDao.getRework(serialkey);
+	public Rework getRework(Integer reworkNumber) {
+		return reworkDao.getRework(reworkNumber);
 	}
 	
 	public void updateRework(int serialkey, Rework rework) {
 		reworkDao.updateRework(serialkey,rework);
 	}
 
-	public void deleteRework(String wms, String reworkNumber) {
-		reworkDao.deleteRework(wms, reworkNumber);
+	public void deleteRework(String reworkNumber) {
+		reworkDao.deleteRework(reworkNumber);
 	}
 
 	public void addNewRework(NewRework newRework) {

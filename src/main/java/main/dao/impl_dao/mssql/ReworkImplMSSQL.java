@@ -50,36 +50,36 @@ public class ReworkImplMSSQL implements ReworkDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Rework getRework(Integer serialkey) {
+	public Rework getRework(Integer reworkNumber) {
 		
-        String sql = "SELECT * FROM REWORK WHERE SERIALKEY = ?";
+        String sql = "SELECT * FROM REWORK WHERE REWORKNUMBER = ?";
 
         return (Rework) jdbcTemplate.queryForObject(
 			sql, 
-			new Object[]{serialkey}, 
+			new Object[]{reworkNumber}, 
 			new ReworkRowMapper());
 	}
 
 	@Override
-	public void updateRework(int serialkey, Rework rework) {
-//		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, RESOURCE = ?, WIKILINK = ?,EDITDATE = GETUTCDATE() WHERE SERIALKEY = ?; ";
-//		String descr = rework.getDescription();
-//		String wikilink = rework.getWikiLink();
-//		String resource = rework.getResource();
-//		
-//		jdbcTemplate.update(
-//				sqlUpdate, 
-//				resource, descr, wikilink, serialkey);
+	public void updateRework(int reworknumber, Rework rework) {
+		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, TASK = ?, TASKMONETKA = ?,EDITDATE = GETDATE() WHERE REWORKNUMBER = ? ";
+		String descr = rework.getDescription();
+		String task = rework.getTask();
+		String taskMonetka = rework.getTaskMonetka();
 		
+		jdbcTemplate.update(
+				sqlUpdate, 
+				descr, task,taskMonetka,reworknumber);	
 	}
 
 	@Override
-	@Transactional()
-	public void deleteRework(String wms, String reworkNumber) {
-		String sqlDelete = "DELETE FROM REWORKDETAIL WHERE WMS = ? AND REWORKNUMBER = ?; ";
-		jdbcTemplate.update(sqlDelete, wms, reworkNumber);
-			sqlDelete = "DELETE FROM REWORK WHERE WMS = ? AND REWORKNUMBER = ?; ";
-				jdbcTemplate.update(sqlDelete, wms, reworkNumber);
+	public void deleteRework(String reworkNumber) {
+		String sqlDelete = "UPDATE REWORK SET ISDELETED = 1 WHERE REWORKNUMBER = ?; ";
+		jdbcTemplate.update(sqlDelete, reworkNumber);
+		/*
+		 * sqlDelete = "DELETE FROM REWORK WHERE WMS = ? AND REWORKNUMBER = ?; ";
+		 * jdbcTemplate.update(sqlDelete, wms, reworkNumber);
+		 */
 		
 	}
 

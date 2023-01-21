@@ -16,7 +16,7 @@ public interface ReworkDao {
 
     public void updateRework(int serialkey, Rework rework);
 
-	public void deleteRework(String wms, String reworkNumber);
+	public void deleteRework(String reworkNumber);
 	
 	public void addNewRework(NewRework newRework);
 
