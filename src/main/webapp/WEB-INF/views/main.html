@@ -112,7 +112,9 @@
 					</form>
 				</div>				
 				</div>
-				<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена сервер.</em></div>"><small>легенда</small></div>				
+				<div>
+					<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена на сервер.</em></div>"><small>легенда</small></div>			
+				</div>				
 			</div>	  
 		</div>
 		
@@ -122,7 +124,7 @@
 		        <tr>
 		         	<th style="width: 38px;"> </th>
 		        	<th style="width: 460px;"> Название доработки/исправления
-		        		<div id="buttonWRAP2" iswrraped="false" title="button" class="">
+		        		<div id="buttonWRAP" iswrraped="false" title="button" class="">
 			             	<img id="arrow-bar-left" class="d-none icon_hover" src="/rework-app1-monetka/resources/icons_svg/arrow-bar-left.svg" alt="Bootstrap" width="20" height="20" >
 			             	<img id="arrow-bar-right" class="icon_hover" src="/rework-app1-monetka/resources/icons_svg/arrow-bar-right.svg" alt="Bootstrap" width="20" height="20">
 			             </div>  
@@ -164,13 +166,13 @@
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTask()}"></td>
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
 		           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
-		           	<td class="p-1 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
-		           		<div class="statusDIV" th:text="*{rowReworkDetailDto.getStatus()}"></div>
-		       			 <select class="selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
+		           	<td class="p-0 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
+		           		<div class="statusDIV p-0" th:text="*{rowReworkDetailDto.getStatus()}"></div>
+		       			 <select class="p-0 selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
 		       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
 		       			 </select>
 		           	 </td>
-		           	 <td class="p-1" style="vertical-align: middle;">
+		           	 <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
 		           	 	<div th:text="*{rowReworkDetailDto.getEditDate()}"></div>
 		           	 </td>
 		           </th:block>

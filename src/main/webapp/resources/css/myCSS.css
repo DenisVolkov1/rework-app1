@@ -109,7 +109,7 @@ html {
   }
   
   .heightrow {
-  	height: 35px;
+  	height: 38px;
   }
   
   .statusDIV {
@@ -139,7 +139,7 @@ html {
   
 
 .tableFixHead          { overflow: auto; height: 100px; }
-.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+.tableFixHead thead { position: sticky; top: 0; z-index: 1; }
 
 /* Just common table stuff. Really. */
 table  { border-collapse: collapse; width: 100%;  height: 100%; table-layout: fixed;}
