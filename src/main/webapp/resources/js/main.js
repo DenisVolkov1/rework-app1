@@ -6,7 +6,7 @@
 	var filterChildren = [];
 	var reworkTable;
 
-	$(function() {
+$(function() {
 	
   		$('[data-toggle="tooltip"]').tooltip();
 		$('#reworkTable').find('select').selectpicker();
@@ -130,13 +130,7 @@
 				});				
 
 });
-/*
-	function submitLinkShowReworkForm() {
-		$('#formBack').submit();
-	}
-
-*/	
-
+	
 	var hideUpdateStatusModal = function(){
 		$('#updateStatusModal').modal('hide');
 		$('#reworkTable').find('select').selectpicker('hide');
@@ -150,30 +144,7 @@
   		document.documentElement.scrollTop = 0;
 		document.documentElement.scrollLeft = 0;
 	}
-/*	
-	function escapeRegExp(text) {
-  		return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-	}
-	
-	function highlight(row) {
-		var td_number_rework = $(row).find("td").eq(1)[0];
-		var td_descr = $(row).find("td").eq(3)[0];
-		var opar1 = td_number_rework.innerHTML;
-		var opar2 = td_descr.innerHTML;
-		 var search = $("#searchInput").val();
-		 search = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
-		  var re = new RegExp(search, 'g');
-		
-		  if (search.length > 0) {
-		    td_number_rework.innerHTML = opar1.replace(re, `<mark>$&</mark>`);
-		    td_descr.innerHTML = opar2.replace(re, `<mark>$&</mark>`);
-		  } else {
-		    td_number_rework.innerHTML = opar1;
-		    td_descr.innerHTML = opar2;
-		  }
-	}
 
-*/
 	var showSelectedList = function (event) {
 		var $target = $(event.target);
 	
@@ -211,77 +182,3 @@
 			});
 		}
 	 };
-/*
-	var addClassChange = function (event) {
-		if(event.target.className == 'unselect') {
-			event.target.className = 'selected'
-			event.target.setAttribute("isSelected", "true");
-		} else {
-			event.target.className = 'unselect'
-			event.target.setAttribute("isSelected", "false");
-		}
-    };
-
-	var filterRows = function (event) {
-		var tableRows = reworkTable.rows;
-		for (let i = beginFilterIndexRows; i < tableRows.length; i++) {
-			if($(tableRows[i]).attr("permanentHidden") == "false") {
-				var isShowLine = checkFilterRow(i);
-				if (isShowLine) {
-					tableRows[i].removeAttribute('hidden');
-				} else {
-					tableRows[i].setAttribute("hidden","hidden");
-				}
-			}
-		}
-    };
-	
-	function checkFilterRow(indexRow) {
-		var result = true;
-		var filterCountColumn = reworkTable.rows[0].cells.length;
-		
-			for (var i = beginFilterIndexColumn; i < filterCountColumn; i++) {
-				var cell = reworkTable.rows[indexRow].cells[i].children[0];
-				var indexFilterParent = reworkTable.rows[indexFilterRow].cells[i];
-				var selectedFilters = [];
-				for(var filter of indexFilterParent.children[0].children) {
-					if(filter.getAttribute("isSelected") == 'true')  selectedFilters.push(filter.innerHTML); 
-				}
-				if(selectedFilters.length === 0)  {
-					continue;
-				}	
-				if(selectedFilters.includes(cell.innerHTML)) {
-					result = true;
-				} else {
-					return false;	
-				}
-			}
-			return result;
-		
-	};
-
-	function getListElementsByPartId(id) {
-		var regex = new RegExp('^'+id+'*');
-			var all_tags = document.getElementsByTagName("*");
-		var res = [];
-		for (var i = all_tags.length-1; i >= 0; -- i){
-			  if (regex.test(all_tags[i].id)) {
-				  res.push(all_tags[i]);
-			  }
-		  }
-		return res;
-	}
-
-	function getListChildrenElementsByParentId(parentId, childrenId) {
-		var regex = new RegExp('^'+childrenId+'*');
-			var all_tags = document.getElementById(parentId).children;
-		var res = [];
-		for (var i = all_tags.length-1; i >= 0; -- i) {
-			  if (regex.test(all_tags[i].id)) {
-				  res.push(all_tags[i]);
-			  }
-		  }
-		return res;
-	}
-	
-	*/

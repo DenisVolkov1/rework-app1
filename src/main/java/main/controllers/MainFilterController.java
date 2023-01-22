@@ -159,9 +159,7 @@ public class MainFilterController {
 			@RequestParam("valueStatus")  String valueStatus,
 			@RequestParam("whoUpdate")    String whoUpdate
 			) {
-		
-		System.out.println( reworkNumber+" "+ server+" "+ Util.getStatusSql(valueStatus)+" "+ whoUpdate);
-			
+				
 			statusService.updateStatus( reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
 		return "updateIsDone";
 	}

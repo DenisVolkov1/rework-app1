@@ -38,15 +38,6 @@ public class ReworkImplMSSQL implements ReworkDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	private boolean isContainsProject(List<ReworkDetail> rdList, String project) {
-//		for(ReworkDetail fr : rdList) {
-//			if(fr.getProject().equals(project)) {
-//				//System.out.println(fr.getProject() +" == "+project);
-//				return true;
-//			}
-//		}
-		return false;
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -76,11 +67,6 @@ public class ReworkImplMSSQL implements ReworkDao {
 	public void deleteRework(String reworkNumber) {
 		String sqlDelete = "UPDATE REWORK SET ISDELETED = 1 WHERE REWORKNUMBER = ?; ";
 		jdbcTemplate.update(sqlDelete, reworkNumber);
-		/*
-		 * sqlDelete = "DELETE FROM REWORK WHERE WMS = ? AND REWORKNUMBER = ?; ";
-		 * jdbcTemplate.update(sqlDelete, wms, reworkNumber);
-		 */
-		
 	}
 
 	@Autowired
