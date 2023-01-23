@@ -90,6 +90,17 @@ $(function() {
 									upToPage();
 										var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
 										$visibleValueStatusDIV.text(valueStatus);
+										var $dateCell = $parentThis.parent().parent().next('td');
+										var dateFormat;
+										{
+											const year = new Date().getFullYear().toString().slice(-2);
+											const month = new Date().getMonth();
+											const MONTH = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+											const day = new Date().getDate();
+											dateFarmat =  day + "." + MONTH[month] + "." + year;
+										}
+										$dateCell.text(dateFormat);
+								
 											setTimeout(() => {
 												$('.alert').alert('close');
 											}, 2100);
