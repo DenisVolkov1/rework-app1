@@ -64,7 +64,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 	}
 
 	@Override
-	public void deleteRework(String reworkNumber) {
+	public void hideRework(String reworkNumber) {
 		String sqlDelete = "UPDATE REWORK SET ISDELETED = 1 WHERE REWORKNUMBER = ?; ";
 		jdbcTemplate.update(sqlDelete, reworkNumber);
 	}

@@ -67,7 +67,7 @@ public class ShowReworkController {
 			@RequestParam(value="reworkNumber",required = false) String reworkNumber,
 			RedirectAttributes attributes) {
 		
-			reworkService.deleteRework(reworkNumber);			
+			reworkService.hideRework(reworkNumber);			
 			
 			attributes.addAttribute("deleteRework_reworknumber", reworkNumber);
 		return "redirect:/main";

@@ -82,34 +82,42 @@ $(function() {
 						+"&valueStatus="+valueStatus
 						+"&whoUpdate="+whoUpdate;					
 												
-						$.get(updateStatusUrl, function( data ) {
-							response = ""+data;
-							var $alertUpdate = alertUpdate(name +" : "+server, " статус был обновлён!");
-							var $alertErr = alertErr(name +" : "+server, "status is not updated!");
-							if(response == 'updateIsDone') {
-								$("body").before($alertUpdate);
-									upToPage();
-										var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
-										$visibleValueStatusDIV.text(valueStatus);
-										var $dateCell = $parentThis.parent().parent().next('td');
-										
-											const year = new Date().getFullYear().toString().slice(-2);
-											const month = new Date().getMonth();
-											const MONTH = ["01","02","03","04","05","06","07","08","09","10","11","12"];
-											const day = new Date().getDate();
-											var dateFarmat =  ""+day + "." + MONTH[month] + "." + year;
-										
-										$dateCell.text(dateFarmat);
+						$.get(updateStatusUrl, function(  ) {
+		
+							}).done(function( data ){
+								response = ""+data;
+								if(response == "All servers is done!") {
+									response =  "Доработка полностью установлена!"; 
+									$parentThis.parent().parent().parent().addClass('liteGreenAllServers');
+								} else {$parentThis.parent().parent().parent().removeClass('liteGreenAllServers');}
 								
-											setTimeout(() => {
-												$('.alert').alert('close');
-											}, 2100);
-							} else {
-								$("body").before($alertErr);//unexpected error!
-									upToPage();
-							}
-							hideUpdateStatusModal.call();
-						});
+								var $alertUpdate = alertUpdate(response+" "+name +" : "+server, " статус был обновлён!");
+	
+									$("body").before($alertUpdate);
+										upToPage();
+											var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
+											$visibleValueStatusDIV.text(valueStatus);
+											var $dateCell = $parentThis.parent().parent().next('td');
+											
+												const year = new Date().getFullYear().toString().slice(-2);
+												const month = new Date().getMonth();
+												const MONTH = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+												const day = new Date().getDate();
+												var dateFarmat =  ""+day + "." + MONTH[month] + "." + year;
+											
+											$dateCell.text(dateFarmat);
+									
+												setTimeout(() => {
+													$('.alert').alert('close');
+												}, 3100);
+								
+							}).fail(function() {
+									var $alertErr = alertErr(name +" : "+server, "status is not updated!");
+	 								$("body").before($alertErr);//unexpected error!
+										upToPage();
+	  						}).always(function() {
+								hideUpdateStatusModal.call();
+							});
 					});
 					
 					$('#updateStatusModal').modal('show');

@@ -25,8 +25,8 @@ public class ReworkService {
 		reworkDao.updateRework(serialkey,rework);
 	}
 
-	public void deleteRework(String reworkNumber) {
-		reworkDao.deleteRework(reworkNumber);
+	public void hideRework(String reworkNumber) {
+		reworkDao.hideRework(reworkNumber);
 	}
 
 	public void addNewRework(NewRework newRework) {

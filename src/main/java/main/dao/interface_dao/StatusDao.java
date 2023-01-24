@@ -11,6 +11,6 @@ public interface StatusDao {
 
 	ReworkDetail getDateTooltip(String wms, String reworkNumber, String project);
 
-	void updateStatus(String reworkNumber, String server, String status, String whoUpdate);
+	String updateStatus(String reworkNumber, String server, String status, String whoUpdate);
 
 }

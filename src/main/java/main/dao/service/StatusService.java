@@ -21,8 +21,8 @@ public class StatusService {
 		return statusDao.findAll();
 	}
 
-	public void updateStatus(String reworkNumber, String server, String valueStatus, String whoUpdate) {
-		statusDao.updateStatus(reworkNumber, server, valueStatus, whoUpdate);	
+	public String updateStatus(String reworkNumber, String server, String valueStatus, String whoUpdate) {
+		return statusDao.updateStatus(reworkNumber, server, valueStatus, whoUpdate);	
 	}
 
 	public ReworkDetail getDateTooltip(String wms, String reworkNumber, String project) {

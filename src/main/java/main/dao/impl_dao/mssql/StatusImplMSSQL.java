@@ -2,6 +2,7 @@ package main.dao.impl_dao.mssql;
 
 import java.util.List;
 
+
 import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,9 +14,15 @@ import main.dao.impl_dao.rowmapper.ReworkDetailRowMapper;
 import main.dao.interface_dao.StatusDao;
 import main.dao.model.ReworkDetail;
 import main.dao.model.Status;
+import main.dao.service.ReworkService;
 
+
+ 
 @Component
 public class StatusImplMSSQL implements StatusDao {
+	
+	@Autowired
+	private ReworkService reworkService;
 	
 	private JdbcTemplate jdbcTemplate;  
 	
@@ -35,7 +42,7 @@ public class StatusImplMSSQL implements StatusDao {
 	
 	@Transactional()
 	@Override
-	public void updateStatus(String reworkNumber, String server, String status, String whoUpdate) {
+	public String updateStatus(String reworkNumber, String server, String status, String whoUpdate) {
 
 				String sqlUpdateStatus = "UPDATE REWORKDETAIL "
 										 + "set STATUS = ?,"
@@ -45,6 +52,21 @@ public class StatusImplMSSQL implements StatusDao {
 				jdbcTemplate.update(
 						sqlUpdateStatus, 
 						status, whoUpdate, reworkNumber, server);
+				//CHECK ALL SEVERS IS DONE
+
+				String checkSelectCountRows =
+				"SELECT COUNT(*) "+
+				"FROM REWORK AS r "+
+					"JOIN REWORKDETAIL AS rd "+
+						"ON r.REWORKNUMBER = rd.REWORKNUMBER "+
+				"WHERE r.REWORKNUMBER = ? AND STATUS != 'OK' ";
+				Integer checksCountRows = jdbcTemplate.queryForObject(checkSelectCountRows, new Object[] {reworkNumber}, Integer.class);
+				
+				if(checksCountRows == 0) { 
+					reworkService.hideRework(reworkNumber); 
+					
+					return "All servers is done!";
+				} else { return "" ; }
 	}
 
 	@Override

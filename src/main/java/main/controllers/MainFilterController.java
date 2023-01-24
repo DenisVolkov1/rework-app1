@@ -160,8 +160,8 @@ public class MainFilterController {
 			@RequestParam("whoUpdate")    String whoUpdate
 			) {
 				
-			statusService.updateStatus( reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
-		return "updateIsDone";
+			String response = statusService.updateStatus( reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
+		return response;
 	}
 
 	/**
