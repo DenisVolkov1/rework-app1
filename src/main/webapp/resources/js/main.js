@@ -53,7 +53,8 @@ $(function() {
 
 					var response;
 					var column_index = $(this).closest("td").index();
-						if(column_index>4) column_index -= 1;
+						if(column_index===4) {column_index = 4}
+						else { column_index =  Math.floor((column_index + 3) / 2) + 1 }
 					//
 					var reworkNumber = $(this).closest("tr").children('td').eq(0).text();
 					var name = $(this).closest("tr").children('td').eq(1).text();
@@ -92,13 +93,13 @@ $(function() {
 										$visibleValueStatusDIV.text(valueStatus);
 										var $dateCell = $parentThis.parent().parent().next('td');
 										var dateFormat;
-										{
+										
 											const year = new Date().getFullYear().toString().slice(-2);
 											const month = new Date().getMonth();
 											const MONTH = ["01","02","03","04","05","06","07","08","09","10","11","12"];
 											const day = new Date().getDate();
 											dateFarmat =  day + "." + MONTH[month] + "." + year;
-										}
+										
 										$dateCell.text(dateFormat);
 								
 											setTimeout(() => {
