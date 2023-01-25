@@ -161,6 +161,52 @@ public class ReworkImplMSSQL implements ReworkDao {
 	}
 	
 	@Override
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParamInArchive(String search) {
+		
+		ResultSetExtractor<List<Tuple2<Rework, List<ReworkDetail>>>> resultSetExtractor = 
+		        JdbcTemplateMapperFactory
+		            .newInstance()
+		            .addKeys("REWORKNUMBER") // the column name you expect the user id to be on
+		            .newResultSetExtractor(new TypeReference<Tuple2<Rework, List<ReworkDetail>>>(){});
+
+		String sqlSelectFilter = 
+				"SELECT "
+				+ " r.REWORKNUMBER, "
+				+ " r.DESCRIPTION AS r_DESCRIPTION, "
+				+ " r.TASK AS r_TASK, "
+				+ " r.TASKMONETKA AS r_TASKMONETKA, "
+				+ " r.ADDDATE AS REWORKADDDATE, "
+				+ " r.EDITDATE AS REWORKEDITDATE, "
+				
+				+ " r.REWORKNUMBER AS rd_REWORKNUMBER, "
+				+ " rd.SERVER AS rd_SERVER, "
+				+ " ISNULL(rd.STATUS,'') AS rd_STATUS, "
+				+ " rd.ADDDATE AS rd_ADDDATE, "
+				+ " rd.ADDWHO AS rd_ADDWHO, "
+				+ " rd.EDITWHO AS rd_EDITWHO, "
+				+ " rd.EDITDATE AS rd_EDITDATE"
+			+ " FROM REWORK AS r "
+				+ " JOIN REWORKDETAIL AS rd "
+					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
+			+ " WHERE r.ISDELETED = 1 ";
+		
+		Object[] paramsSqlSelectFilter = null;
+		
+		if(search == null) { 
+			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+	
+		} else {
+				sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+					sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
+		}
+		
+		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
+		
+		return result;
+	}
+	
+	@Override
 	public boolean isAlreadyExistsRework(String description) {
 		 String sqlisExists = "SELECT REWORKNUMBER FROM REWORK WHERE DESCRIPTION = ? ";
 		 List<Map<String, Object>> reworks = jdbcTemplate.queryForList(sqlisExists, description );

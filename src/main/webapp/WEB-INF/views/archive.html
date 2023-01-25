@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<title>Доработки</title>
+	<title>Архив</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,62 +20,7 @@
 <body>
   	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
-	<input hidden id ="deleteRework_reworknumber" th:value= "${deleteRework_reworknumber}">
 	
-	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
-	<div class="modal fade" id="updateStatusModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="updateStatusModalLabel">Обновить статус</h5>
-	      </div>
-	      <div class="modal-body">
-			<div class="container mt-3">
-			  <div id="reworkNumberUpdateStatusLabel" class="d-none"></div>
-			  <div class="row mt-2 align-items-center">
-			    <div class="col-3">
-			      <div class="card-header p-1"> Название доработки </div>
-			    </div>
-			    <div id="nameUpdateStatusLabel" class="col-7"></div>
-			  </div>
-			  <div class="row mt-2 align-items-center">
-			    <div class="col-3">
-			      <div class="card-header p-1"> Задача </div>
-			    </div>
-			    <div id="taskUpdateStatusLabel" class="col-7"></div>
-			  </div>
-			  <div class="row mt-2 align-items-center">
-			    <div class="col-3">
-			      <div class="card-header p-1"> Сервер </div>
-			    </div>
-				<div id="serverUpdateStatusLabel" class="col-7"></div>
-			  </div>
-			  <div class="row mt-2 align-items-center">
-			    <div class="col-3">
-			      <div class="card-header p-1"> Установить статус </div>
-			    </div>
-				<div id="statusUpdateStatusLabel" class="col-7 h4"></div>
-			  </div>
-			  <div class="row mt-2 align-items-center">
-			    <div class="col-3">
-			      <div class="card-header p-1"> Кто обновил </div>
-			    </div>
-			    <div class="col-3">
-			     	<select id="whoUpdatesSelect" class="custom-select" data-style="btn-default">
-	    			  <option th:each="v, i : ${allWhoUpdates}" th:value="${v.addWho}" th:utext="${v.addWho}"/>
-	    			</select>
-			    </div>
-			  </div>
-			</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button id = "cancelUpdateStatusModal" type="button" class="btn btn-secondary">Отмена</button>
-	        <button id = "updateStatusButton" type="button" class="btn btn-warning ml-2">Обновить статус</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
 	<!-- BUTTON UP TO TOP -->
 	<button id="topPageButton" title="Go to top">Вверх</button>
 	<!-- LOADING -->
@@ -89,7 +34,7 @@
 	<div class="container-fluid pb-3 d-none">	
 		<div class="container-fluid gradientbackground">		
 			<div class="row">
-				<div class= "col-12 mb-3 gradientbackgroundHeaderMain"><h1 class="gradient-text-1" style="opacity:0.7">ДОРАБОТКИ</h1></div>
+				<div class= "col-12 mb-3 gradientbackgroundHeaderArchive"><h1 class="gradient-text-2" style="opacity:0.7">АРХИВ</h1></div>
 			</div>
 			<div class="row px-4"> 
 				<div>
@@ -98,7 +43,7 @@
 					</a>
 				</div>
 				<div class="col-3 px-2">
-					<form id="formSearchFilter" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">						  
+					<form id="formSearchFilter" th:method="POST" th:action="@{/archive}" th:object="${modelFilter}">						  
 						<div class="input-group mb-3">
 							<input id ="searchInput" th:field= "*{search}" type="text" class="form-control" placeholder="Поиск по ключевому слову" aria-label="Recipient's username" aria-describedby="basic-addon2">
 							<div class="input-group-append">
@@ -107,28 +52,12 @@
 						</div>							  
 					</form> 
 				</div>		
-				<div class="col-auto px-1">
-					<div>
-						<form th:method="GET" th:action="@{/newrework}" th:object="${modelFilter}">
-							<input hidden th:field= "*{search}" type="text">
-							<button id ="newReworkButton" class="btn btn-primary align-items-center text-white rounded" type="submit">
-								<img class="mr-1 pb-1" th:src="@{/resources/icons_svg/plus-circle-fill.svg}" alt="Bootstrap" width="20" height="20">
-								Добавить доработку
-							</button>
-						</form>
-					</div>				
-				</div>
 				<div>
 					<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена на сервер.</em></div>"><small>легенда</small></div>			
 				</div>				
 				<div class="col-auto ml-auto">
 					<div>
-						<form th:method="GET" th:action="@{/archive}">
-							<button id ="newReworkButton" class="btn btn-secondary align-items-right text-white rounded" type="submit">
-								В Архив
-								<img th:src="@{/resources/icons_svg/archive-fill.svg}" alt="Bootstrap" width="16" height="16">
-							</button>
-						</form>
+						<input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary" >
 					</div>				
 				</div>				
 			</div>	  
@@ -184,9 +113,9 @@
 		           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
 		           	<td class="p-0 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
 		           		<div class="statusDIV p-0" th:text="*{rowReworkDetailDto.getStatus()}"></div>
-		       			 <select class="p-0 selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px">
-		       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
-		       			 </select>
+<!-- 		       			 <select class="p-0 selectpicker" data-dropup-auto="false" data-style="btn-default" data-width="65px"> -->
+<!-- 		       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/> -->
+<!-- 		       			 </select> -->
 		           	 </td>
 		           	 <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
 		           	 	<div th:text="*{rowReworkDetailDto.getEditDate()}"></div>
@@ -221,5 +150,5 @@
 <script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/i18n/defaults-ru_RU.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/util/main_util.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/archive.js}"></script>
 </html>

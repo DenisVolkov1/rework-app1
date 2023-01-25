@@ -40,6 +40,10 @@ public class ReworkService {
 	public boolean isAlreadyExistsRework(String description) {
 		return reworkDao.isAlreadyExistsRework(description);
 	}
+
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParamInArchive(String search) {
+		return reworkDao.findOnSearchParamInArchive(search);
+	}
 	
 	
 }
