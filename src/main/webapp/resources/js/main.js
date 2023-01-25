@@ -12,6 +12,11 @@ $(function() {
 		$('#reworkTable').find('select').selectpicker();
 		$('#reworkTable').find('select').selectpicker('hide');
 		
+				// Erace field search
+				$("#eraserSearch").click(function() {
+					$("#searchInput").val('');
+				});
+				
 				$("#buttonWRAP").click(function() {
 					if($(this).attr('iswrraped') == 'false') {
 						$(this).attr('iswrraped','true');
