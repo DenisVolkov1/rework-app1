@@ -172,7 +172,7 @@ th     { background:#eee; }
   padding: 2px 2px 2px 2px;
   
 }
-.aLink {
+.aLinkMain {
    color: rgb(0 ,116, 241);
    text-decoration: none;
    background-color: transparent; 
@@ -180,6 +180,13 @@ th     { background:#eee; }
     cursor: pointer;
 }
 
+.aLinkArchive {
+   color: #505050;
+   text-decoration: none;
+   background-color: transparent; 
+   -webkit-text-decoration-skip: objects; 
+    cursor: pointer;
+}
 
 .legend {
  

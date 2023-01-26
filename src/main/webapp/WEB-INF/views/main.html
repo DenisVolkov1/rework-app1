@@ -175,7 +175,7 @@
 		                <div>
 							<form class="text-truncate" th:method="GET" th:action="@{/showrework/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">
 								<input hidden th:field= "*{search}" type="text">
-								<a class="pl-3 aLink" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
+								<a class="pl-3 aLinkMain" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
 							</form>
 						</div>
 		       	   </td>
