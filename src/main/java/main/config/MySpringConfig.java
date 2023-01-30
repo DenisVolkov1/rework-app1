@@ -15,6 +15,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -29,6 +30,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @PropertySource("classpath:config.properties")
 @EnableTransactionManagement
+@EnableScheduling
 @ComponentScan("main.config")
 @ComponentScan("main.controllers")
 // Сделано чтобы переключаться между "mssql" и "postgresql" базами.
