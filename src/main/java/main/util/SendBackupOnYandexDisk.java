@@ -1,5 +1,6 @@
 package main.util;
 
+import java.io.File;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,7 +8,12 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Paths;
 import java.sql.Types;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +98,10 @@ public class SendBackupOnYandexDisk {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	        
+	}
 	
+	
+	public static List<File> listFiles(String dir) {
+	    return Stream.of(new File(dir).listFiles()).sorted(Comparator.comparing(File::lastModified)).collect(Collectors.toList());
 	}
 }
