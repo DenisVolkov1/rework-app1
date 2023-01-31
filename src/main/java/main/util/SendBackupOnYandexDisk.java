@@ -102,6 +102,7 @@ public class SendBackupOnYandexDisk {
 	
 	
 	public static List<File> listFiles(String dir) {
-	    return Stream.of(new File(dir).listFiles()).sorted(Comparator.comparing(File::lastModified)).collect(Collectors.toList());
+	    return Stream.of(new File(dir).listFiles()).filter((t)->{return t.getAbsolutePath().matches(".*\\.bak$");}).sorted(Comparator.comparing(File::lastModified)).collect(Collectors.toList());
+		//return Stream.of(new File(dir).listFiles()).sorted(Comparator.comparing(File::lastModified)).collect(Collectors.toList());
 	}
 }
