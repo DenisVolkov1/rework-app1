@@ -46,19 +46,17 @@ public class SendBackupOnYandexDisk {
 			spCall.execute(env.getProperty("save_backup_yandex_disk.path_MSSQLBackup"));
 			
 			System.out.println("Date : "+new Date().toLocaleString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
+	
 		/*https://oauth.yandex.ru/authorize?response_type=token&client_id=dee1bd42bd86406eaf429a53afdcff62*/
 		
-		String pathFile = 
-				"C:\\Users\\Denis\\Documents\\Деталь.m3d";
-		String tokenOAuth = "y0_AgAEA7qjGxM3AAkPgwAAAADa5Qg6OREkZyy-QLaZpAivr57x4ERnQZk";
-		String toPathDiskYandex = "%2FDrawing1.dwg";
-		
-		HttpRequest request;
-		HttpResponse<String> response;
-		try {
+			String pathFile = 
+					"C:\\Users\\Denis\\Documents\\Деталь.m3d";
+			String tokenOAuth = "y0_AgAEA7qjGxM3AAkPgwAAAADa5Qg6OREkZyy-QLaZpAivr57x4ERnQZk";
+			String toPathDiskYandex = "%2FDrawing1.dwg";
+			
+			HttpRequest request;
+			HttpResponse<String> response;
+
 			request = HttpRequest.newBuilder()
 					  .uri(new URI("https://cloud-api.yandex.net/v1/disk/resources/upload"
 					  		+ "?path=" + toPathDiskYandex
@@ -93,15 +91,15 @@ public class SendBackupOnYandexDisk {
 					  .send(request, BodyHandlers.ofString());
 
 			 System.out.println("---------------------------------------------------"); 
-			System.out.println(response.statusCode()); 
-			System.out.println(response.body());
+			 System.out.println(response.statusCode()); 
+			 System.out.println(response.body());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	        
 	}
 	
 	
-	public static List<File> listFiles(String dir) {
+	public static List<File> listSortedFiles(String dir) {
 	    return Stream.of(new File(dir).listFiles()).filter((t)->{return t.getAbsolutePath().matches(".*\\.bak$");}).sorted(Comparator.comparing(File::lastModified)).collect(Collectors.toList());
 		//return Stream.of(new File(dir).listFiles()).sorted(Comparator.comparing(File::lastModified)).collect(Collectors.toList());
 	}

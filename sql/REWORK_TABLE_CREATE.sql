@@ -59,3 +59,59 @@ GO
 
 ALTER TABLE [dbo].[REWORKDETAIL] CHECK CONSTRAINT [FK_REWORKDETAIL_REWORK]
 GO
+
+
+USE [REWORKBASE]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Volokov Denis>
+-- Create date: <31.01.2023>
+-- Description:
+-- Создание backup базы данных.
+-- =============================================
+
+CREATE PROCEDURE [dbo].[CREATE_BACKUP_PROC](
+	@path_MSSQLBackup nvarchar(512)
+)
+AS
+BEGIN
+	
+	--update enterprise.CONFIGURATION set currentvalue='2' where component = 'WMApp' and parm = 'TransactionIsolationLevel'
+	DECLARE @name NVARCHAR(256) -- database name  
+	DECLARE @path NVARCHAR(512) -- path for backup files  
+	DECLARE @fileName NVARCHAR(512) -- filename for backup  
+	DECLARE @fileDate NVARCHAR(40) -- used for file name
+ 
+	-- specify database backup directory
+	SET @path = @path_MSSQLBackup
+ 
+	-- specify filename format
+	SELECT @fileDate = CONVERT(NVARCHAR(20),GETDATE(),112) 
+	print('-----START BACKUPING-----') 
+	DECLARE db_cursor CURSOR READ_ONLY FOR  
+	SELECT name 
+	FROM master.sys.databases 
+	WHERE name IN ('REWORKBASE')  -- exclude these databases
+	AND state = 0 -- database is online
+	AND is_in_standby = 0 -- database is not read only for log shipping
+ 
+	OPEN db_cursor   
+	FETCH NEXT FROM db_cursor INTO @name   
+ 
+	WHILE @@FETCH_STATUS = 0   
+	BEGIN   
+		SET @fileName = @path + @name + '_' + @fileDate + '.bak'  
+		print('-----START('+@name+')-----')
+		BACKUP DATABASE @name TO DISK = @fileName WITH COMPRESSION
+		print('-----END-----')
+		FETCH NEXT FROM db_cursor INTO @name   
+	END
+	CLOSE db_cursor   
+	DEALLOCATE db_cursor
+END;
