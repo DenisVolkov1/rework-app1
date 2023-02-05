@@ -150,6 +150,18 @@
 		<artifactId>javax.mail</artifactId>
 		<version>1.6.2</version>
 	</dependency>
+<!-- telegram::::::::::::::::::::::::::::::::::::::::::::::::::: -->	
+	<dependency>
+		<groupId>org.telegram</groupId>
+		<artifactId>telegrambots</artifactId>
+		<version>5.6.0</version>
+	</dependency>
+<!-- lombok::::::::::::::::::::::::::::::::::::::::::::::::::: -->	
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.24</version>
+	</dependency>
   </dependencies>
 
 

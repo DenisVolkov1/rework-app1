@@ -102,7 +102,7 @@
 				   <td class="p-1" style="vertical-align: middle; text-align: center; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
 		       	   <td style="vertical-align: middle;">
 		                <div>
-							<form class="text-truncate" th:method="GET" th:action="@{/showrework/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">
+							<form class="text-truncate" th:method="GET" th:action="@{/showrework_archive/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">
 								<input hidden th:field= "*{search}" type="text">
 								<a class="pl-3 aLinkArchive" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
 							</form>

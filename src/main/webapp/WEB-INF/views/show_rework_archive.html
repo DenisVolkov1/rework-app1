@@ -4,7 +4,7 @@
 <head>
 	<title>Показать доработку</title>
     <meta charset="UTF-8">
-    <title>show rework</title>
+    <title>show rework archive</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/myCSS.css}"/>
@@ -22,28 +22,6 @@
 	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
 
-<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Удалить доработку</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        Хотите удалить доработку?
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-	        <button id = "deleteReworkConfirmButton" type="button" class="btn btn-primary">Да удалить</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-<!-- Modal -->
-
 	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{/showrework/update/{reworkNumber}(reworkNumber = 'reworknumber_'+*{getReworkNumber()})}" th:object="${reworkDto}" class="container rounded-bottom myShadow bg-light">
 		<div class="row">
 			<div class="col-12">
@@ -57,9 +35,6 @@
 				      <div id="taskEditDiv" class="col" th:text=*{getTask()}></div>
 				      <input id="taskEditInput" th:field= "*{task}" type="text"  class="col-5 form-control d-none">
 				    </div>
-					<div class="col-1">
-				    	<button id="taskEditButton" type="button" class="btn btn-primary">Править</button>
-				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
 				    <div class="card-header col-2">
@@ -68,9 +43,6 @@
 				    <div class="col">
 				      <div id="taskMonetkaEditDiv" class="col" th:text=*{getTaskMonetka()}></div>
 				      <input id="taskMonetkaEditInput" th:field= "*{taskMonetka}" type="text" class="col-5 form-control d-none">
-				    </div>
-					<div class="col-1">
-				    	<button id="taskMonetkaEditButton" type="button" class="btn btn-primary">Править</button>
 				    </div>
 				  </div>
 				</div>
@@ -88,7 +60,7 @@
 					      </div>
 					      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 					        <div class="card-body p-1">
-	 						    <textarea id="descrReworkTextarea" th:field= "*{description}" class="form-control" rows="3" ></textarea> 
+	 						    <textarea disabled id="descrReworkTextarea" th:field= "*{description}" class="form-control" rows="3" ></textarea> 
 					        </div>
 					      </div>
 					    </div>
@@ -142,15 +114,12 @@
 			<div class="col-9">
 				<div class="btn-group" role="group" aria-label="Basic example">
 				  <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary">
-				  <input id="updateButton" type="button" value="Обновить" class="btn btn-warning mx-3">
-				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить</a>
-				  <a hidden id="deleteReworkLink" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()})}"></a>
 				</div>
 			</div>
 		</div>
 
 	</form>
-	<form hidden id="formBack" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">
+	<form hidden id="formBack" th:method="POST" th:action="@{/archive}" th:object="${modelFilter}">
 		<input id="searchBack" th:field= "*{search}" type="text">
 	</form>
 	<a hidden id="startLink" th:href="@{/main}"></a>

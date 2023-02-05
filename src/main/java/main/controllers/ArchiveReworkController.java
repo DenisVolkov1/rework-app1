@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import main.dao.model.AddWho;
 import main.dao.model.Rework;
@@ -56,6 +58,26 @@ public class ArchiveReworkController {
 		archive(searchFilter,model, request);
 					
 		return "archive";
+	}
+	
+	/**
+	 * like as  href="/showrework/reworknumber_2300 - 2300 is serialkey in dbo.REWORK
+	 * */
+	@GetMapping("/showrework_archive/{reworknumber}")
+	public String showrework(
+							@RequestParam(value="isUpdate",required = false) String isUpdate,
+							@PathVariable("reworknumber") String reworknumber,
+							@ModelAttribute("modelFilter") SearchFilter searchFilter,
+							Model model) {
+		
+		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
+		Rework rework = reworkService.getRework(serialkey);
+		ReworkDto reworkDto = new ReworkDto(rework);
+			//modelRework.toStringAll();
+		if(isUpdate != null) model.addAttribute("isUpdate","true");
+		model.addAttribute("reworkDto",reworkDto);
+		
+		return "show_rework_archive";
 	}
 	
 	private void archive(SearchFilter searchFilter, Model model,
