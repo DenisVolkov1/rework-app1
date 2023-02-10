@@ -8,6 +8,9 @@
 
 $(function() {
 	
+		$('#d').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
   		$('[data-toggle="tooltip"]').tooltip();
 		$('#reworkTable').find('select').selectpicker();
 		$('#reworkTable').find('select').selectpicker('hide');
