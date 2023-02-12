@@ -80,6 +80,55 @@
 	  </div>
 	</div>
 	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
+	<!----------------------------------------------------------------------------------------------------->
+	<!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE -->
+	<div class="modal fade" id="updateDateModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="updateStatusModalLabel">Обновить дату</h5>
+	      </div>
+	      <div class="modal-body">
+			<div class="container mt-3">
+			  <div id="reworkNumberUpdateStatusLabel" class="d-none"></div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Название доработки </div>
+			    </div>
+			    <div id="nameUpdateStatusLabel" class="col-7"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Задача </div>
+			    </div>
+			    <div id="taskUpdateStatusLabel" class="col-7"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Сервер </div>
+			    </div>
+				<div id="serverUpdateStatusLabel" class="col-7"></div>
+			  </div>
+			  <div class="row mt-2 align-items-center">
+			    <div class="col-3">
+			      <div class="card-header p-1"> Уст. дату </div>
+			    </div>
+				<div id="serverUpdateStatusLabel" class="col-7">
+					<input id="d" width="276" />
+				</div>
+			  </div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button id = "cancelUpdateDateModal" type="button" class="btn btn-secondary">Отмена</button>
+	        <button id = "updateDateButton" type="button" class="btn btn-warning ml-2">Обновить дату</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE -->
+	
+	
 	<!-- BUTTON UP TO TOP -->
 	<button id="topPageButton" title="Go to top">Вверх</button>
 	<!-- LOADING -->
@@ -139,9 +188,9 @@
 		</div>
 		
 		
-		<table id ="reworkTable" class="myShadow table-hover table-bordered tableFixHead">
+		<table id ="reworkTable" class="reworkTable myShadow table-hover table-bordered tableFixHead">
 		    <thead id="headerMainTable">
-		        <tr>
+		        <tr class="reworkTable">
 		         	<th style="width: 38px;"> </th>
 		        	<th style="width: 460px;"> Название доработки/исправления
 		        		<div id="buttonWRAP" iswrraped="false" title="button" class="">
@@ -155,7 +204,7 @@
 			        	<th colspan="2" th:text="${s.getServer()}" style="width: 100px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
 	 		        </th:block>	        
 		        </tr>
-		        <tr>
+		        <tr class="reworkTable">
 		         	<th style="width: 38px;"></th>
 		        	<th style="width: 460px;"></th>
 		            <th style="width: 80px; text-align: center;"></th>
@@ -192,7 +241,7 @@
 		       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
 		       			 </select>
 		           	 </td>
-		           	 <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
+		           	 <td date="updateDate" class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
 		           	 	<div th:text="*{rowReworkDetailDto.getEditDate()}"></div>
 		           	 </td>
 		           </th:block>
@@ -225,6 +274,7 @@
 <script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/i18n/defaults-ru_RU.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/gijgo-combined-1.9.14/js/gijgo.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/gijgo-combined-1.9.14/js/messages/messages.ru-ru.js}" ></script>
 <!-- My *.js -->
 <script type="text/javascript" th:src="@{/resources/js/util/main_util.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/main.js}"></script>

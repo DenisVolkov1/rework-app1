@@ -9,6 +9,8 @@
 $(function() {
 	
 		$('#d').datepicker({
+			format: 'dd.mm.yyyy',
+			locale: 'ru-ru',
             uiLibrary: 'bootstrap4'
         });
   		$('[data-toggle="tooltip"]').tooltip();
@@ -130,8 +132,13 @@ $(function() {
 					
 					$('#updateStatusModal').modal('show');
 				});
+				///////Update date
+				$('[date="updateDate"]').click(function() {
+					$('#updateDateModal').modal('show');
+				});
 				
-				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);
+				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);			
+				$('#cancelUpdateDateModal').click(hideUpdateDateModal);
 				
 				$('#loading').addClass('d-none');
 				$('.container-fluid').removeClass('d-none');
@@ -163,6 +170,10 @@ $(function() {
 		$('#reworkTable').find('select').selectpicker('hide');
 		$('.statusDIV').show();
 		$("#updateStatusButton").unbind( "click" );
+	}
+	
+	var hideUpdateDateModal = function(){
+		$('#updateDateModal').modal('hide');
 	}
 	
 	function upToPage() {

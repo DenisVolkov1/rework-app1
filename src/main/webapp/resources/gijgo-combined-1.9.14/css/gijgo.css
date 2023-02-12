@@ -2214,7 +2214,7 @@ ul.gj-list-md li.disabled > [data-role="wrapper"] > [data-role="expander"] {
 
 .gj-picker-bootstrap table tr td.selected.gj-cursor-pointer div {
     color: #fff;
-    background-color: #204d74;
+    background-color: #007bff;
     border-color: #122b40;
     border-radius: 4px;
 }
