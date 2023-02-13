@@ -8,7 +8,7 @@
 
 $(function() {
 	
-		$('#d').datepicker({
+		$('#datepicker').datepicker({
 			format: 'dd.mm.yyyy',
 			locale: 'ru-ru',
             uiLibrary: 'bootstrap4'
