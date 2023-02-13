@@ -5,8 +5,7 @@ public class Util {
 	private Util() {}
 	
 	public static String getUnicodeStatusWebApp(String sqlStatus) {
-		
-		
+			
 		String ret = "";
 		switch (sqlStatus) {
 	        case  (""):

@@ -34,8 +34,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 
 	@Override
 	public void onUpdateReceived(Update update) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Telegram.chatID="+update.getMessage().getChatId());
 	}
 	
     //@Scheduled(fixedRateString = "10000")
@@ -49,7 +48,5 @@ public class TelegramBot extends TelegramLongPollingBot{
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
     }
-
 }

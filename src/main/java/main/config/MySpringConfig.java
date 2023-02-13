@@ -1,6 +1,7 @@
 package main.config;
 
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import main.util.SendingMessages;
+
 @Configuration
 @PropertySource("classpath:config-${REWORK_APP1_MONETKA_RUNTYPE}.properties")
 @EnableTransactionManagement
@@ -53,12 +56,20 @@ public class MySpringConfig implements WebMvcConfigurer {
     
     @Autowired
     Environment env;
+    
+    @Autowired
+    SendingMessages sm;
 
 	@Autowired
     public MySpringConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;	
     }
 			
+	@PostConstruct
+	public void sendMessagesAboutRunApp() throws MessagingException {
+		sm.sendMail("Run");
+	}
+	
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -77,6 +88,7 @@ public class MySpringConfig implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
+    
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -121,6 +133,11 @@ public class MySpringConfig implements WebMvcConfigurer {
 		return new JdbcTemplate(getDataSource());
 	}
 	
+	@Bean
+	public SendingMessages getSendingMessages() {
+		return new SendingMessages();
+	}
+	
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -128,6 +145,7 @@ public class MySpringConfig implements WebMvcConfigurer {
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
+    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");

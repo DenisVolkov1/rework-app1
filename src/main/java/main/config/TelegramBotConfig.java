@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:config-${REWORK_APP1_MONETKA_RUNTYPE}.properties")
 public class TelegramBotConfig {
 	
     @Value("${save_backup_yandex_disk.telegram_bot_name}")

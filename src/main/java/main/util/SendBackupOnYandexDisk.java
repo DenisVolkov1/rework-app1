@@ -43,7 +43,7 @@ import main.dao.service.TelegramBot;
 /*
  * https://oauth.yandex.ru/authorize?response_type=token&client_id=dee1bd42bd86406eaf429a53afdcff62
  */
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:config-${REWORK_APP1_MONETKA_RUNTYPE}.properties")
 @Component
 public class SendBackupOnYandexDisk {
 	
