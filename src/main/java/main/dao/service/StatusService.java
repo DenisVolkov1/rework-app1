@@ -28,4 +28,8 @@ public class StatusService {
 	public ReworkDetail getDateTooltip(String wms, String reworkNumber, String project) {
 		return statusDao.getDateTooltip(wms, reworkNumber, project);	
 	}
+
+	public String updateDate(String reworkNumber, String server, String date) {
+		return statusDao.updateDate(reworkNumber, server, date);
+	}
 }

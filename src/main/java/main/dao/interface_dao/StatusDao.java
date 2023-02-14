@@ -13,4 +13,6 @@ public interface StatusDao {
 
 	String updateStatus(String reworkNumber, String server, String status, String whoUpdate);
 
+	String updateDate(String reworkNumber, String server, String date);
+
 }

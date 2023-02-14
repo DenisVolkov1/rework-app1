@@ -134,6 +134,64 @@ $(function() {
 				});
 				///////Update date
 				$('[date="updateDate"]').click(function() {
+					
+					
+					var serverName = $("#server").val();
+					var port = $("#port").val();
+					var $parentThis = $(this);
+					
+					var response;
+					var column_index = $(this).closest("td").index()-1;
+						if(column_index===4) {column_index = 4}
+						else { column_index =  Math.floor((column_index + 3) / 2) + 1 }
+					//
+					var reworkNumber = $(this).closest("tr").children('td').eq(0).text();
+					var name = $(this).closest("tr").children('td').eq(1).text();
+					var task = $(this).closest("tr").children('td').eq(2).text().trim();
+					var server = $('#headerMainTable > tr').children('th').eq(column_index).text().trim();
+					var date = $parentThis.text().trim();
+
+					$('#updateDateModal').on('show.bs.modal', function (e) {
+						$('#nameUpdateDateLabel').text(name);
+						$('#taskUpdateDateLabel').text(task);
+						$('#serverUpdateDateLabel').text(server);
+						var $datepicker = $('#datepicker').datepicker();
+						const year_Now = new Date().getFullYear();
+						const partsDate = date.split('.');						
+						$datepicker.value(partsDate[0]+'.'+partsDate[1]+'.'+year_Now);
+						$('#reworkNumberUpdateDateLabel').text(reworkNumber);
+					});
+					
+					$("#updateDateButton").click(function() {
+						var $datepicker = $('#datepicker').datepicker();
+						var	name =	        $('#nameUpdateDateLabel').text();
+						var	reworkNumber =	$('#reworkNumberUpdateDateLabel').text();
+						var	server =	    $('#serverUpdateDateLabel').text();
+						var	date =			$datepicker.value();
+						const partsDate = date.split('.');
+						const mssqlDateFormat = partsDate[1]+'.'+partsDate[0]+'.'+partsDate[2];
+						//
+						var updateDatesUrl = "http://"+ serverName +":"+ port +"/rework-app1-monetka/main/updatedate?"
+						+"reworkNumber="+ reworkNumber 
+						+"&server="+ server
+						+"&date="+mssqlDateFormat;					
+												
+						$.get(updateDatesUrl, function(  ) {
+		
+							}).done(function( data ){
+								response = ""+data;
+	
+											var $dateCell = $parentThis;
+											$dateCell.text(response);
+								
+							}).fail(function() {
+									var $alertErr = alertErr(name +" : "+server, "'"+mssqlDateFormat+"' дата не обновлена!");
+	 								$("body").before($alertErr);//unexpected error!
+										upToPage();
+	  						}).always(function() {
+								hideUpdateDateModal.call();
+							});
+					});
 					$('#updateDateModal').modal('show');
 				});
 				
@@ -174,6 +232,7 @@ $(function() {
 	
 	var hideUpdateDateModal = function(){
 		$('#updateDateModal').modal('hide');
+		$("#updateDateButton").unbind( "click" );
 	}
 	
 	function upToPage() {

@@ -165,6 +165,18 @@ public class MainFilterController {
 			String response = statusService.updateStatus( reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
 		return response;
 	}
+	
+	@GetMapping("/main/updatedate")
+	@ResponseBody
+	public String updateDate(
+			@RequestParam("reworkNumber") String reworkNumber,
+			@RequestParam("server") String server,
+			@RequestParam("date")  String date
+			) {
+				
+			String response = statusService.updateDate( reworkNumber, server, date);
+		return response;
+	}
 
 	/**
 	 * like as  href="/showrework/reworknumber_2300 - 2300 is serialkey in dbo.REWORK

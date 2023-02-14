@@ -21,7 +21,6 @@
 	<link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/icons_favicon/favicon-32x32.ico}"/>
 </head>
 <body>
-  <input id="d" width="276" />
   	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
 	<input hidden id ="deleteRework_reworknumber" th:value= "${deleteRework_reworknumber}">
@@ -86,28 +85,28 @@
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="updateStatusModalLabel">Обновить дату</h5>
+	        <h5 class="modal-title">Обновить дату</h5>
 	      </div>
 	      <div class="modal-body">
 			<div class="container mt-3">
-			  <div id="reworkNumberUpdateStatusLabel" class="d-none"></div>
+			  <div id="reworkNumberUpdateDateLabel" class="d-none"></div>
 			  <div class="row mt-2 align-items-center">
 			    <div class="col-3">
 			      <div class="card-header p-1"> Название доработки </div>
 			    </div>
-			    <div id="nameUpdateStatusLabel" class="col-7"></div>
+			    <div id="nameUpdateDateLabel" class="col-7"></div>
 			  </div>
 			  <div class="row mt-2 align-items-center">
 			    <div class="col-3">
 			      <div class="card-header p-1"> Задача </div>
 			    </div>
-			    <div id="taskUpdateStatusLabel" class="col-7"></div>
+			    <div id="taskUpdateDateLabel" class="col-7"></div>
 			  </div>
 			  <div class="row mt-2 align-items-center">
 			    <div class="col-3">
 			      <div class="card-header p-1"> Сервер </div>
 			    </div>
-				<div id="serverUpdateStatusLabel" class="col-7"></div>
+				<div id="serverUpdateDateLabel" class="col-7"></div>
 			  </div>
 			  <div class="row mt-2 align-items-center">
 			    <div class="col-3">
@@ -127,7 +126,6 @@
 	  </div>
 	</div>
 	<!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE --><!-- MODAL DATE UPDATE -->
-	
 	
 	<!-- BUTTON UP TO TOP -->
 	<button id="topPageButton" title="Go to top">Вверх</button>
@@ -220,9 +218,6 @@
 		     <tbody>
 		       	<th:block th:each="rowRework : *{mainListReworksDto}">
 		       	<tr class="heightrow" permanentHidden= "false">
-	<!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
-	<!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
-	<!-- 	           </td> -->
 				   <td class="p-1" style="vertical-align: middle; text-align: center; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
 		       	   <td style="vertical-align: middle;">
 		                <div>
@@ -241,7 +236,7 @@
 		       			 	<option th:each="s, si : ${allStatuses}" th:value="${s.status}" th:utext="${s.status}"/>
 		       			 </select>
 		           	 </td>
-		           	 <td date="updateDate" class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
+		           	 <td date="updateDate" class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%; cursor: pointer;">
 		           	 	<div th:text="*{rowReworkDetailDto.getEditDate()}"></div>
 		           	 </td>
 		           </th:block>
