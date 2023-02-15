@@ -56,6 +56,10 @@ public class SendBackupOnYandexDisk {
     @Autowired
     Environment env;
     
+    @Autowired
+    SendingMessages sm;
+
+    
     @Value("${save_backup_yandex_disk.path_MSSQLBackup}")
     private String pathOnBackupFolder;
     
@@ -120,57 +124,10 @@ public class SendBackupOnYandexDisk {
 			
 		} catch (Exception e) {
 			// stack trace on mail 
-			sendMailError(e);
+			sm.sendMailError(e);
 			// stack trace on telegram
-			sendTelegramError(e);
+			sm.sendTelegramError(e);
 		}	        
-	}
-	
-	private void sendMailError(Exception err) throws MessagingException {
-		
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		err.printStackTrace(pw);
-		//PROPERTIEs
-		final String username =          env.getProperty("save_backup_yandex_disk.gmail_smtp_mail");
-        final String password =          env.getProperty("save_backup_yandex_disk.gmail_smtp_mail_app_password");
-        final String gmail_from_ardess = env.getProperty("save_backup_yandex_disk.gmail_smtp_mail_from_adress");
-        final String gmail_to_ardess =   env.getProperty("save_backup_yandex_disk.gmail_smtp_mail_to_adress");
-
-        Properties prop = new Properties();
-			prop.put("mail.smtp.host", "smtp.gmail.com");
-	        prop.put("mail.smtp.port", "587");
-	        prop.put("mail.smtp.auth", "true");
-	        prop.put("mail.smtp.starttls.enable", "true"); //TLS
-        
-        Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
-
-            Message message = new MimeMessage( session );
-            message.setFrom(new InternetAddress( gmail_from_ardess ));
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse( gmail_to_ardess )
-            );
-            message.setSubject("ERROR!!! CREATE BACKUP DATABASE(REWORKBASE)!");
-            message.setText(sw.toString());
-
-            Transport.send(message);
-
-            System.out.println("Send-mail");
-	}
-	
-	private void sendTelegramError(Exception err) throws MessagingException {
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		err.printStackTrace(pw);
-		
-		telegramBot.sendMessage(sw.toString());
-		
 	}
 	
 	private static List<File> listSortedFiles(String dir) {

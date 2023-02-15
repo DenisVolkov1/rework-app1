@@ -14,12 +14,18 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+
+import main.dao.service.TelegramBot;
+
 
 public class SendingMessages {
 	
     @Autowired
     Environment env;
     
+	@Autowired
+	TelegramBot telegramBot;
     
     public void sendMailError(Exception err) throws MessagingException {
 		
@@ -90,6 +96,17 @@ public class SendingMessages {
             message.setText(sendingMessage);
 
             Transport.send(message);
+	}
+    
+	public void sendTelegramError(Exception err) throws MessagingException {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		err.printStackTrace(pw);
+		telegramBot.sendMessage(sw.toString());
+	}
+	
+	public void sendTelegram(String sendingMessage) throws MessagingException {
+		telegramBot.sendMessage(sendingMessage);
 	}
 
 }

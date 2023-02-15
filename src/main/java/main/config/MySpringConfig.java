@@ -54,6 +54,7 @@ import main.util.SendingMessages;
 public class MySpringConfig implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
+    private static final String START_MESSAGE = "--- Server Run !!! ---";
     
     @Autowired
     Environment env;
@@ -69,7 +70,8 @@ public class MySpringConfig implements WebMvcConfigurer {
 	@PostConstruct
 	public void sendMessagesAboutRunApp() throws MessagingException {
 		if(env.getProperty("rework_app1_monetka_runtype").equals("production")) {
-			sm.sendMail("--- Server Run !!! ---");
+			sm.sendMail(START_MESSAGE);
+				sm.sendTelegram(START_MESSAGE);
 		}
 	}
 	
