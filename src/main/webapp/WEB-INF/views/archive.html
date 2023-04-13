@@ -52,24 +52,28 @@
 						</div>							  
 					</form> 
 				</div>		
-				<div>
-					<div class="col-auto px-1 legend" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>🧪</b><em> - доработка на тестировании.</em><br><b>✔</b><em> - доработка установлена на сервер.</em></div>"><small>легенда</small></div>			
-				</div>				
+				
 				<div class="col-auto ml-auto">
 					<div>
-						<input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary" >
+						<!-- <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary" > -->
+						<form th:method="GET" th:action="@{/main}">
+							<button id ="backMain" class="btn btn-primary align-items-right text-white rounded" type="submit">
+								Назад
+<!-- 								<img th:src="@{/resources/icons_svg/archive-fill.svg}" alt="Bootstrap" width="16" height="16"> -->
+							</button>
+						</form>
 					</div>				
 				</div>				
 			</div>	  
 		</div>
 		
 		
-		<table id ="reworkTable" class="myShadow table-hover table-bordered tableFixHead">
+		<table id ="reworkTable" class="reworkTable myShadow table-hover table-bordered tableFixHead">
 		    <thead id="headerMainTable">
-		        <tr>
+		        <tr class="reworkTable">
 		         	<th style="width: 38px;"> </th>
 		        	<th style="width: 460px;"> Название доработки/исправления
-		        		<div id="buttonWRAP" iswrraped="false" title="button" class="">
+		        		<div id="buttonWRAP" iswrraped="false" title="button" style="width: 23px;">
 			             	<img id="arrow-bar-left" class="d-none icon_hover" src="/rework-app1-monetka/resources/icons_svg/arrow-bar-left.svg" alt="Bootstrap" width="20" height="20" >
 			             	<img id="arrow-bar-right" class="icon_hover" src="/rework-app1-monetka/resources/icons_svg/arrow-bar-right.svg" alt="Bootstrap" width="20" height="20">
 			             </div>  
@@ -80,7 +84,7 @@
 			        	<th colspan="2" th:text="${s.getServer()}" style="width: 100px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
 	 		        </th:block>	        
 		        </tr>
-		        <tr>
+		        <tr class="reworkTable">
 		         	<th style="width: 38px;"></th>
 		        	<th style="width: 460px;"></th>
 		            <th style="width: 80px; text-align: center;"></th>

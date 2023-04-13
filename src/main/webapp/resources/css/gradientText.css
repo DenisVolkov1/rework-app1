@@ -25,7 +25,7 @@
   font-size: 3.1rem;
   
   /* Create the gradient. */
-  background-image: linear-gradient(45deg, #878899a8, #007bffbf);
+  background-image: linear-gradient(to right top, #051937, #414660, #78798c, #b1b0bb, #ececec);
   /* Set the background size and repeat properties. */
   background-size: 100%;
   background-repeat: repeat;

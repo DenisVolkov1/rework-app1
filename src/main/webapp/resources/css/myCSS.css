@@ -26,7 +26,7 @@ html {
   }
  
   .gradientbackgroundHeaderArchive {
-	background-image: linear-gradient(120deg, #959595 0%, #f1f1f1 100%);
+	background-image: linear-gradient(120deg, #959595 0%, #f1f1f1 87%);
 	height: 45px;
 	animation: animate-load 500ms;
   }
