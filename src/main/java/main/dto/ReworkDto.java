@@ -1,6 +1,8 @@
 package main.dto;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 import main.dao.model.Rework;
 import main.util.LocalDateTimeRus;
@@ -12,7 +14,7 @@ public class ReworkDto {
 	
 	private Integer reworkNumber;
 	private String description;
-	private String task;
+	private String[] tasks;
 	private String taskMonetka;
 	private Timestamp addDate;
 	private String addWho;
@@ -24,7 +26,7 @@ public class ReworkDto {
 		
 		this.reworkNumber = rework.getReworkNumber();
 		this.description = rework.getDescription();
-		this.task = rework.getTask();
+		this.tasks = (rework.getTask() == null) ? new String[] {} : rework.getTask().split(",");
 		this.taskMonetka = rework.getTaskMonetka();	
 		//this.addDate =  new LocalDateTimeRus(rework.getReworkAddDate().toLocalDateTime()).toString();
 		this.addDate = rework.getReworkAddDate();
@@ -50,12 +52,16 @@ public class ReworkDto {
 		this.description = description;
 	}
 
-	public String getTask() {
-		return task;
+	public String[] getTasks() {
+		for (String string : tasks) {
+			System.out.println(string);
+		}
+		
+		return tasks;
 	}
 
-	public void setTask(String task) {
-		this.task = task;
+	public void setTask(String[] tasks) {
+		this.tasks = tasks;
 	}
 
 	public String getTaskMonetka() {

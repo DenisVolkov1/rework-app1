@@ -43,7 +43,7 @@ $(function() {
 				for (let indexRow = beginFilterIndexRows; indexRow < reworkTable.rows.length; indexRow++) {
 					for (var i = beginFilterIndexColumn; i < filterCountColumn; i++) {
 						var cell = reworkTable.rows[indexRow].cells[i];
-							cell.addEventListener('click', showSelectedList);
+							//cell.addEventListener('click', showSelectedList);
 					}
 				}
 		
