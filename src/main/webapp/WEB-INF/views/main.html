@@ -230,7 +230,7 @@
 		       	   <!--<td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTask()}"></td>-->
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;">
 			       	   <th:block th:each="s : *{rowRework.v1.getTasks()}">
-			       	   		<a class="aLinkMain" th:src="${s}" th:text="${s} +''+ ${sStat.last} ? ',' : ''"></a>
+			       	   		<a class="aLinkMain" th:src="${s}" th:text="${s} +''+ (${sStat.last} ? ',' : '')"></a>
 			       	   </th:block>
 			       </td>	   
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
