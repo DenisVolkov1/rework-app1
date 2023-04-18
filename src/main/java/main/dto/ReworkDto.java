@@ -1,8 +1,10 @@
 package main.dto;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import main.dao.model.Rework;
 import main.util.LocalDateTimeRus;
@@ -10,11 +12,14 @@ import main.util.LocalDateTimeRus.Pattern;
 
 public class ReworkDto {
 	
-	private Rework rework;
+
+    private String redmain;
 	
+	private Rework rework;
 	private Integer reworkNumber;
 	private String description;
 	private String[] tasks;
+	private String[] tasksUrl;
 	private String taskMonetka;
 	private Timestamp addDate;
 	private String addWho;
@@ -22,11 +27,14 @@ public class ReworkDto {
 	private Timestamp editDate;
 	
 	public ReworkDto(Rework rework) {
+		//redmain = env.getProperty("redmain");
+		
 		this.rework = rework;
 		
 		this.reworkNumber = rework.getReworkNumber();
 		this.description = rework.getDescription();
 		this.tasks = (rework.getTask() == null) ? new String[] {} : rework.getTask().split(",");
+		this.tasksUrl = getUrlsRedmain();
 		this.taskMonetka = rework.getTaskMonetka();	
 		//this.addDate =  new LocalDateTimeRus(rework.getReworkAddDate().toLocalDateTime()).toString();
 		this.addDate = rework.getReworkAddDate();
@@ -66,6 +74,10 @@ public class ReworkDto {
 
 	public String getTaskMonetka() {
 		return taskMonetka;
+	}
+	
+	public String[] getTasksUrl() {
+		return tasksUrl;
 	}
 
 	public void setTaskMonetka(String taskMonetka) {
@@ -114,5 +126,14 @@ public class ReworkDto {
 
 	public Rework getRework() {
 		return rework;
+	}
+	public String[] getUrlsRedmain() {
+		//redmain = env.getProperty("redmain");
+		System.out.println(redmain);
+		String[] res = new String[tasks.length];
+		for (int i = 0; i < tasks.length; i++) {
+			res[i] = redmain + tasks[i];
+		}
+		return res;
 	}
 }
