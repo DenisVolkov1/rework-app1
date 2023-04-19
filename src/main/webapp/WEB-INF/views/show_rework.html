@@ -54,8 +54,8 @@
 				      <div> Задача </div>
 				    </div>
 				    <div class="col">
-				      <div id="taskEditDiv" class="col" th:text=*{getTask()}></div>
-				      <input id="taskEditInput" th:field= "*{task}" type="text"  class="col-5 form-control d-none">
+				      <div id="taskEditDiv" class="col" th:text=*{getTasks()}></div>
+				      <input id="taskEditInput" th:field= "*{tasks}" type="text"  class="col-5 form-control d-none">
 				    </div>
 					<div class="col-1">
 				    	<button id="taskEditButton" type="button" class="btn btn-primary">Править</button>

@@ -5,6 +5,7 @@ import javax.mail.MessagingException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -49,12 +50,14 @@ import main.util.SendingMessages;
 @ComponentScan("main.dao.interface_dao")
 @ComponentScan("main.dao.model")
 @ComponentScan("main.dao.service")
+@ComponentScan("main.dto")
 @ComponentScan("main.util")
 @EnableWebMvc
 public class MySpringConfig implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
     private static final String START_MESSAGE = "--- Server Run !!! ---";
+    public static String redmain;
     
     @Autowired
     Environment env;
@@ -73,6 +76,7 @@ public class MySpringConfig implements WebMvcConfigurer {
 			sm.sendMail(START_MESSAGE);
 				sm.sendTelegram(START_MESSAGE);
 		}
+		redmain = env.getProperty("redmain");
 	}
 	
     @Bean
@@ -109,8 +113,8 @@ public class MySpringConfig implements WebMvcConfigurer {
 		  dataSource.setDriverClassName(env.getProperty("db.driver"));
 		  dataSource.setUrl(env.getProperty("db.url"));
 		  dataSource.setUsername(env.getProperty("db.user"));
-		  dataSource.setPassword(env.getProperty("db.password"));
-		 
+		  dataSource.setPassword(env.getProperty("db.password"));		
+		  
 	    return dataSource;
 	}
 	

@@ -55,7 +55,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 	public void updateRework(int reworknumber, Rework rework) {
 		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, TASK = ?, TASKMONETKA = ?,EDITDATE = GETDATE() WHERE REWORKNUMBER = ? ";
 		String descr = rework.getDescription();
-		String task = rework.getTask();
+		String task = rework.getTasks();
 		String taskMonetka = rework.getTaskMonetka();
 		
 		jdbcTemplate.update(
@@ -127,7 +127,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 				"SELECT "
 				+ " r.REWORKNUMBER, "
 				+ " r.DESCRIPTION AS r_DESCRIPTION, "
-				+ " r.TASK AS r_TASK, "
+				+ " r.TASK AS r_TASKS, "
 				+ " r.TASKMONETKA AS r_TASKMONETKA, "
 				+ " r.ADDDATE AS REWORKADDDATE, "
 				+ " r.EDITDATE AS REWORKEDITDATE, "
@@ -173,7 +173,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 				"SELECT "
 				+ " r.REWORKNUMBER, "
 				+ " r.DESCRIPTION AS r_DESCRIPTION, "
-				+ " r.TASK AS r_TASK, "
+				+ " r.TASK AS r_TASKS, "
 				+ " r.TASKMONETKA AS r_TASKMONETKA, "
 				+ " r.ADDDATE AS REWORKADDDATE, "
 				+ " r.EDITDATE AS REWORKEDITDATE, "

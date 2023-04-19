@@ -1,47 +1,65 @@
 package main.dto;
 
 import java.sql.Timestamp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+import main.config.MySpringConfig;
 import main.dao.model.Rework;
 import main.util.LocalDateTimeRus;
 import main.util.LocalDateTimeRus.Pattern;
 
+@Configuration
+@PropertySource("classpath:config-${REWORK_APP1_MONETKA_RUNTYPE}.properties")
 public class ReworkDto {
 	
-
-    private String redmain;
+	@Value("${redmain}")
+	String redmain;
 	
 	private Rework rework;
 	private Integer reworkNumber;
 	private String description;
-	private String[] tasks;
-	private String[] tasksUrl;
+	private RedmainTask[] redmainTasks;
+	private String tasks;
 	private String taskMonetka;
 	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
 	private Timestamp editDate;
 	
+	public ReworkDto() {}
+	
 	public ReworkDto(Rework rework) {
-		//redmain = env.getProperty("redmain");
 		
 		this.rework = rework;
 		
 		this.reworkNumber = rework.getReworkNumber();
 		this.description = rework.getDescription();
-		this.tasks = (rework.getTask() == null) ? new String[] {} : rework.getTask().split(",");
-		this.tasksUrl = getUrlsRedmain();
+		this.tasks = rework.getTasks();
 		this.taskMonetka = rework.getTaskMonetka();	
-		//this.addDate =  new LocalDateTimeRus(rework.getReworkAddDate().toLocalDateTime()).toString();
 		this.addDate = rework.getReworkAddDate();
 		this.addWho = rework.getAddWho();
 		this.editWho = rework.getEditWho();
 		this.editDate = rework.getReworkEditDate();
-		//this.editDate = new LocalDateTimeRus(rework.getReworkEditDate().toLocalDateTime()).toString();
+	}
+
+	public RedmainTask[] getRedmainTasks() {
+		if(redmainTasks == null) {
+			this.redmain = MySpringConfig.redmain;
+			String[] arrTask = (rework.getTasks() == null) ? new String[] {} : rework.getTasks().split(",");
+			RedmainTask[] res = new RedmainTask[arrTask.length];
+			for (int i = 0; i < arrTask.length; i++) {
+				res[i] = new RedmainTask(arrTask[i], redmain + arrTask[i]);
+			}
+			redmainTasks = res;
+		}
+		return redmainTasks;
+	}
+
+	public void setTasks(String tasks) {
+		this.tasks = tasks;
 	}
 
 	public Integer getReworkNumber() {
@@ -60,24 +78,16 @@ public class ReworkDto {
 		this.description = description;
 	}
 
-	public String[] getTasks() {
-		for (String string : tasks) {
-			System.out.println(string);
-		}
-		
+	public String getTasks() {
 		return tasks;
 	}
 
-	public void setTask(String[] tasks) {
-		this.tasks = tasks;
+	public void setRedmainTasks(RedmainTask[] tasks) {
+		this.redmainTasks = tasks;
 	}
 
 	public String getTaskMonetka() {
 		return taskMonetka;
-	}
-	
-	public String[] getTasksUrl() {
-		return tasksUrl;
 	}
 
 	public void setTaskMonetka(String taskMonetka) {
@@ -126,14 +136,5 @@ public class ReworkDto {
 
 	public Rework getRework() {
 		return rework;
-	}
-	public String[] getUrlsRedmain() {
-		//redmain = env.getProperty("redmain");
-		System.out.println(redmain);
-		String[] res = new String[tasks.length];
-		for (int i = 0; i < tasks.length; i++) {
-			res[i] = redmain + tasks[i];
-		}
-		return res;
 	}
 }

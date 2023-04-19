@@ -18,7 +18,7 @@ public class ReworkRowMapper implements RowMapper<Rework> {
 		Rework resultRework = new Rework();
 			resultRework.setReworkNumber(rs.getInt("REWORKNUMBER"));
 			resultRework.setDescription(rs.getString("DESCRIPTION"));
-			resultRework.setTask(rs.getString("TASK"));	
+			resultRework.setTasks(rs.getString("TASK"));	
 			resultRework.setTaskMonetka(rs.getString("TASKMONETKA"));
 			resultRework.setReworkAddDate(rs.getTimestamp("ADDDATE"));
 			resultRework.setAddWho(rs.getString("ADDWHO"));

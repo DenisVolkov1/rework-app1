@@ -9,7 +9,7 @@ public class Rework {
 	
 	private Integer reworkNumber;
 	private String description;
-	private String task;
+	private String tasks;
 	private String taskMonetka;
 	private Timestamp reworkAddDate;
 	private String addWho;
@@ -18,12 +18,12 @@ public class Rework {
 	
 	
 	
-	public Rework(int reworkNumber, String description,String task,String taskMonetka, Timestamp addDate, String addWho, String editWho,
+	public Rework(int reworkNumber, String description,String tasks,String taskMonetka, Timestamp addDate, String addWho, String editWho,
 			Timestamp editDate) {
 		super();
 		this.reworkNumber = reworkNumber;
 		this.description = description;
-		this.task = task;
+		this.tasks = tasks;
 		this.taskMonetka = taskMonetka;
 		this.reworkAddDate = addDate;
 		this.addWho = addWho;
@@ -51,12 +51,12 @@ public class Rework {
 		this.description = description;
 	}
 
-	public String getTask() {
-		return task;
+	public String getTasks() {
+		return tasks;
 	}
 
-	public void setTask(String task) {
-		this.task = task;
+	public void setTasks(String tasks) {
+		this.tasks = tasks;
 	}
 
 	public String getTaskMonetka() {
@@ -104,7 +104,7 @@ public class Rework {
 
 	@Override
 	public String toString() {
-		return "Rework [reworkNumber=" + reworkNumber + ", description=" + description + ", task=" + task
+		return "Rework [reworkNumber=" + reworkNumber + ", description=" + description + ", task=" + tasks
 				+ ", taskMonetka=" + taskMonetka + ", addDate=" + reworkAddDate + ", addWho=" + addWho + ", editWho="
 				+ editWho + ", editDate=" + reworkEditDate + "]";
 	}
