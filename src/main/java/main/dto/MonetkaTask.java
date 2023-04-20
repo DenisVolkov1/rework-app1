@@ -1,11 +1,11 @@
 package main.dto;
 
-public class RedmainTask implements MyTask {
+public class MonetkaTask implements MyTask {
 	
 	private String task;
 	private String taskUrl;
 	
-	public RedmainTask(String task, String taskUrl) {
+	public MonetkaTask(String task, String taskUrl) {
 		super();
 		this.task = task;
 		this.taskUrl = taskUrl;
@@ -23,5 +23,5 @@ public class RedmainTask implements MyTask {
 	public void setTaskUrl(String taskUrl) {
 		this.taskUrl = taskUrl;
 	}
-
+	
 }

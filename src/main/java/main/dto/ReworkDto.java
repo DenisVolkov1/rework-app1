@@ -2,20 +2,15 @@ package main.dto;
 
 import java.sql.Timestamp;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-
 import main.config.MySpringConfig;
 import main.dao.model.Rework;
 import main.util.LocalDateTimeRus;
 import main.util.LocalDateTimeRus.Pattern;
 
-@Configuration
-@PropertySource("classpath:config-${REWORK_APP1_MONETKA_RUNTYPE}.properties")
+
 public class ReworkDto {
 	
-	@Value("${redmain}")
+
 	String redmain;
 	
 	private Rework rework;
@@ -24,6 +19,7 @@ public class ReworkDto {
 	private RedmainTask[] redmainTasks;
 	private String tasks;
 	private String taskMonetka;
+	private MonetkaTask[] monetkaTasks;
 	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
@@ -56,6 +52,19 @@ public class ReworkDto {
 			redmainTasks = res;
 		}
 		return redmainTasks;
+	}
+	
+	public MonetkaTask[] getMonetkaTasks() {
+		if(monetkaTasks == null) {
+			this.redmain = MySpringConfig.redmain;
+			String[] arrTask = (rework.getTasks() == null) ? new String[] {} : rework.getTasks().split(",");
+			MonetkaTask[] res = new MonetkaTask[arrTask.length];
+			for (int i = 0; i < arrTask.length; i++) {
+				res[i] = new MonetkaTask(arrTask[i], redmain + arrTask[i]);
+			}
+			monetkaTasks = res;
+		}
+		return monetkaTasks;
 	}
 
 	public void setTasks(String tasks) {
