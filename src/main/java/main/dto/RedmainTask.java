@@ -1,6 +1,6 @@
 package main.dto;
 
-public class RedmainTask implements MyTask {
+public class RedmainTask {
 	
 	private String task;
 	private String taskUrl;

@@ -57,7 +57,8 @@ public class MySpringConfig implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
     private static final String START_MESSAGE = "--- Server Run !!! ---";
-    public static String redmain;
+    public static String redmain_issue;
+    public static String redmain_search_dev;
     
     @Autowired
     Environment env;
@@ -76,7 +77,8 @@ public class MySpringConfig implements WebMvcConfigurer {
 			sm.sendMail(START_MESSAGE);
 				sm.sendTelegram(START_MESSAGE);
 		}
-		redmain = env.getProperty("redmain");
+		redmain_issue = env.getProperty("redmain_issue");
+		redmain_search_dev = env.getProperty("redmain_search_dev");
 	}
 	
     @Bean

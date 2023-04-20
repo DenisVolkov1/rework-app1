@@ -1,6 +1,6 @@
 package main.dto;
 
-public class MonetkaTask implements MyTask {
+public class MonetkaTask {
 	
 	private String task;
 	private String taskUrl;

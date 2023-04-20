@@ -10,8 +10,8 @@ import main.util.LocalDateTimeRus.Pattern;
 
 public class ReworkDto {
 	
-
-	String redmain;
+	String redmain_issue;
+	String redmain_search_dev;
 	
 	private Rework rework;
 	private Integer reworkNumber;
@@ -43,11 +43,11 @@ public class ReworkDto {
 
 	public RedmainTask[] getRedmainTasks() {
 		if(redmainTasks == null) {
-			this.redmain = MySpringConfig.redmain;
+			this.redmain_issue = MySpringConfig.redmain_issue;
 			String[] arrTask = (rework.getTasks() == null) ? new String[] {} : rework.getTasks().split(",");
 			RedmainTask[] res = new RedmainTask[arrTask.length];
 			for (int i = 0; i < arrTask.length; i++) {
-				res[i] = new RedmainTask(arrTask[i], redmain + arrTask[i]);
+				res[i] = new RedmainTask(arrTask[i], redmain_issue + arrTask[i]);
 			}
 			redmainTasks = res;
 		}
@@ -56,16 +56,17 @@ public class ReworkDto {
 	
 	public MonetkaTask[] getMonetkaTasks() {
 		if(monetkaTasks == null) {
-			this.redmain = MySpringConfig.redmain;
-			String[] arrTask = (rework.getTasks() == null) ? new String[] {} : rework.getTasks().split(",");
+			this.redmain_search_dev = MySpringConfig.redmain_search_dev;
+			String[] arrTask = (rework.getTaskMonetka() == null) ? new String[] {} : rework.getTaskMonetka().split(",");
 			MonetkaTask[] res = new MonetkaTask[arrTask.length];
 			for (int i = 0; i < arrTask.length; i++) {
-				res[i] = new MonetkaTask(arrTask[i], redmain + arrTask[i]);
+				res[i] = new MonetkaTask(arrTask[i], redmain_search_dev + arrTask[i]);
 			}
 			monetkaTasks = res;
 		}
 		return monetkaTasks;
 	}
+	
 
 	public void setTasks(String tasks) {
 		this.tasks = tasks;

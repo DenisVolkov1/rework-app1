@@ -117,7 +117,11 @@
 			       	   		<a class="aLinkMain" th:href="${s.getTaskUrl()}" th:text="${s.getTask()}+''+(${sStat.last} ? '' : ',')"></a>
 			       	   </th:block>
 			       </td>
-		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;" th:text="*{rowRework.v1.getTaskMonetka()}"></td>
+		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;">
+			       	   <th:block th:each="s : *{rowRework.v1.getMonetkaTasks()}">
+			       	   		<a class="aLinkMain" th:href="${s.getTaskUrl()}" th:text="${s.getTask()}+''+(${sStat.last} ? '' : ',')"></a>
+			       	   </th:block>
+			       </td>
 		           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
 		           	<td class="p-0 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
 		           		<div class="statusDIV p-0" th:text="*{rowReworkDetailDto.getStatus()}"></div>
