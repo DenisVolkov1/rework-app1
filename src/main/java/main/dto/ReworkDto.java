@@ -66,7 +66,6 @@ public class ReworkDto {
 		}
 		return monetkaTasks;
 	}
-	
 
 	public void setTasks(String tasks) {
 		this.tasks = tasks;

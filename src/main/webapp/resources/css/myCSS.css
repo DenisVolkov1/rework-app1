@@ -172,6 +172,20 @@ tr.reworkTable>th     {  height: 100%; background:#eee; }
   padding: 2px 2px 2px 2px;
   
 }
+
+.aLinkMonetkaTask {
+   color: rgb(201 102 0 / 95%);
+   text-decoration: none;
+   background-color: transparent; 
+   -webkit-text-decoration-skip: objects; 
+    cursor: pointer;
+}
+.aLinkMonetkaTask:hover {
+  	color: #1c8b00d9;
+  	text-decoration: underline;
+  	font-weight: bold;
+}
+
 .aLinkMain {
    color: rgb(0 ,116, 241);
    text-decoration: none;
@@ -179,6 +193,24 @@ tr.reworkTable>th     {  height: 100%; background:#eee; }
    -webkit-text-decoration-skip: objects; 
     cursor: pointer;
 }
+
+.aLinkRedmainTask {
+   color: #169;
+   text-decoration: none;
+   background-color: transparent; 
+   -webkit-text-decoration-skip: objects; 
+    cursor: pointer;
+}
+
+.aLinkRedmainTask:hover {
+  	color: #c61a1a;
+  	text-decoration: underline;
+}
+
+td.tdRedmainTask:hover {
+	background-color: #ffffdd;
+}
+
 
 .aLinkArchive {
    color: #505050;
