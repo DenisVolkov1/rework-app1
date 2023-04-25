@@ -43,7 +43,7 @@ $(function() {
 				for (let indexRow = beginFilterIndexRows; indexRow < reworkTable.rows.length; indexRow++) {
 					for (var i = beginFilterIndexColumn; i < filterCountColumn; i++) {
 						var cell = reworkTable.rows[indexRow].cells[i];
-							//cell.addEventListener('click', showSelectedList);
+							cell.addEventListener('click', showSelectedList);
 					}
 				}
 		
@@ -168,13 +168,13 @@ $(function() {
 						var	reworkNumber =	$('#reworkNumberUpdateDateLabel').text();
 						var	server =	    $('#serverUpdateDateLabel').text();
 						var	date =			$datepicker.value();
-						const partsDate = date.split('.');
-						const mssqlDateFormat = partsDate[1]+'.'+partsDate[0]+'.'+partsDate[2];
+						// const partsDate = date.split('.');
+						// const mssqlDateFormat = partsDate[1]+'.'+partsDate[0]+'.'+partsDate[2];
 						//
 						var updateDatesUrl = "http://"+ serverName +":"+ port +"/rework-app1-monetka/main/updatedate?"
 						+"reworkNumber="+ reworkNumber 
 						+"&server="+ server
-						+"&date="+mssqlDateFormat;					
+						+"&date="+date;					
 												
 						$.get(updateDatesUrl, function(  ) {
 		

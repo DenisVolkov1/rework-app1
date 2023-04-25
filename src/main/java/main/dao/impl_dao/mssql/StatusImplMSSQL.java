@@ -97,7 +97,7 @@ public class StatusImplMSSQL implements StatusDao {
 	public String updateDate(String reworkNumber, String server, String date) {
 		String sqlUpdateDate = 
 				"UPDATE REWORKDETAIL "
-				 + "set EDITDATE = ? "
+				 + "set EDITDATE = CONVERT(datetime, ?, 104) "
 				+ "WHERE REWORKNUMBER = ? AND SERVER = ?; ";
 		
 		jdbcTemplate.update(
@@ -105,7 +105,7 @@ public class StatusImplMSSQL implements StatusDao {
 		date, reworkNumber, server);
 		
 		   String[] partsDate = date.split("\\.");
-		   String dateOnScreen = partsDate[1] + "." + partsDate[0] + "." + partsDate[2].substring(2, 4);
+		   String dateOnScreen = partsDate[0] + "." + partsDate[1] + "." + partsDate[2].substring(2, 4);
 		return dateOnScreen;
 	}
 
