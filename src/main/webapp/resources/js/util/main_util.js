@@ -1,4 +1,10 @@
 // MAIN UTIL document function
+const DELAY = 3600;
+
+////////////////////////////
+var countAlert =0;
+var topShift =0;
+//
 function showErrorMessage(elementForMessage, message) {
 	var parent = $(elementForMessage).parent();
 	var errElement = $(parent).children('.invalid-feedback');
@@ -45,7 +51,7 @@ function hideError(elementForMessage) {
 }
 
 function alertDelete(boldMessage, plainMessage) {
-		var $alertDelete=$("<div class=\"alert alert-dark alert-dismissible fade show\" role=\"alert\">"+
+		var $alertDelete=$("<div class=\"overlay alert alert-dark alert-dismissible fade show\" role=\"alert\">"+
 	    				    "<strong>"+ boldMessage +"</strong> "+ plainMessage +
 	    				     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"+
 	      		           	   "<span aria-hidden=\"true\">&times;</span>"+
@@ -54,7 +60,7 @@ function alertDelete(boldMessage, plainMessage) {
 return $alertDelete;
 }
 function alertInsert(boldMessage, plainMessage) {
-		var $alertInsert=$("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">"+
+		var $alertInsert=$("<div class=\"overlay alert alert-success alert-dismissible fade show\" role=\"alert\">"+
 	    				    "<strong>"+ boldMessage +"</strong> "+ plainMessage +
 	    				     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"+
 	      		           	   "<span aria-hidden=\"true\">&times;</span>"+
@@ -63,20 +69,29 @@ function alertInsert(boldMessage, plainMessage) {
 return $alertInsert;
 }
 function alertUpdate(boldMessage, plainMessage) {
-		var $alertUpdate=$("<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">"+
+		var $alertUpdate=$("<div class=\"overlay alert alert-warning alert-dismissible fade show\" role=\"alert\">"+
 	    				    "<strong>"+ boldMessage +"</strong> "+ plainMessage +
-	    				     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"+
-	      		           	   "<span aria-hidden=\"true\">&times;</span>"+
-	    	                 "</button>"+
   	                    	"</div>");
+		if(topShift>0) {
+			$alertUpdate.css("top",topShift*45);
+		}
+		
+		if(topShift==0) {
+			setTimeout(() => {
+				$('.alert').alert('close');
+				topShift=0;
+			}, DELAY);
+		}
+		++topShift;
 return $alertUpdate;
 }
 function alertErr(errBoldMessage, errPlainMessage) {
-		var $alertErr=$("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">"+
-	    				    "<strong>Error! "+ errBoldMessage +"</strong> "+ errPlainMessage +
+		var $alertErr=$("<div class=\"overlay alert alert-danger alert-dismissible fade show\" role=\"alert\">"+
+	    				    "<strong>Ошибка! "+ errBoldMessage +"</strong> "+ errPlainMessage +
 	    				     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"+
 	      		           	   "<span aria-hidden=\"true\">&times;</span>"+
 	    	                 "</button>"+
   	                    	"</div>");
+		
 return $alertErr;
 }

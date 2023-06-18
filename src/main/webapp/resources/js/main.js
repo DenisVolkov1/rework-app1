@@ -101,28 +101,26 @@ $(function() {
 									$parentThis.parent().parent().parent().addClass('liteGreenAllServers');
 								} else {$parentThis.parent().parent().parent().removeClass('liteGreenAllServers');}
 								
-								var $alertUpdate = alertUpdate(response+" "+name +" : "+server, " статус был обновлён!");
+								var $alertUpdate = alertUpdate(response+" "+name +" : "+server+" : ", " Статус был обновлён! на "+valueStatus);
 	
 									$("body").before($alertUpdate);
-										upToPage();
+										
 											var $visibleValueStatusDIV = $parentThis.parent().parent().find('.statusDIV');
 											$visibleValueStatusDIV.text(valueStatus);
 											var $dateCell = $parentThis.parent().parent().next('td');
-											
+											if(valueStatus) {
 												const year = new Date().getFullYear().toString().slice(-2);
 												const month = new Date().getMonth();
 												const MONTH = ["01","02","03","04","05","06","07","08","09","10","11","12"];
 												const day = new Date().getDate();
-												var dateFarmat =  ""+day + "." + MONTH[month] + "." + year;
-											
-											$dateCell.text(dateFarmat);
-									
-												setTimeout(() => {
-													$('.alert').alert('close');
-												}, 3100);
+												var dateFormat =  ""+day + "." + MONTH[month] + "." + year;
+											    $dateCell.text(dateFormat);
+											} else {
+												$dateCell.text("");
+											}
 								
 							}).fail(function() {
-									var $alertErr = alertErr(name +" : "+server, "status is not updated!");
+									var $alertErr = alertErr(name +" : "+server, " Статус не был обновлён!");
 	 								$("body").before($alertErr);//unexpected error!
 										upToPage();
 	  						}).always(function() {
@@ -134,7 +132,6 @@ $(function() {
 				});
 				///////Update date
 				$('[date="updateDate"]').click(function() {
-					
 					
 					var serverName = $("#server").val();
 					var port = $("#port").val();
@@ -150,6 +147,8 @@ $(function() {
 					var task = $(this).closest("tr").children('td').eq(2).text().trim();
 					var server = $('#headerMainTable > tr').children('th').eq(column_index).text().trim();
 					var date = $parentThis.text().trim();
+					
+					if(!date) return;
 
 					$('#updateDateModal').on('show.bs.modal', function (e) {
 						$('#nameUpdateDateLabel').text(name);
@@ -168,8 +167,6 @@ $(function() {
 						var	reworkNumber =	$('#reworkNumberUpdateDateLabel').text();
 						var	server =	    $('#serverUpdateDateLabel').text();
 						var	date =			$datepicker.value();
-						// const partsDate = date.split('.');
-						// const mssqlDateFormat = partsDate[1]+'.'+partsDate[0]+'.'+partsDate[2];
 						//
 						var updateDatesUrl = "http://"+ serverName +":"+ port +"/rework-app1-monetka/main/updatedate?"
 						+"reworkNumber="+ reworkNumber 
@@ -181,11 +178,14 @@ $(function() {
 							}).done(function( data ){
 								response = ""+data;
 	
-											var $dateCell = $parentThis;
-											$dateCell.text(response);
+									var $dateCell = $parentThis;
+									$dateCell.text(response);
+											
+									var $alertUpdate = alertUpdate(name +" : "+server+" : ", " Дата была обновлёна! на "+response);
+									$("body").before($alertUpdate);
 								
 							}).fail(function() {
-									var $alertErr = alertErr(name +" : "+server, "'"+mssqlDateFormat+"' дата не обновлена!");
+									var $alertErr = alertErr(name +" : "+server, "'"+response+"' Дата не обновлена!");
 	 								$("body").before($alertErr);//unexpected error!
 										upToPage();
 	  						}).always(function() {

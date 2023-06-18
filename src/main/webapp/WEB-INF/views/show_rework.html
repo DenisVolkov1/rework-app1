@@ -143,12 +143,11 @@
 				<div class="btn-group" role="group" aria-label="Basic example">
 				  <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary">
 				  <input id="updateButton" type="button" value="Обновить" class="btn btn-warning mx-3">
-				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить</a>
+				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить в архив</a>
 				  <a hidden id="deleteReworkLink" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()})}"></a>
 				</div>
 			</div>
 		</div>
-
 	</form>
 	<form hidden id="formBack" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">
 		<input id="searchBack" th:field= "*{search}" type="text">
