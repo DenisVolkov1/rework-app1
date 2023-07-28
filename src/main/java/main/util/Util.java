@@ -1,5 +1,10 @@
 package main.util;
 
+import java.util.List;
+
+import main.dao.model.ReworkDetail;
+import main.dto.ReworkDetailDto;
+
 public class Util {
 	
 	private Util() {}
@@ -39,5 +44,56 @@ public class Util {
                break;
 		}
 		return ret;
+	}
+	
+	public static ReworkDetailDto[] getArrReworkDetailDto(int countServers , List<ReworkDetail> listrd) {
+		
+		ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
+		
+		for(ReworkDetail rd : listrd) {
+			
+			switch (rd.getServer()) {
+				case "Дев сервер" :
+					{
+						arrayDetailDtos[0] = new ReworkDetailDto(rd);
+					}
+					break;
+				case "ЕКБ ТЭЦ" :
+					{
+						arrayDetailDtos[1] = new ReworkDetailDto(rd);
+					}
+					break;
+				case "ЕКБ РЦ Берёзовский" :
+					{
+						arrayDetailDtos[2] = new ReworkDetailDto(rd);
+					}
+					break;
+				case "Нефтеюганск" :
+					{
+						arrayDetailDtos[3] = new ReworkDetailDto(rd);
+					}
+					break;
+				case "Новосибирск" :
+					{
+						arrayDetailDtos[4] = new ReworkDetailDto(rd);
+					}
+				break;
+				case "Уфа" :
+					{
+						arrayDetailDtos[5] = new ReworkDetailDto(rd);
+					}
+				break;
+				case "Пермь" :
+				{
+					arrayDetailDtos[6] = new ReworkDetailDto(rd);
+				}
+			break;
+				default: {throw new IllegalArgumentException("Не существующий сервер! : " + rd.getServer());}
+			}
+		}
+		
+		return arrayDetailDtos;
+		
+		
 	}
 }

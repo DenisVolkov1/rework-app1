@@ -90,47 +90,13 @@ public class MainFilterController {
 		if(mainListReworks.size() != 0) {
 			
 			for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
-				List<ReworkDetailDto> detailDtos ;//= new ArrayList<>();
+				List<ReworkDetailDto> detailDtos ;
 				int countServers = t.v2.size();
-				ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
+				//
+				ReworkDetailDto[] arrayDetailDtos = Util.getArrReworkDetailDto(countServers, t.v2);
 							
-				ReworkDto reworkDto = new ReworkDto(t.v1); 
+				ReworkDto reworkDto = new ReworkDto(t.v1);
 				
-				for(ReworkDetail listrd : t.v2) {
-					switch (listrd.getServer()) {
-						case "Дев сервер" :
-							{
-								arrayDetailDtos[0] = new ReworkDetailDto(listrd);
-							}
-							break;
-						case "ЕКБ ТЭЦ" :
-							{
-								arrayDetailDtos[1] = new ReworkDetailDto(listrd);
-							}
-							break;
-						case "ЕКБ РЦ Берёзовский" :
-							{
-								arrayDetailDtos[2] = new ReworkDetailDto(listrd);
-							}
-							break;
-						case "Нефтеюганск" :
-							{
-								arrayDetailDtos[3] = new ReworkDetailDto(listrd);
-							}
-							break;
-						case "Новосибирск" :
-							{
-								arrayDetailDtos[4] = new ReworkDetailDto(listrd);
-							}
-						break;
-						case "Уфа" :
-							{
-								arrayDetailDtos[5] = new ReworkDetailDto(listrd);
-							}
-						break;
-						default: {throw new IllegalArgumentException("Не существующий сервер! : " + listrd.getServer());}
-					}
-				}
 				detailDtos = Arrays.asList(arrayDetailDtos); 
 				
 				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
