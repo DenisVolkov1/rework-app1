@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.simpleflatmapper.util.TypeReference;
 import org.jooq.lambda.tuple.Tuple2;
@@ -149,9 +150,25 @@ public class ReworkImplMSSQL implements ReworkDao {
 		if(search == null) { 
 			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
 	
+		} else if (Pattern.matches("(.+ (or|OR) .+)+",search)) {
+			
+			String arraySearch[] = search.split(" (or|OR) ");
+			paramsSqlSelectFilter = new Object[arraySearch.length * 3];
+			
+			for (int i = 0, i2 = 0; i < arraySearch.length; i++) {
+				
+				String predicate = (i == 0) ? "AND" : "OR";
+				sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+					for (int j = 1; j <= 3; j++) {
+						paramsSqlSelectFilter[i2]= "%"+arraySearch[i]+"%";
+						i2++;
+					}
+			}
+			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+			
 		} else {
 				sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
-					sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+					
 			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
 		}
 		
