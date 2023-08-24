@@ -143,36 +143,16 @@ public class ReworkImplMSSQL implements ReworkDao {
 			+ " FROM REWORK AS r "
 				+ " JOIN REWORKDETAIL AS rd "
 					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
-			+ " WHERE r.ISDELETED = 0 ";
+			+ " WHERE r.ISDELETED = 0 ";	
 		
-		Object[] paramsSqlSelectFilter = null;
+		Object[] returnObj = mainFilterConditionReworkSearching(search);
 		
-		if(search == null) { 
-			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
-	
-		} else if (Pattern.matches("(.+ (or|OR) .+)+",search)) {
-			
-			String arraySearch[] = search.split(" (or|OR) ");
-			paramsSqlSelectFilter = new Object[arraySearch.length * 3];
-			
-			for (int i = 0, i2 = 0; i < arraySearch.length; i++) {
+		Object[] paramsSqlSelectFilter = (Object[]) returnObj[1];
+		sqlSelectFilter                 += (String) returnObj[0];
 				
-				String predicate = (i == 0) ? "AND" : "OR";
-				sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
-					for (int j = 1; j <= 3; j++) {
-						paramsSqlSelectFilter[i2]= "%"+arraySearch[i]+"%";
-						i2++;
-					}
-			}
-			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
-			
-		} else {
-				sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
-					
-			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
-		}
-		
 		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
+		
+		
 		
 		return result;
 	}
@@ -207,20 +187,51 @@ public class ReworkImplMSSQL implements ReworkDao {
 					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
 			+ " WHERE r.ISDELETED = 1 ";
 		
-		Object[] paramsSqlSelectFilter = null;
+		Object[] returnObj = mainFilterConditionReworkSearching(search);
 		
-		if(search == null) { 
-			sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
-	
-		} else {
-				sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
-					sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
-			paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
-		}
+		Object[] paramsSqlSelectFilter = (Object[]) returnObj[1];
+		sqlSelectFilter                 += (String) returnObj[0];
 		
 		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
 		
 		return result;
+	}
+	
+	private Object[] mainFilterConditionReworkSearching(String search) {
+		
+		Object[] returnObj = new Object[2];
+		Object[] paramsSqlSelectFilter = null;
+		String sqlSelectFilter = "";
+		
+		if(search != null) {
+			
+			if (Pattern.matches("(.+ (or|OR) .+)+",search)) {
+				
+				String arraySearch[] = search.split(" (or|OR) ");
+				paramsSqlSelectFilter = new Object[arraySearch.length * 3];
+				
+				for (int i = 0, i2 = 0; i < arraySearch.length; i++) {
+					
+					String predicate = (i == 0) ? "AND (" : "OR";
+					sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+						for (int j = 1; j <= 3; j++) {
+							paramsSqlSelectFilter[i2]= "%"+arraySearch[i]+"%";
+							i2++;
+						}
+				}
+				sqlSelectFilter += " ) ";
+				
+			} else {
+					sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+						
+				paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
+			}
+		}
+		sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+		returnObj[0] = sqlSelectFilter;
+		returnObj[1] = paramsSqlSelectFilter;
+		
+		return returnObj;
 	}
 	
 	@Override
