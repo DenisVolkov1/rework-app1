@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ru.myproject</groupId>
-  <artifactId>rework-app1-monetka</artifactId>
+  <artifactId>rework</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>rework-app1 Maven Webapp</name>
+  <name>rework Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
