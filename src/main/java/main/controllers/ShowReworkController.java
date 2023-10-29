@@ -17,7 +17,7 @@ import main.dao.model.Rework;
 import main.dao.model.SearchFilter;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
-import main.dao.service.WmsService;
+import main.dao.service.ProjectService;
 import main.dto.ReworkDto;
 
 @Controller
@@ -29,7 +29,7 @@ public class ShowReworkController {
 	private ReworkService reworkService;
 	
 	@Autowired
-	private WmsService wmsService;	
+	private ProjectService wmsService;	
 	
 	/**
 	 * like as  href="/showrework/reworknumber_2300 - 2300 is serialkey in dbo.REWORK

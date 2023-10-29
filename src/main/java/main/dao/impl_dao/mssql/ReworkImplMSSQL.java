@@ -56,12 +56,12 @@ public class ReworkImplMSSQL implements ReworkDao {
 	public void updateRework(int reworknumber, Rework rework) {
 		String sqlUpdate = "UPDATE REWORK set DESCRIPTION = ?, TASK = ?, TASKMONETKA = ?,EDITDATE = GETDATE() WHERE REWORKNUMBER = ? ";
 		String descr = rework.getDescription();
-		String task = rework.getTasks();
-		String taskMonetka = rework.getTaskMonetka();
+		String field1 = rework.getField1();
+		String field2 = rework.getField2();
 		
 		jdbcTemplate.update(
 				sqlUpdate, 
-				descr, task,taskMonetka,reworknumber);	
+				descr, field1,field2,reworknumber);	
 	}
 
 	@Override
@@ -128,8 +128,8 @@ public class ReworkImplMSSQL implements ReworkDao {
 				"SELECT "
 				+ " r.REWORKNUMBER, "
 				+ " r.DESCRIPTION AS r_DESCRIPTION, "
-				+ " r.TASK AS r_TASKS, "
-				+ " r.TASKMONETKA AS r_TASKMONETKA, "
+				+ " r.FIELD1 AS r_FIELD1, "
+				+ " r.FIELD2 AS r_FIELD2, "
 				+ " r.ADDDATE AS REWORKADDDATE, "
 				+ " r.EDITDATE AS REWORKEDITDATE, "
 				

@@ -31,12 +31,12 @@ import main.dao.model.ReworkDetail;
 import main.dao.model.SearchFilter;
 import main.dao.model.Server;
 import main.dao.model.Status;
-import main.dao.model.Wms;
+import main.dao.model.Project;
 import main.dao.service.AddWhoService;
 import main.dao.service.ServerService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
-import main.dao.service.WmsService;
+import main.dao.service.ProjectService;
 import main.dto.ReworkDetailDto;
 import main.dto.ReworkDto;
 import main.util.Util;
@@ -50,7 +50,7 @@ public class MainFilterController {
 	private ReworkService reworkService;
 	
 	@Autowired
-	private ServerService serverService;
+	private ProjectService projectService;
 	
 	@Autowired
 	private AddWhoService addWhoService;
@@ -63,24 +63,23 @@ public class MainFilterController {
 			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
 			Model model,HttpServletRequest request) {
 		
-		main(searchFilter, deleteRework_wms, deleteRework_reworknumber,model, request);
+		main(searchFilter,model, request);
 		
 		return "main";
 	}
 	
-	@GetMapping("/main")
+	@GetMapping("/{project}")
 	public String showMainPage(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
-			@ModelAttribute("deleteRework_wms") String deleteRework_wms,
-			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
+			@PathVariable("project") String project ,
 			Model model,HttpServletRequest request) {	
 		
-		main(searchFilter, deleteRework_wms, deleteRework_reworknumber,model, request);
+		main(searchFilter,model, request);
 					
 		return "main";
 	}
 	
-	private void main(SearchFilter searchFilter, String deleteRework_wms, String deleteRework_reworknumber, Model model,
+	private void main(SearchFilter searchFilter,  Model model,
 			HttpServletRequest request) {
 	
 		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
@@ -107,6 +106,7 @@ public class MainFilterController {
 		
 		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allWhoUpdates = addWhoService.findAll();
+		List<Project> allProjects = projectService.findAll();
 		
 
 		for (Status rw : allStatuses) {
@@ -117,6 +117,7 @@ public class MainFilterController {
 		model.addAttribute("mainListReworksDto", mainListReworksDto);
 		model.addAttribute("allStatuses", allStatuses);
 		model.addAttribute("allWhoUpdates", allWhoUpdates);
+		model.addAttribute("projects", allProjects);
 	}
 
 	@GetMapping("/main/updatestatus")

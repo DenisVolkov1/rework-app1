@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import main.dao.interface_dao.StatusDao;
-import main.dao.interface_dao.WmsDao;
+import main.dao.interface_dao.ProjectDao;
 import main.dao.model.Status;
-import main.dao.model.Wms;
+import main.dao.model.Project;
 
 @Service
-public class WmsService {
+public class ProjectService {
 	
 	@Autowired
-	private WmsDao wmsDao;
+	private ProjectDao wmsDao;
 
-	public List<Wms> findAll() {
+	public List<Project> findAll() {
 		return wmsDao.findAll();
 	}
 

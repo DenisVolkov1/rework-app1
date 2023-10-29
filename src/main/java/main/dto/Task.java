@@ -1,11 +1,11 @@
 package main.dto;
 
-public class MonetkaTask {
+public class Task {
 	
 	private String task;
 	private String taskUrl;
 	
-	public MonetkaTask(String task, String taskUrl) {
+	public Task(String task, String taskUrl) {
 		super();
 		this.task = task;
 		this.taskUrl = taskUrl;

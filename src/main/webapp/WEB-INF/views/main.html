@@ -171,12 +171,12 @@
 				</div>
 				<div id="ProjDropdown" class="dropdown">
 				  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Dropdown
+				    Проекты
 				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-				    <button class="dropdown-item" type="button">Action</button>
-				    <button class="dropdown-item" type="button">Another action</button>
-				    <button class="dropdown-item" type="button">Something else here</button>
+				  <div id="projects" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				  	<th:block th:each="s, si : ${projects}" >
+			        	<a class="dropdown-item" th:href="@{'/'+${s.getPartUrl()}}" th:text="${s.getName()}" ></a>
+	 		        </th:block>
 				  </div>
 				</div>
 				<div>
@@ -244,7 +244,7 @@
 			       	   </th:block>
 			       </td>
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;">
-			       	   <th:block th:each="s : *{rowRework.v1.getMonetkaTasks()}">
+			       	   <th:block th:each="s : *{rowRework.v1.getAnotherTasks()}">
 			       	   		<a class="aLinkMonetkaTask" th:href="${s.getTaskUrl()}" th:text="${s.getTask()}+''+(${sStat.last} ? '' : ',')"></a>
 			       	   </th:block>
 			       </td>

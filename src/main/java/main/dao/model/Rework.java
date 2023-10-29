@@ -9,8 +9,8 @@ public class Rework {
 	
 	private Integer reworkNumber;
 	private String description;
-	private String tasks;
-	private String taskMonetka;
+	private String field1;
+	private String field2;
 	private Timestamp reworkAddDate;
 	private String addWho;
 	private String editWho;
@@ -18,13 +18,13 @@ public class Rework {
 	
 	
 	
-	public Rework(int reworkNumber, String description,String tasks,String taskMonetka, Timestamp addDate, String addWho, String editWho,
+	public Rework(int reworkNumber, String description,String field1,String field2, Timestamp addDate, String addWho, String editWho,
 			Timestamp editDate) {
 		super();
 		this.reworkNumber = reworkNumber;
 		this.description = description;
-		this.tasks = tasks;
-		this.taskMonetka = taskMonetka;
+		this.field1 = field1;
+		this.field2 = field2;
 		this.reworkAddDate = addDate;
 		this.addWho = addWho;
 		this.editWho = editWho;
@@ -51,20 +51,20 @@ public class Rework {
 		this.description = description;
 	}
 
-	public String getTasks() {
-		return tasks;
+	public String getField1() {
+		return field1;
 	}
 
-	public void setTasks(String tasks) {
-		this.tasks = tasks;
+	public void setField1(String field1) {
+		this.field1 = field1;
 	}
 
-	public String getTaskMonetka() {
-		return taskMonetka;
+	public String getField2() {
+		return field2;
 	}
 
-	public void setTaskMonetka(String taskMonetka) {
-		this.taskMonetka = taskMonetka;
+	public void setField2(String field2) {
+		this.field2 = field2;
 	}
 
 	public Timestamp getReworkAddDate() {
@@ -104,8 +104,8 @@ public class Rework {
 
 	@Override
 	public String toString() {
-		return "Rework [reworkNumber=" + reworkNumber + ", description=" + description + ", task=" + tasks
-				+ ", taskMonetka=" + taskMonetka + ", addDate=" + reworkAddDate + ", addWho=" + addWho + ", editWho="
+		return "Rework [reworkNumber=" + reworkNumber + ", description=" + description + ", field1=" + field1
+				+ ", field2=" + field2 + ", addDate=" + reworkAddDate + ", addWho=" + addWho + ", editWho="
 				+ editWho + ", editDate=" + reworkEditDate + "]";
 	}
 }

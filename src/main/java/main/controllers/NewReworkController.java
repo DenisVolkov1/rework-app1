@@ -22,12 +22,12 @@ import main.dao.model.NewRework;
 import main.dao.model.Server;
 import main.dao.model.SearchFilter;
 import main.dao.model.Status;
-import main.dao.model.Wms;
+import main.dao.model.Project;
 import main.dao.service.AddWhoService;
 import main.dao.service.ServerService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
-import main.dao.service.WmsService;
+import main.dao.service.ProjectService;
 import main.util.Util;
 
 @Controller
@@ -42,7 +42,7 @@ public class NewReworkController {
 	@Autowired
 	private ServerService projectService;
 	@Autowired
-	private WmsService wmsService;
+	private ProjectService wmsService;
 	
 	@GetMapping("/newrework")
 	public String newReworkShowForm(

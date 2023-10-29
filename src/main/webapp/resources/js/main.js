@@ -13,19 +13,6 @@ $(function() {
 			locale: 'ru-ru',
             uiLibrary: 'bootstrap4'
         });
-
-		$('.dropdown').on('show.bs.dropdown', function () {
-  			console.log('show');
-		});
-		$('.dropdown').on('shown.bs.dropdown', function () {
-  			console.log('shown');
-		});
-		$('.dropdown').on('hide.bs.dropdown', function () {
-  			console.log('hide');
-		});
-		$('.dropdown').on('hidden.bs.dropdown', function () {
-  			console.log('hidden');
-		});
 		
   		$('[data-toggle="tooltip"]').tooltip();
 		$('#reworkTable').find('select').selectpicker();

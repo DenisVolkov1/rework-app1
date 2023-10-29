@@ -17,9 +17,9 @@ public class ReworkDto {
 	private Integer reworkNumber;
 	private String description;
 	private RedmainTask[] redmainTasks;
-	private String tasks;
-	private String taskMonetka;
-	private MonetkaTask[] monetkaTasks;
+	private String field1;
+	private String field2;
+	private Task[] monetkaTasks;
 	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
@@ -33,8 +33,8 @@ public class ReworkDto {
 		
 		this.reworkNumber = rework.getReworkNumber();
 		this.description = rework.getDescription();
-		this.tasks = rework.getTasks();
-		this.taskMonetka = rework.getTaskMonetka();	
+		this.field1 = rework.getField1();
+		this.field2 = rework.getField2();	
 		this.addDate = rework.getReworkAddDate();
 		this.addWho = rework.getAddWho();
 		this.editWho = rework.getEditWho();
@@ -44,7 +44,7 @@ public class ReworkDto {
 	public RedmainTask[] getRedmainTasks() {
 		if(redmainTasks == null) {
 			this.redmain_issue = MySpringConfig.redmain_issue;
-			String[] arrTask = (rework.getTasks() == null) ? new String[] {} : rework.getTasks().split(",");
+			String[] arrTask = (rework.getField1() == null) ? new String[] {} : rework.getField1().split(",");
 			RedmainTask[] res = new RedmainTask[arrTask.length];
 			for (int i = 0; i < arrTask.length; i++) {
 				res[i] = new RedmainTask(arrTask[i], redmain_issue + arrTask[i]);
@@ -54,13 +54,13 @@ public class ReworkDto {
 		return redmainTasks;
 	}
 	
-	public MonetkaTask[] getMonetkaTasks() {
+	public Task[] getAnotherTasks() {
 		if(monetkaTasks == null) {
 			this.redmain_search_dev = MySpringConfig.redmain_search_dev;
-			String[] arrTask = (rework.getTaskMonetka() == null) ? new String[] {} : rework.getTaskMonetka().split(",");
-			MonetkaTask[] res = new MonetkaTask[arrTask.length];
+			String[] arrTask = (rework.getField2() == null) ? new String[] {} : rework.getField2().split(",");
+			Task[] res = new Task[arrTask.length];
 			for (int i = 0; i < arrTask.length; i++) {
-				res[i] = new MonetkaTask(arrTask[i], redmain_search_dev + arrTask[i]);
+				res[i] = new Task(arrTask[i], redmain_search_dev + arrTask[i]);
 			}
 			monetkaTasks = res;
 		}
@@ -68,7 +68,7 @@ public class ReworkDto {
 	}
 
 	public void setTasks(String tasks) {
-		this.tasks = tasks;
+		this.field1 = tasks;
 	}
 
 	public Integer getReworkNumber() {
@@ -88,19 +88,19 @@ public class ReworkDto {
 	}
 
 	public String getTasks() {
-		return tasks;
+		return field1;
 	}
 
 	public void setRedmainTasks(RedmainTask[] tasks) {
 		this.redmainTasks = tasks;
 	}
 
-	public String getTaskMonetka() {
-		return taskMonetka;
+	public String getField2() {
+		return field2;
 	}
 
-	public void setTaskMonetka(String taskMonetka) {
-		this.taskMonetka = taskMonetka;
+	public void setField2(String field2) {
+		this.field2 = field2;
 	}
 
 	public String getAddWho() {
