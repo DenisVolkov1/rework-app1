@@ -56,14 +56,13 @@ public class MainFilterController {
 	private AddWhoService addWhoService;
 	
 	
-	@PostMapping("/main")
+	@PostMapping("/{project}")
 	public String showMainPagePOST(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
-			@ModelAttribute("deleteRework_wms") String deleteRework_wms,
-			@ModelAttribute("deleteRework_reworknumber") String deleteRework_reworknumber,
+			@PathVariable("project") String project ,
 			Model model,HttpServletRequest request) {
 		
-		main(searchFilter,model, request);
+		main(searchFilter,model, request, project);
 		
 		return "main";
 	}
@@ -74,13 +73,13 @@ public class MainFilterController {
 			@PathVariable("project") String project ,
 			Model model,HttpServletRequest request) {	
 		
-		main(searchFilter,model, request);
+		main(searchFilter,model, request, project);
 					
 		return "main";
 	}
 	
 	private void main(SearchFilter searchFilter,  Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request, String project) {
 	
 		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
 		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
@@ -118,6 +117,7 @@ public class MainFilterController {
 		model.addAttribute("allStatuses", allStatuses);
 		model.addAttribute("allWhoUpdates", allWhoUpdates);
 		model.addAttribute("projects", allProjects);
+		model.addAttribute("project", project);
 	}
 
 	@GetMapping("/main/updatestatus")
