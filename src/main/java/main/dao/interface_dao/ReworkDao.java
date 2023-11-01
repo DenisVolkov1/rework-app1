@@ -20,7 +20,7 @@ public interface ReworkDao {
 	
 	public void addNewRework(NewRework newRework);
 
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search);
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search, String project);
 
 	boolean isAlreadyExistsRework(String description);
 

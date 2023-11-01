@@ -81,7 +81,7 @@ public class MainFilterController {
 	private void main(SearchFilter searchFilter,  Model model,
 			HttpServletRequest request, String project) {
 	
-		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch());
+		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParam(searchFilter.getSearch(), project);
 		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
 		List<ReworkDetailDto> serversNameForTitle = new ArrayList<>();
 		

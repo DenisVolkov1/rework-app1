@@ -116,7 +116,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 	}
 
 	@Override
-	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search) {
+	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search, String project) {
 		
 		ResultSetExtractor<List<Tuple2<Rework, List<ReworkDetail>>>> resultSetExtractor = 
 		        JdbcTemplateMapperFactory
@@ -145,12 +145,12 @@ public class ReworkImplMSSQL implements ReworkDao {
 					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
 			+ " WHERE r.ISDELETED = 0 ";	
 		
-		Object[] returnObj = mainFilterConditionReworkSearching(search);
+		Object[] returnObj = mainFilterConditionReworkSearching(search,project);
 		
-		Object[] paramsSqlSelectFilter = (Object[]) returnObj[1];
+		List<String> paramsSqlSelectFilter = (List<String>) returnObj[1];
 		sqlSelectFilter                 += (String) returnObj[0];
 				
-		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
+		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter.toArray(), resultSetExtractor);
 		
 		
 		
@@ -187,44 +187,47 @@ public class ReworkImplMSSQL implements ReworkDao {
 					+ " ON r.REWORKNUMBER = rd.REWORKNUMBER "
 			+ " WHERE r.ISDELETED = 1 ";
 		
-		Object[] returnObj = mainFilterConditionReworkSearching(search);
+		Object[] returnObj = mainFilterConditionReworkSearching(search,"");
 		
-		Object[] paramsSqlSelectFilter = (Object[]) returnObj[1];
+		List<String> paramsSqlSelectFilter = (List<String>) returnObj[1];
 		sqlSelectFilter                 += (String) returnObj[0];
 		
-		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter, resultSetExtractor);
+		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter.toArray(), resultSetExtractor);
 		
 		return result;
 	}
 	
-	private Object[] mainFilterConditionReworkSearching(String search) {
+	private Object[] mainFilterConditionReworkSearching(String search, String project) {
 		
 		Object[] returnObj = new Object[2];
-		Object[] paramsSqlSelectFilter = null;
+		List<String> paramsSqlSelectFilter = new ArrayList<String>();
 		String sqlSelectFilter = "";
+		
+		sqlSelectFilter += " AND r.PROJECT = (SELECT TOP 1 NAME FROM PROJECT WHERE PARTURL = ?) ";
+		paramsSqlSelectFilter.add(project);
 		
 		if(search != null) {
 			
 			if (Pattern.matches("(.+ (or|OR) .+)+",search)) {
 				
 				String arraySearch[] = search.split(" (or|OR) ");
-				paramsSqlSelectFilter = new Object[arraySearch.length * 3];
 				
-				for (int i = 0, i2 = 0; i < arraySearch.length; i++) {
+				for (int i = 0; i < arraySearch.length; i++) {
 					
 					String predicate = (i == 0) ? "AND (" : "OR";
-					sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+					sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.FIELD1 LIKE ? OR r.FIELD2 LIKE ?) ";
 						for (int j = 1; j <= 3; j++) {
-							paramsSqlSelectFilter[i2]= "%"+arraySearch[i]+"%";
-							i2++;
+							paramsSqlSelectFilter.add("%"+arraySearch[i]+"%");
 						}
 				}
 				sqlSelectFilter += " ) ";
 				
 			} else {
-					sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.TASK LIKE ? OR r.TASKMONETKA LIKE ?) ";
+					sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.FIELD1 LIKE ? OR r.FIELD2 LIKE ?) ";
 						
-				paramsSqlSelectFilter = new Object[] { "%"+search+"%", "%"+search+"%", "%"+search+"%" };
+				paramsSqlSelectFilter.add("%"+search+"%");
+				paramsSqlSelectFilter.add("%"+search+"%");
+				paramsSqlSelectFilter.add("%"+search+"%");
 			}
 		}
 		sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
