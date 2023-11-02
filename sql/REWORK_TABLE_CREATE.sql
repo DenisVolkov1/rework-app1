@@ -6,10 +6,13 @@ CREATE TABLE [dbo].[PROJECT](
 	[PROJECTNUMBER] [int] IDENTITY(1,1) NOT NULL,
 	[NAME] [nvarchar](150) NOT NULL,
 	[PARTURL] [nvarchar](150) NOT NULL,
+	[FIELD1] [nvarchar](24) DEFAULT '' NOT NULL ,
+	[FIELD2] [nvarchar](24) DEFAULT '' NOT NULL ,
 PRIMARY KEY CLUSTERED ([NAME] ASC)
 )
 GO
-
+alter table [dbo].[PROJECT] add constraint UQ_PARTURL unique([PARTURL]);
+GO
 /****** Create tables  ******/
 --DROP TABLE [dbo].[REWORK] 
 CREATE TABLE [dbo].[REWORK](

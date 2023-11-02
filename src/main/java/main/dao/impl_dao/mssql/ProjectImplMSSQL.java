@@ -10,8 +10,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import main.dao.impl_dao.rowmapper.ReworkRowMapper;
 import main.dao.interface_dao.ProjectDao;
 import main.dao.model.Project;
+import main.dao.model.Rework;
 
 
 @Component
@@ -29,12 +31,26 @@ private JdbcTemplate jdbcTemplate;
 		 final RowMapper<Project> rowMapper =
 		        JdbcTemplateMapperFactory.newInstance().newRowMapper(Project.class);
 		String query = 
-				"SELECT NAME, PARTURL "
+				"SELECT NAME, PARTURL, FIELD1, FIELD2 "
 				+ "FROM PROJECT p "
 				+ "	JOIN (SELECT DISTINCT PROJECT FROM REWORK) r "
 				+ "	   ON p.NAME=r.PROJECT";
 		List<Project> res = jdbcTemplate.query(query, rowMapper);
 		return res;
+	}
+
+	@Override
+	public Project getProjectByPartURL(String partUrl) {
+		 final RowMapper<Project> rowMapper =
+			        JdbcTemplateMapperFactory.newInstance().newRowMapper(Project.class);
+		String query = 
+				"SELECT NAME, PARTURL, FIELD1, FIELD2 "
+				+ "FROM PROJECT p "
+				+ "	JOIN (SELECT DISTINCT PROJECT FROM REWORK) r "
+				+ "	   ON p.NAME=r.PROJECT"
+				+ " WHERE p.PARTURL = '"+partUrl+"'";
+		List<Project> res = jdbcTemplate.query(query, rowMapper);
+		return res.get(0);
 	}
 
 }

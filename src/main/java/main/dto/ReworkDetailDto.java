@@ -7,7 +7,7 @@ import main.util.LocalDateTimeRus;
 import main.util.Util;
 import main.util.LocalDateTimeRus.Pattern;
 
-public class ReworkDetailDto {
+public class ReworkDetailDto implements Comparable<ReworkDetailDto>{
 	
 	private ReworkDetail reworkDetail;
 	
@@ -102,5 +102,10 @@ public class ReworkDetailDto {
 	}
 	public void setAddDate(Timestamp addDate) {
 		this.addDate = addDate;
+	}
+
+	@Override
+	public int compareTo(ReworkDetailDto o) {
+		return this.server.compareTo(o.getServer());
 	}
 }

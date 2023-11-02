@@ -196,20 +196,20 @@
 		</div>
 		
 		
-		<table id ="reworkTable" class="reworkTable myShadow table-hover table-bordered tableFixHead">
+		<table id ="reworkTable" class="container-xl ml-0 reworkTable myShadow table-hover table-bordered tableFixHead">
 		    <thead id="headerMainTable">
 		        <tr class="reworkTable">
-		         	<th style="width: 38px;"> </th>
-		        	<th style="width: 460px;"> Название доработки/исправления
+		         	<th style="width: 48px;"> </th>
+		        	<th style="width: 560px;"> Название доработки/исправления
 		        		<div id="buttonWRAP" iswrraped="false" title="button" style="width: 23px;">
 			             	<img id="arrow-bar-left" class="d-none icon_hover" th:src="@{/resources/icons_svg/arrow-bar-left.svg}" alt="Bootstrap" width="20" height="20" >
 			             	<img id="arrow-bar-right" class="icon_hover" th:src="@{/resources/icons_svg/arrow-bar-right.svg}" alt="Bootstrap" width="20" height="20">
 			             </div>  
 		        	</th>	        	
-		            <th style="width: 80px; text-align: center;"> Задача </th>
-		            <th style="width: 100px; text-align: center;"> Задача Монетки </th>	            	        	            
+		            <th style="width: 125px; text-align: center;" th:text="${field1}"> field1 </th>
+		            <th style="width: 125px; text-align: center;" th:text="${field2}"> field2 </th>	            	        	            
 		            <th:block th:each="s, si : ${serversNameForTitle}" >
-			        	<th colspan="2" th:text="${s.getServer()}" style="width: 100px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
+			        	<th colspan="2" th:text="${s.getServer()}" style="width: 125px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
 	 		        </th:block>	        
 		        </tr>
 		        <tr class="reworkTable">

@@ -1,5 +1,6 @@
 package main.util;
 
+import java.util.Arrays;
 import java.util.List;
 
 import main.dao.model.ReworkDetail;
@@ -50,7 +51,13 @@ public class Util {
 		
 		ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
 		
-		for(ReworkDetail rd : listrd) {
+		for (int i = 0; i < listrd.size(); i++) {
+			arrayDetailDtos[i] = new ReworkDetailDto(listrd.get(i));
+		}
+		
+		Arrays.sort(arrayDetailDtos );
+		
+		/*for(ReworkDetail rd : listrd) {
 			
 			switch (rd.getServer()) {
 				case "Дев сервер" :
@@ -90,7 +97,7 @@ public class Util {
 			break;
 				default: {throw new IllegalArgumentException("Не существующий сервер! : " + rd.getServer());}
 			}
-		}
+		}*/
 		
 		return arrayDetailDtos;
 		

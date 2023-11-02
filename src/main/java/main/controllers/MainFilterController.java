@@ -106,7 +106,9 @@ public class MainFilterController {
 		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allWhoUpdates = addWhoService.findAll();
 		List<Project> allProjects = projectService.findAll();
-		
+		Project projectByName = projectService.getProjectByPartURL(project);
+			String field1= projectByName.getField1();
+			String field2= projectByName.getField2();
 
 		for (Status rw : allStatuses) {
 			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
@@ -118,6 +120,8 @@ public class MainFilterController {
 		model.addAttribute("allWhoUpdates", allWhoUpdates);
 		model.addAttribute("projects", allProjects);
 		model.addAttribute("project", project);
+		model.addAttribute("field1", field1);
+		model.addAttribute("field2", field2);
 	}
 
 	@GetMapping("/main/updatestatus")

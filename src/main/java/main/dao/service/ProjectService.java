@@ -19,5 +19,9 @@ public class ProjectService {
 	public List<Project> findAll() {
 		return wmsDao.findAll();
 	}
+	
+	public Project getProjectByPartURL(String partUrl) {
+		return wmsDao.getProjectByPartURL(partUrl);
+	}
 
 }

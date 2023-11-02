@@ -16,7 +16,7 @@ html {
   }
 
   .myShadow  {
-  	box-shadow: 0 0 9px rgba(0,0,0,0.4);
+  	box-shadow: 0 5px 9px rgba(0,0,0,0.4);
   }
   .animate-load {
   	animation: animate-load 400ms;
