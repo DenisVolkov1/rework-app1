@@ -1,11 +1,11 @@
 package main.dto;
 
-public class Task {
+public class Field1 {
 	
 	private String task;
 	private String taskUrl;
 	
-	public Task(String task, String taskUrl) {
+	public Field1(String task, String taskUrl) {
 		super();
 		this.task = task;
 		this.taskUrl = taskUrl;
@@ -23,5 +23,5 @@ public class Task {
 	public void setTaskUrl(String taskUrl) {
 		this.taskUrl = taskUrl;
 	}
-	
+
 }

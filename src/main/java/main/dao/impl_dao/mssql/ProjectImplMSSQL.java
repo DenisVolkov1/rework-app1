@@ -31,7 +31,7 @@ private JdbcTemplate jdbcTemplate;
 		 final RowMapper<Project> rowMapper =
 		        JdbcTemplateMapperFactory.newInstance().newRowMapper(Project.class);
 		String query = 
-				"SELECT NAME, PARTURL, FIELD1, FIELD2 "
+				"SELECT NAME, PARTURL, FIELD1, FIELD2, GRADIENTFORHEADER "
 				+ "FROM PROJECT p "
 				+ "	JOIN (SELECT DISTINCT PROJECT FROM REWORK) r "
 				+ "	   ON p.NAME=r.PROJECT";
@@ -44,7 +44,7 @@ private JdbcTemplate jdbcTemplate;
 		 final RowMapper<Project> rowMapper =
 			        JdbcTemplateMapperFactory.newInstance().newRowMapper(Project.class);
 		String query = 
-				"SELECT NAME, PARTURL, FIELD1, FIELD2 "
+				"SELECT NAME, PARTURL, FIELD1, FIELD2, GRADIENTFORHEADER "
 				+ "FROM PROJECT p "
 				+ "	JOIN (SELECT DISTINCT PROJECT FROM REWORK) r "
 				+ "	   ON p.NAME=r.PROJECT"

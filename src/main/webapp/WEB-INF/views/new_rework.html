@@ -6,7 +6,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/myCSS.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradient.css}"/>
+     <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap4/css/bootstrap.min.css" th:href="@{/resources/bootstrap4/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" th:href="@{/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css}"/>
     <!-- for FF, Chrome, Opera -->
@@ -19,25 +22,29 @@
 <body class="animate-load">
 	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
+	<input hidden id ="gradientforheader" th:value= "${gradientforheader}">
+	<input hidden id ="project" th:value= "${project}">
+	
 	<div class="container">
-		<form id="formNew" th:method="POST" th:action="@{/newrework/new}" th:object="${modelNewRework}" class="container rounded-bottom myShadow bg-light">
+		<div id="gradientHeader" class="col-12 gradientbackgroundHeaderMain"></div>
+		<form id="formNew" th:method="POST" th:action="@{'/'+${project}+'/new'}" th:object="${modelNewRework}" class="container rounded-bottom myShadow bg-light">
 			<div class="form-row">
 				<div class="col-11">
 					<div class="mt-4 container">
 					  <div class="row mt-3 align-items-top">
 					    <div class="col-2">
-					      <div class="card-header p-2"> Задача </div>
+					      <div class="card-header p-2" th:text="${field1}"> field1 </div>
 					    </div>
 					    <div id="taskInputDIV" class="col-3">
-					     	<input id="taskInput" placeholder="номер задачи" th:field= "*{task}" type="text" class="form-control" isActualElement="false">
+					     	<input id="taskInput" placeholder="введите номер" th:field= "*{field1}" type="text" class="form-control" isActualElement="false">
 					    </div>
 					  </div>
 					  <div class="row mt-3 align-items-top">
 					    <div class="col-2">
-					      <div class="card-header p-2"> Задача монетки </div>
+					      <div class="card-header p-2" th:text="${field2}"> field2 </div>
 					    </div>
 						<div id="taskMonetkaInputDIV" class="col-4">
-					     	<input id="taskMonetkaInput" placeholder="номер задачи монетки" th:field= "*{taskMonetka}" type="text" class="form-control" value="" required>
+					     	<input id="taskMonetkaInput" placeholder="введите номер" th:field= "*{field2}" type="text" class="form-control" value="" required>
 					    </div>
 					  </div>
 					  <div class="row mt-3">
@@ -90,7 +97,7 @@
 				</div>
 			</div>	
 		</form>
-		<form hidden id="formBack" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">
+		<form hidden id="formBack" th:method="POST" th:action="@{'/'+${project}}" th:object="${modelFilter}">
 			<input id="searchBack" th:field= "*{search}" type="text">
 		</form>
 		<a hidden id="startLink" th:href="@{/main}"></a>

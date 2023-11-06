@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import main.dao.model.AddWho;
+import main.dao.model.Archive;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
 import main.dao.model.SearchFilter;
@@ -24,6 +25,7 @@ import main.dao.model.Status;
 import main.dao.service.AddWhoService;
 import main.dao.service.ReworkService;
 import main.dao.service.StatusService;
+import main.dto.ArchiveDto;
 import main.dto.ReworkDetailDto;
 import main.dto.ReworkDto;
 import main.util.Util;
@@ -43,9 +45,12 @@ public class ArchiveReworkController {
 	@GetMapping("/archive")
 	public String showArchivePageGET(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
-			Model model,HttpServletRequest request) {	
+			@RequestParam(value="project",required = false) String project,
+			Model model,HttpServletRequest request) {
 		
+		System.out.println(project);
 		archive(searchFilter,model, request);
+		model.addAttribute("project",project);
 					
 		return "archive";
 	}
@@ -53,8 +58,10 @@ public class ArchiveReworkController {
 	@PostMapping("/archive")
 	public String showArchivePagePOST(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
+			@ModelAttribute("project") String project ,
 			Model model,HttpServletRequest request) {	
 		
+		System.out.println(project);
 		archive(searchFilter,model, request);
 					
 		return "archive";
@@ -83,39 +90,18 @@ public class ArchiveReworkController {
 	private void archive(SearchFilter searchFilter, Model model,
 			HttpServletRequest request) {
 	
-		List<Tuple2<Rework, List<ReworkDetail>>> mainListReworks = reworkService.findOnSearchParamInArchive(searchFilter.getSearch());
-		List<Tuple2<ReworkDto, List<ReworkDetailDto>>> mainListReworksDto = new ArrayList<>();
-		List<ReworkDetailDto> serversNameForTitle = new ArrayList<>();
+		List<Archive> listArchives = reworkService.findOnSearchParamInArchive(searchFilter.getSearch());
+		List<ArchiveDto> listArchivesDto = new ArrayList<>();
 		
-		if(mainListReworks.size() != 0) {
+		if(listArchives.size() != 0) {
 			
-			for(Tuple2<Rework, List<ReworkDetail>> t : mainListReworks) {
-				List<ReworkDetailDto> detailDtos ;
-				int countServers = t.v2.size();
-				//
-				ReworkDetailDto[] arrayDetailDtos = Util.getArrReworkDetailDto(countServers, t.v2);
-							
-				ReworkDto reworkDto = new ReworkDto(t.v1); 
-				
-				detailDtos = Arrays.asList(arrayDetailDtos); 
-				
-				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);
-				mainListReworksDto.add(tupleDto);
+			for(Archive arc : listArchives) {
+				ArchiveDto archiveDto = new ArchiveDto(arc);
+				listArchivesDto.add(archiveDto);
 			}
-			serversNameForTitle.addAll((mainListReworksDto.get(0)).v2);
 		}
-		
-		List<Status> allStatuses = statusService.findAll();
-		List<AddWho> allWhoUpdates = addWhoService.findAll();
-		
-
-		for (Status rw : allStatuses) {
-			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
-		}
-
-		model.addAttribute("serversNameForTitle", serversNameForTitle);		
-		model.addAttribute("mainListReworksDto", mainListReworksDto);
-		model.addAttribute("allWhoUpdates", allWhoUpdates);
+				
+		model.addAttribute("listArchivesDto", listArchivesDto);
 	}
 
 }

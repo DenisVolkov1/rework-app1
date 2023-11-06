@@ -107,8 +107,10 @@ public class MainFilterController {
 		List<AddWho> allWhoUpdates = addWhoService.findAll();
 		List<Project> allProjects = projectService.findAll();
 		Project projectByName = projectService.getProjectByPartURL(project);
+			String header= projectByName.getName();
 			String field1= projectByName.getField1();
 			String field2= projectByName.getField2();
+			String gradientforheader= projectByName.getGradientForHeader();
 
 		for (Status rw : allStatuses) {
 			rw.setStatus(Util.getUnicodeStatusWebApp(rw.getStatus()));
@@ -119,9 +121,11 @@ public class MainFilterController {
 		model.addAttribute("allStatuses", allStatuses);
 		model.addAttribute("allWhoUpdates", allWhoUpdates);
 		model.addAttribute("projects", allProjects);
+		model.addAttribute("header", header);
 		model.addAttribute("project", project);
 		model.addAttribute("field1", field1);
 		model.addAttribute("field2", field2);
+		model.addAttribute("gradientforheader", gradientforheader);
 	}
 
 	@GetMapping("/main/updatestatus")

@@ -17,4 +17,8 @@ public class ServerService {
 	public List<Server> findAll() {
 		return projectDao.findAll();
 	}
+	
+	public List<Server> findAllByProject(String project) {
+		return projectDao.findAllByProject(project);
+	}
 }

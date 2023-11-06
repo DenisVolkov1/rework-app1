@@ -5,9 +5,10 @@ public class Project {
 	private String name;
 	private String partUrl;
 	private String field1;
-	private String field2;	
+	private String field2;
+	private String gradientForHeader;
 	
-	public Project(String name, String partUrl, String field1, String field2) {
+	public Project(String name, String partUrl, String field1, String field2,String gradientFoeHeader) {
 		super();
 		this.name = name;
 		this.partUrl = partUrl;
@@ -38,6 +39,14 @@ public class Project {
 	}
 	public void setField2(String field2) {
 		this.field2 = field2;
+	}
+
+	public String getGradientForHeader() {
+		return gradientForHeader;
+	}
+
+	public void setGradientForHeader(String gradientForHeader) {
+		this.gradientForHeader = gradientForHeader;
 	}
 
 	@Override

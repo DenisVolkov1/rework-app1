@@ -18,6 +18,13 @@ var switchingBetweenInputOrSelect = function(_selectExistsButton_obj, inputText,
 
 $(function() {
 	
+	var gradientForHeader = $('#gradientforheader').val();
+	const gr = gradientForHeader.split(' ');
+	$('#gradientHeader').css({
+		"background-image":'linear-gradient(120deg, '+gr[0]+' 0%, '+gr[1]+' 100%)',
+		"height":'7'
+	});
+	
 	$('#inputNewAddWhoButton_selectExists').click(function() {
 		
 		switchingBetweenInputOrSelect ($(this), 'Ввести нового пользователя' , 'Выбрать пользователя' , 'addWho');
@@ -28,8 +35,6 @@ $(function() {
 		var isAlreadyExistsRework;
 		var isEmptyFields;
 			
-		var task 		= $("#taskInput").val();
-		var taskMonetka = $("#taskMonetkaInput").val();
 		var description = $("#descrReworkTextarea").val();
 		var addWho = $("#addWhoInput").val();
 		//
@@ -46,8 +51,8 @@ $(function() {
 		
 		if(isEmptyFields == "true") return;
 		
-		//var url = "http://"+ serverName +":"+ port +"/isAlreadyExistsRework?wms="+ wms +"&reworkNumber="+ reworkNumber +"";
-		var url = "http://"+ serverName +":"+ port +"/rework-app1-monetka/isAlreadyExistsRework";
+		var project = $('#project').val();
+		var url = "http://"+ serverName +":"+ port +"/rework/"+project+"/isAlreadyExistsRework";
 		$.ajax({
 			    type: 'get',
 			    url: url,

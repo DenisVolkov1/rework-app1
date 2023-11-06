@@ -8,4 +8,6 @@ public interface ServerDao {
 	
 	List<Server> findAll();
 
+	List<Server> findAllByProject(String project);
+
 }

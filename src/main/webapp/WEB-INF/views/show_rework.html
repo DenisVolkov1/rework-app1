@@ -21,6 +21,7 @@
 <body class="animate-load">
 	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
+	<input hidden id ="gradientforheader" th:value= "${gradientforheader}">
 
 <!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -45,6 +46,7 @@
 <!-- Modal -->
 
 	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{/showrework/update/{reworkNumber}(reworkNumber = 'reworknumber_'+*{getReworkNumber()})}" th:object="${reworkDto}" class="container rounded-bottom myShadow bg-light">
+		<div class="row gradientbackgroundHeaderMain" id="gradientHeader"></div>
 		<div class="row">
 			<div class="col-12">
 				<div class="mt-4 container">
@@ -54,8 +56,8 @@
 				      <div> Задача </div>
 				    </div>
 				    <div class="col">
-				      <div id="taskEditDiv" class="col" th:text=*{getTasks()}></div>
-				      <input id="taskEditInput" th:field= "*{tasks}" type="text"  class="col-5 form-control d-none">
+				      <div id="taskEditDiv" class="col" th:text=*{getField1()}></div>
+				      <input id="taskEditInput" th:field= "*{field1}" type="text"  class="col-5 form-control d-none">
 				    </div>
 					<div class="col-1">
 				    	<button id="taskEditButton" type="button" class="btn btn-primary">Править</button>
@@ -66,8 +68,8 @@
 				      <div > Задача монетки </div>
 				    </div>
 				    <div class="col">
-				      <div id="taskMonetkaEditDiv" class="col" th:text=*{getTaskMonetka()}></div>
-				      <input id="taskMonetkaEditInput" th:field= "*{taskMonetka}" type="text" class="col-5 form-control d-none">
+				      <div id="taskMonetkaEditDiv" class="col" th:text=*{getField2()}></div>
+				      <input id="taskMonetkaEditInput" th:field= "*{field2}" type="text" class="col-5 form-control d-none">
 				    </div>
 					<div class="col-1">
 				    	<button id="taskMonetkaEditButton" type="button" class="btn btn-primary">Править</button>
@@ -143,13 +145,13 @@
 				<div class="btn-group" role="group" aria-label="Basic example">
 				  <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary">
 				  <input id="updateButton" type="button" value="Обновить" class="btn btn-warning mx-3">
-				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить в архив</a>
-				  <a hidden id="deleteReworkLink" th:href="@{/showrework/delete(reworkNumber=*{getReworkNumber()})}"></a>
+				  <a id="deleteReworkButton" role="button" class="btn btn-outline-danger">Удалить</a>
+				  <a hidden id="deleteReworkLink" th:href="@{'/'+${project}+'/showrework/delete?reworkNumber='+*{getReworkNumber()}}"></a>
 				</div>
 			</div>
 		</div>
 	</form>
-	<form hidden id="formBack" th:method="POST" th:action="@{/main}" th:object="${modelFilter}">
+	<form hidden id="formBack" th:method="POST" th:action="@{'/'+${project}+''}" th:object="${modelFilter}">
 		<input id="searchBack" th:field= "*{search}" type="text">
 	</form>
 	<a hidden id="startLink" th:href="@{/main}"></a>

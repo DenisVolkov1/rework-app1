@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/myCSS.css}"/>
-    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradientText.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradient.css}"/>
+     <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap4/css/bootstrap.min.css" th:href="@{/resources/bootstrap4/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" th:href="@{/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css}"/>
     <!-- for FF, Chrome, Opera -->
@@ -55,11 +57,9 @@
 				
 				<div class="col-auto ml-auto">
 					<div>
-						<!-- <input id = "formBackSubmitButton" type="button" value="Назад" class="btn btn-primary" > -->
-						<form th:method="GET" th:action="@{/main}">
+						<form th:method="GET" th:action="@{'/'+${project}}">
 							<button id ="backMain" class="btn btn-primary align-items-right text-white rounded" type="submit">
 								Назад
-<!-- 								<img th:src="@{/resources/icons_svg/archive-fill.svg}" alt="Bootstrap" width="16" height="16"> -->
 							</button>
 						</form>
 					</div>				
@@ -68,68 +68,55 @@
 		</div>
 		
 		
-		<table id ="reworkTable" class="reworkTable myShadow table-hover table-bordered tableFixHead">
+		<table id ="reworkTable" class="container-xl ml-0 reworkTable myShadow table-hover table-bordered tableFixHead">
 		    <thead id="headerMainTable">
 		        <tr class="reworkTable">
-		         	<th style="width: 38px;"> </th>
-		        	<th style="width: 460px;"> Название доработки/исправления
+		         	<th style="width: 48px;"> </th>
+		        	<th style="width: 560px;"> Название доработки/исправления
 		        		<div id="buttonWRAP" iswrraped="false" title="button" style="width: 23px;">
 			             	<img id="arrow-bar-left" class="d-none icon_hover" th:src="@{/resources/icons_svg/arrow-bar-left.svg}" alt="Bootstrap" width="20" height="20" >
 			             	<img id="arrow-bar-right" class="icon_hover" th:src="@{/resources/icons_svg/arrow-bar-right.svg}" alt="Bootstrap" width="20" height="20">
 			             </div>  
 		        	</th>
-		            <th style="width: 80px; text-align: center;"> Задача </th>
-		            <th style="width: 100px; text-align: center;"> Задача Монетки </th>	            	        	            
-		            <th:block th:each="s, si : ${serversNameForTitle}" >
-			        	<th colspan="2" th:text="${s.getServer()}" style="width: 100px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1"></th>
-	 		        </th:block>	        
-		        </tr>
-		        <tr class="reworkTable">
-		         	<th style="width: 38px;"></th>
-		        	<th style="width: 460px;"></th>
-		            <th style="width: 80px; text-align: center;"></th>
-		            <th style="width: 100px; text-align: center;"></th>	            	        	            
-		            <th:block th:each="s, si : ${serversNameForTitle}">
-			        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Стат.</th>
-			        	<th style="width: 50px; text-align: center;"  data-toggle="tooltip" data-placement="top"  class="p-1">Дата</th>
-	 		        </th:block>	        
+		        	<th style="width: 100px; text-align: center;"> Проект </th>
+		            <th style="width: 125px; text-align: center;"> </th> <!-- field1 -->
+		            <th style="width: 125px; text-align: center;"> </th> <!-- field2 -->
+		            <th style="width: 130px; text-align: center;"> Дата создания </th>
+		            <th style="width: 130px; text-align: center;"> Дата изменения </th>
 		        </tr>
 		     </thead>
 		     
-		     
 		     <tbody>
-		       	<th:block th:each="rowRework : *{mainListReworksDto}">
+		       	<th:block th:each="rowArchive : *{listArchivesDto}">
 		       	<tr class="heightrow" permanentHidden= "false">
-	<!-- 	       	   <td class="text-truncate" style="vertical-align: middle;"> -->
-	<!-- 	           		<a th:href="@{*{row.v1.getResource()}}"><img class="icon_hover" th:if="${row.v1.getResource()}" th:src="@{/resources/icons_svg/download.svg}" alt="Bootstrap" width="20" height="20"></a> -->
-	<!-- 	           </td> -->
-				   <td class="p-1" style="vertical-align: middle; text-align: center; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
+				   <td class="p-1" style="vertical-align: middle; text-align: center; color: rgb(149, 149, 149)" th:text="*{rowArchive.getReworkNumber()}"></td>
 		       	   <td style="vertical-align: middle;">
 		                <div>
-							<form class="text-truncate" th:method="GET" th:action="@{/showrework_archive/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">
+							<form class="text-truncate" th:method="GET" th:action="@{/showrework_archive/{reworknumber}(reworknumber = 'reworknumber_'+${rowArchive.getReworkNumber()})}" th:object="${modelFilter}">
 								<input hidden th:field= "*{search}" type="text">
-								<a class="pl-3 aLinkArchive" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
+								<a class="pl-3 aLinkArchive" submitLinkShowReworkForm th:text="${rowArchive.getDescription()}"></a>
 							</form>
 						</div>
 		       	   </td>
+		       	   <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
+		           	 	<div th:text="*{rowArchive.getProject()}"></div>
+		           </td>
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;">
-			       	   <th:block th:each="s : *{rowRework.v1.getRedmainTasks()}">
+			       	   <th:block th:each="s : *{rowArchive.getRedmainTasks()}">
 			       	   		<a class="aLinkArchive" th:href="${s.getTaskUrl()}" th:text="${s.getTask()}+''+(${sStat.last} ? '' : ',')"></a>
 			       	   </th:block>
 			       </td>
 		       	   <td class="text-truncate" style="vertical-align: middle; text-align: center;">
-			       	   <th:block th:each="s : *{rowRework.v1.getMonetkaTasks()}">
+			       	   <th:block th:each="s : *{rowArchive.getAnotherTasks()}">
 			       	   		<a class="aLinkArchive" th:href="${s.getTaskUrl()}" th:text="${s.getTask()}+''+(${sStat.last} ? '' : ',')"></a>
 			       	   </th:block>
 			       </td>
-		           <th:block th:each="rowReworkDetailDto : *{rowRework.v2}">
-		           	<td class="p-0 cell" style="vertical-align: middle;" data-toggle="tooltip" data-html="true" title="">
-		           		<div class="statusDIV p-0" th:text="*{rowReworkDetailDto.getStatus()}"></div>
-		           	 </td>
-		           	 <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
-		           	 	<div th:text="*{rowReworkDetailDto.getEditDate()}"></div>
-		           	 </td>
-		           </th:block>
+			       <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
+		           	 	<div th:text="*{rowArchive.getAddDateD()}"></div>
+		           </td>
+		           <td class="p-1" style="vertical-align: middle; text-align: center; font-size: 95%;">
+		           	 	<div th:text="*{rowArchive.getEditDateD()}"></div>
+		           </td>
 		        </tr>
 		    	</th:block>
 		    </tbody>

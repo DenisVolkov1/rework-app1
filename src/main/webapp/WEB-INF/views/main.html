@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/myCSS.css}"/>
-    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradientText.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradient.css}"/>
      <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap4/css/bootstrap.min.css" th:href="@{/resources/bootstrap4/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" th:href="@{/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css}"/>
@@ -23,7 +23,7 @@
 <body>
   	<input hidden id ="server" th:value= "${server}">
 	<input hidden id ="port" th:value= "${port}">
-	<input hidden id ="project" th:value= "${project}">
+	<input hidden id ="gradientforheader" th:value= "${gradientforheader}">
 	
 	<!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE --><!-- MODAL STATUS UPDATE -->
 	<div class="modal fade" id="updateStatusModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -140,7 +140,9 @@
 	<div class="container-fluid pb-3 d-none">	
 		<div class="container-fluid gradientbackground">		
 			<div class="row">
-				<div class= "col-12 mb-3 gradientbackgroundHeaderMain"><h1 class="gradient-text-1" style="opacity:0.7">ДОРАБОТКИ</h1></div>
+				<div id="gradientHeader" class= "col-12 mb-3 gradientbackgroundHeaderMain">
+					<h1 class="gradient-text-1" style="opacity:0.7" th:text="${header}">header</h1>
+				</div>
 			</div>
 			<div class="row px-4"> 
 				<div>
@@ -160,11 +162,12 @@
 				</div>		
 				<div class="col-auto px-1">
 					<div>
-						<form th:method="GET" th:action="@{/newrework}" th:object="${modelFilter}">
+						<form th:method="GET" th:action="@{'/'+${project}+'/newrework'}" th:object="${modelFilter}">
 							<input hidden th:field= "*{search}" type="text">
 							<button id ="newReworkButton" class="btn btn-primary align-items-center text-white rounded" type="submit">
-								<img class="mr-1 pb-1" th:src="@{/resources/icons_svg/plus-circle-fill.svg}" alt="Bootstrap" width="20" height="20">
-								Добавить доработку
+								<img class="pb-1" th:src="@{/resources/icons_svg/plus-circle-fill.svg}" alt="Bootstrap" width="20" height="20">
+								<div class="col-auto" data-container="body" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Добавить доработку</b></div>"></div>
+								<!-- Добавить доработку -->
 							</button>
 						</form>
 					</div>				
@@ -184,7 +187,8 @@
 				</div>				
 				<div class="col-auto ml-auto">
 					<div>
-						<form th:method="GET" th:action="@{/archive}">
+						<form th:method="GET" th:action="@{/archive(project=${project})}">
+						<input hidden type="project" th:value="${project}" th:name="project" th:placeholder="project" />
 							<button id ="inArchive" class="btn btn-secondary align-items-right text-white rounded" type="submit">
 								В Архив
 								<img th:src="@{/resources/icons_svg/archive-fill.svg}" alt="Bootstrap" width="16" height="16">
@@ -231,7 +235,8 @@
 				   <td class="p-1" style="vertical-align: middle; text-align: center; color: rgb(149, 149, 149)" th:text="*{rowRework.v1.getReworkNumber()}"></td>
 		       	   <td style="vertical-align: middle;">
 		                <div>
-							<form class="text-truncate" th:method="GET" th:action="@{/showrework/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">
+							<!--<form class="text-truncate" th:method="GET" th:action="@{/{project}(project=''+${project})/showrework/{reworknumber}(reworknumber = 'reworknumber_'+${rowRework.v1.getReworkNumber()})}" th:object="${modelFilter}">-->
+							<form class="text-truncate" th:method="GET" th:action="@{'/'+${project}+'/showrework/reworknumber_'+${rowRework.v1.getReworkNumber()}}" th:object="${modelFilter}">
 								<input hidden th:field= "*{search}" type="text">
 								<a class="pl-3 aLinkMain" submitLinkShowReworkForm th:text="${rowRework.v1.getDescription()}"></a>
 							</form>

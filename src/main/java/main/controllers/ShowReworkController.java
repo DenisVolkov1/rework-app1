@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import main.dao.model.Project;
 import main.dao.model.Rework;
 import main.dao.model.SearchFilter;
 import main.dao.service.ReworkService;
@@ -29,16 +30,17 @@ public class ShowReworkController {
 	private ReworkService reworkService;
 	
 	@Autowired
-	private ProjectService wmsService;	
+	private ProjectService projectService;	
 	
 	/**
 	 * like as  href="/showrework/reworknumber_2300 - 2300 is serialkey in dbo.REWORK
 	 * */
-	@GetMapping("/showrework/{reworknumber}")
+	@GetMapping("{project}/showrework/{reworknumber}")
 	public String showrework(
 							@RequestParam(value="isUpdate",required = false) String isUpdate,
 							@PathVariable("reworknumber") String reworknumber,
 							@ModelAttribute("modelFilter") SearchFilter searchFilter,
+							@PathVariable("project") String project,
 							Model model) {
 		
 		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
@@ -46,7 +48,13 @@ public class ShowReworkController {
 		ReworkDto reworkDto = new ReworkDto(rework);
 			//modelRework.toStringAll();
 		if(isUpdate != null) model.addAttribute("isUpdate","true");
+		
+		Project projectByName = projectService.getProjectByPartURL(project);
+			String gradientforheader= projectByName.getGradientForHeader();
+		
 		model.addAttribute("reworkDto",reworkDto);
+		model.addAttribute("project",project);
+		model.addAttribute("gradientforheader", gradientforheader);
 		
 		return "show_rework";
 	}
@@ -62,15 +70,16 @@ public class ShowReworkController {
 		return "redirect:/showrework/reworknumber_{reworknumber}";
 	}
 	
-	@GetMapping("/showrework/delete")
+	@GetMapping("{project}/showrework/delete")
 	public String delete(Model model, 
 			@RequestParam(value="reworkNumber",required = false) String reworkNumber,
+			@PathVariable("project") String project,
 			RedirectAttributes attributes) {
 		
 			reworkService.hideRework(reworkNumber);			
 			
 			attributes.addAttribute("deleteRework_reworknumber", reworkNumber);
-		return "redirect:/main";
+		return "redirect:/"+project;
 	}
 	
 	@ModelAttribute("server")	

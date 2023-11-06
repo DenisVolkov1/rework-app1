@@ -7,7 +7,11 @@
 	var reworkTable;
 
 $(function() {
-	
+		
+		var gradientForHeader = $('#gradientforheader').val();
+		const gr = gradientForHeader.split(' ');
+		$('#gradientHeader').css("background-image",'linear-gradient(120deg, '+gr[0]+' 0%, '+gr[1]+' 100%)')
+
 		$('#datepicker').datepicker({
 			format: 'dd.mm.yyyy',
 			locale: 'ru-ru',
@@ -192,8 +196,8 @@ $(function() {
 				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);			
 				$('#cancelUpdateDateModal').click(hideUpdateDateModal);
 				
-				$('#loading').addClass('d-none');
-				$('.container-fluid').removeClass('d-none');
+				//$('#loading').addClass('d-none');
+				//$('.container-fluid').removeClass('d-none');
 				
 				$('#topPageButton').click(function() {
 						upToPage();
@@ -213,8 +217,10 @@ $(function() {
 				}
 				$('[submitLinkShowReworkForm]').click(function() {
 					$(this).closest('form').submit();
-				});				
-
+				});		
+				
+	// После загрузки страницы.					
+	loadingPage();
 });
 	
 	var hideUpdateStatusModal = function(){

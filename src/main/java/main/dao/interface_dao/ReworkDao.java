@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jooq.lambda.tuple.Tuple2;
 
+import main.dao.model.Archive;
 import main.dao.model.NewRework;
 import main.dao.model.Rework;
 import main.dao.model.ReworkDetail;
@@ -18,13 +19,13 @@ public interface ReworkDao {
 
 	public void hideRework(String reworkNumber);
 	
-	public void addNewRework(NewRework newRework);
+	public void addNewRework(NewRework newRework, String project);
 
 	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search, String project);
 
-	boolean isAlreadyExistsRework(String description);
+	boolean isAlreadyExistsRework(String description,String project);
 
-	List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParamInArchive(String search);
+	public List<Archive> findOnSearchParamInArchive(String search);
 
 
 }

@@ -5,6 +5,10 @@ const DELAY = 3600;
 var countAlert =0;
 var topShift =0;
 //
+function loadingPage() {
+	$('#loading').addClass('d-none');
+	$('.container-fluid').removeClass('d-none');
+}
 function showErrorMessage(elementForMessage, message) {
 	var parent = $(elementForMessage).parent();
 	var errElement = $(parent).children('.invalid-feedback');

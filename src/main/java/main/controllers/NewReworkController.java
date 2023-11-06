@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,73 +35,62 @@ import main.util.Util;
 @RequestMapping(produces = "text/plain;charset=UTF-8")
 public class NewReworkController {
 	@Autowired
-	private StatusService statusService;
-	@Autowired
 	private AddWhoService addWhoService;
 	@Autowired
 	private ReworkService reworkService;
 	@Autowired
-	private ServerService projectService;
-	@Autowired
-	private ProjectService wmsService;
-	
-	@GetMapping("/newrework")
+	private ProjectService projectService;
+
+	@GetMapping("/{project}/newrework")
 	public String newReworkShowForm(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter , 
-			@ModelAttribute("modelNewRework") NewRework rework, 
+			@ModelAttribute("modelNewRework") NewRework rework,
+			@PathVariable("project") String project ,
 			Model model) {
 		
-//		List<Wms> allWms = wmsService.findAll();
-//		List<Server> allServers = projectService.findAll();
-//		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allAddWho = addWhoService.findAll();
-//		
-//		allStatuses.removeIf(s -> s.getStatus().isEmpty());
-//		
-//		for (Status s : allStatuses) {
-//			s.setStatus(Util.getUnicodeStatusWebApp(s.getStatus()));
-//		}
-//		model.addAttribute("allWms", allWms);
-//		model.addAttribute("allProjects", allServers);
-//		model.addAttribute("allStatuses", allStatuses);
+		Project projectByName = projectService.getProjectByPartURL(project);
+			String field1= projectByName.getField1();
+			String field2= projectByName.getField2();
+			String gradientforheader= projectByName.getGradientForHeader();
+
 		model.addAttribute("allAddWho", allAddWho);
+		model.addAttribute("field1", field1);
+		model.addAttribute("field2", field2);
+		model.addAttribute("project", project);
+		model.addAttribute("gradientforheader", gradientforheader);
 		
 		return "new_rework";
 	}
 	
-	@PostMapping("/newrework/new")
+	@PostMapping("{project}/new")
 	public String newRework(
 			@ModelAttribute("modelFilter") 		   SearchFilter searchFilter,
 			@ModelAttribute("modelNewRework")      NewRework newRework,
 			@ModelAttribute("newInsertRework_wms") String newInsertRework_wms,
 			@ModelAttribute("newInsertRework_reworknumber") String newInsertRework_description,
-			@ModelAttribute("newInsertRework_status") String newInsertRework_status,	
+			@ModelAttribute("newInsertRework_status") String newInsertRework_status,
+			@PathVariable("project") String project ,
 			Model model,
 			HttpServletRequest request,
 			final RedirectAttributes redirectAttributes) {
 		
 		request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
-		
-
-			//newRework.setStatus(Util.getStatusSql(newRework.getStatus()));
 		// Save rework to base	
-		reworkService.addNewRework(newRework); 
+		reworkService.addNewRework(newRework,project); 
 		
-			//newInsertRework_server = newRework.getServer();
-
-			
-			redirectAttributes.addFlashAttribute("modelFilter", searchFilter);
-			//redirectAttributes.addFlashAttribute("newInsertRework_server", newInsertRework_server);
-			redirectAttributes.addFlashAttribute("newInsertRework_status", newInsertRework_status);
-		return "redirect:/main";
+		redirectAttributes.addFlashAttribute("modelFilter", searchFilter);
+		redirectAttributes.addFlashAttribute("newInsertRework_status", newInsertRework_status);
+		return "redirect:/"+project;
 	}
 	
-	@GetMapping("/isAlreadyExistsRework")
+	@GetMapping("/{project}/isAlreadyExistsRework")
 	@ResponseBody
 	public String isAlreadyExistsRework(
-			@RequestParam("description") String description) {
+			@RequestParam("description") String description,
+			@PathVariable("project") String project) {
 		
-		boolean isAlreadyExistsRework = reworkService.isAlreadyExistsRework(description);
+		boolean isAlreadyExistsRework = reworkService.isAlreadyExistsRework(description, project);
 		
 	    return isAlreadyExistsRework ? "true" : "false";
 

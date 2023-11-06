@@ -16,10 +16,10 @@ public class ReworkDto {
 	private Rework rework;
 	private Integer reworkNumber;
 	private String description;
-	private RedmainTask[] redmainTasks;
+	private Field1[] field1_list;
 	private String field1;
 	private String field2;
-	private Task[] monetkaTasks;
+	private Field2[] field2_list;
 	private Timestamp addDate;
 	private String addWho;
 	private String editWho;
@@ -41,34 +41,34 @@ public class ReworkDto {
 		this.editDate = rework.getReworkEditDate();
 	}
 
-	public RedmainTask[] getRedmainTasks() {
-		if(redmainTasks == null) {
+	public Field1[] getRedmainTasks() {
+		if(field1_list == null) {
 			this.redmain_issue = MySpringConfig.redmain_issue;
 			String[] arrTask = (rework.getField1() == null) ? new String[] {} : rework.getField1().split(",");
-			RedmainTask[] res = new RedmainTask[arrTask.length];
+			Field1[] res = new Field1[arrTask.length];
 			for (int i = 0; i < arrTask.length; i++) {
-				res[i] = new RedmainTask(arrTask[i], redmain_issue + arrTask[i]);
+				res[i] = new Field1(arrTask[i], redmain_issue + arrTask[i]);
 			}
-			redmainTasks = res;
+			field1_list = res;
 		}
-		return redmainTasks;
+		return field1_list;
 	}
 	
-	public Task[] getAnotherTasks() {
-		if(monetkaTasks == null) {
+	public Field2[] getAnotherTasks() {
+		if(field2_list == null) {
 			this.redmain_search_dev = MySpringConfig.redmain_search_dev;
 			String[] arrTask = (rework.getField2() == null) ? new String[] {} : rework.getField2().split(",");
-			Task[] res = new Task[arrTask.length];
+			Field2[] res = new Field2[arrTask.length];
 			for (int i = 0; i < arrTask.length; i++) {
-				res[i] = new Task(arrTask[i], redmain_search_dev + arrTask[i]);
+				res[i] = new Field2(arrTask[i], redmain_search_dev + arrTask[i]);
 			}
-			monetkaTasks = res;
+			field2_list = res;
 		}
-		return monetkaTasks;
+		return field2_list;
 	}
 
-	public void setTasks(String tasks) {
-		this.field1 = tasks;
+	public void setField1(String field1) {
+		this.field1 = field1;
 	}
 
 	public Integer getReworkNumber() {
@@ -87,12 +87,12 @@ public class ReworkDto {
 		this.description = description;
 	}
 
-	public String getTasks() {
+	public String getField1() {
 		return field1;
 	}
 
-	public void setRedmainTasks(RedmainTask[] tasks) {
-		this.redmainTasks = tasks;
+	public void setField1List(Field1[] tasks) {
+		this.field1_list = tasks;
 	}
 
 	public String getField2() {

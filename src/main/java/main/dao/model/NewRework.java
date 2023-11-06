@@ -4,15 +4,17 @@ package main.dao.model;
 public class NewRework {
 	
 	private String description;
-	private String task;
-	private String taskMonetka;
+	private String field1;
+	private String field2;
+	private String project;
 	private String addWho;
 	
-	public NewRework(String description, String task, String taskMonetka, String addWho) {
+	public NewRework(String description, String field1, String field2, String project, String addWho) {
 		super();
 		this.description = description;
-		this.task = task;
-		this.taskMonetka = taskMonetka;
+		this.field1 = field1;
+		this.field2 = field2;
+		this.project = project;
 		this.addWho = addWho;
 	}
 
@@ -24,20 +26,28 @@ public class NewRework {
 		this.description = description;
 	}
 
-	public String getTask() {
-		return task;
+	public String getField1() {
+		return field1;
 	}
 
-	public void setTask(String task) {
-		this.task = task;
+	public void setField1(String field1) {
+		this.field1 = field1;
 	}
 
-	public String getTaskMonetka() {
-		return taskMonetka;
+	public String getField2() {
+		return field2;
 	}
 
-	public void setTaskMonetka(String taskMonetka) {
-		this.taskMonetka = taskMonetka;
+	public void setField2(String field2) {
+		this.field2 = field2;
+	}
+
+	public String getProgect() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
 	}
 
 	public String getAddWho() {
@@ -50,7 +60,8 @@ public class NewRework {
 
 	@Override
 	public String toString() {
-		return "NewRework [description=" + description + ", task=" + task + ", taskMonetka=" + taskMonetka + ", addWho="
-				+ addWho + "]";
+		return "NewRework [description=" + description + ", field1=" + field1 + ", field2=" + field2 + ", project="
+				+ project + ", addWho=" + addWho + "]";
 	}
+
 }

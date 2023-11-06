@@ -7,7 +7,7 @@
 	var reworkTable;
 
 $(function() {
-	
+	/*
   		$('[data-toggle="tooltip"]').tooltip();
 		$('#reworkTable').find('select').selectpicker();
 		$('#reworkTable').find('select').selectpicker('hide');
@@ -142,9 +142,33 @@ $(function() {
 				    mybutton.style.display = "none";
 				  }
 				}
+	
+				*/			
+				// Erace field search
+				$("#eraserSearch").click(function() {
+					$("#searchInput").val('');
+				});
+				//Стрелка для расширения поля.
+				$("#buttonWRAP").click(function() {
+					if($(this).attr('iswrraped') == 'false') {
+						$(this).attr('iswrraped','true');
+							$('#arrow-bar-right').addClass('d-none');
+							$('#arrow-bar-left').removeClass('d-none');
+							$(this).parent().css('width', '1400px');
+						
+					} else {
+						$(this).attr('iswrraped','false');
+							$('#arrow-bar-left').addClass('d-none');
+							$('#arrow-bar-right').removeClass('d-none');
+							$(this).parent().css('width', '460px');
+					}
+				});
+				//Click по ссылке доработки	
 				$('[submitLinkShowReworkForm]').click(function() {
 					$(this).closest('form').submit();
-				});				
+				});	
+	// После загрузки страницы.
+	loadingPage();		
 
 });
 	

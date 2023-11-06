@@ -7,7 +7,10 @@
     <title>show rework archive</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/myCSS.css}"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/myCSS.css" th:href="@{/resources/css/gradient.css}"/>
+    <!-- My *.css -->
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap4/css/bootstrap.min.css" th:href="@{/resources/bootstrap4/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" th:href="@{/resources/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css}"/>
     <!-- for FF, Chrome, Opera -->
@@ -29,20 +32,20 @@
 				<div id="reworkNumberDiv" th:text=*{getReworkNumber()} class="d-none"></div>
 				  <div class="row mt-2 align-items-center border-bottom">
 				    <div class="card-header col-2">
-				      <div> Задача </div>
+				      <div></div>
 				    </div>
 				    <div class="col">
-				      <div id="taskEditDiv" class="col" th:text=*{getTasks()}></div>
-				      <input id="taskEditInput" th:field= "*{tasks}" type="text"  class="col-5 form-control d-none">
+				      <div id="taskEditDiv" class="col" th:text=*{getField1()}></div>
+				      <input id="taskEditInput" th:field= "*{field1}" type="text"  class="col-5 form-control d-none">
 				    </div>
 				  </div>
 				  <div class="row mt-2 align-items-center border-bottom">
 				    <div class="card-header col-2">
-				      <div > Задача монетки </div>
+				      <div ></div>
 				    </div>
 				    <div class="col">
-				      <div id="taskMonetkaEditDiv" class="col" th:text=*{getTaskMonetka()}></div>
-				      <input id="taskMonetkaEditInput" th:field= "*{taskMonetka}" type="text" class="col-5 form-control d-none">
+				      <div id="taskMonetkaEditDiv" class="col" th:text=*{getField2()}></div>
+				      <input id="taskMonetkaEditInput" th:field= "*{field2}" type="text" class="col-5 form-control d-none">
 				    </div>
 				  </div>
 				</div>
@@ -129,5 +132,5 @@
 <script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/bootstrap-select-1.13.14/dist/js/i18n/defaults-ru_RU.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/util/main_util.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/show_rework.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/show_rework_archive.js}"></script>
 </html>

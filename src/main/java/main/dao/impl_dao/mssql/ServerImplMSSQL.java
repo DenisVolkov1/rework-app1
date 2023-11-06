@@ -30,4 +30,13 @@ public class ServerImplMSSQL implements ServerDao {
 		return res;
 	}
 
+	@Override
+	public List<Server> findAllByProject(String project) {
+		 final RowMapper<Server> rowMapper =
+			        JdbcTemplateMapperFactory.newInstance().newRowMapper(Server.class);
+			String query = "SELECT DISTINCT SERVER FROM REWORKDETAIL WHERE REWORKNUMBER = (SELECT TOP 1 REWORKNUMBER FROM REWORK WHERE PROJECT = '"+project+"')";
+			List<Server> res = jdbcTemplate.query(query, rowMapper);
+		return res;
+	}
+
 }

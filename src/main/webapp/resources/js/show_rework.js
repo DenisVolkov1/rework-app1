@@ -1,5 +1,11 @@
 // MAIN loaded document function
 $(function() {
+	var gradientForHeader = $('#gradientforheader').val();
+	const gr = gradientForHeader.split(' ');
+	$('#gradientHeader').css({
+		"background-image":'linear-gradient(120deg, '+gr[0]+' 0%, '+gr[1]+' 100%)',
+		"height":'7'
+	});
 	
 	$('#taskEditButton').click(function() {
 			$('#taskEditInput').removeClass("d-none");
