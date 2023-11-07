@@ -128,28 +128,30 @@ public class MainFilterController {
 		model.addAttribute("gradientforheader", gradientforheader);
 	}
 
-	@GetMapping("/main/updatestatus")
+	@GetMapping("/{project}/updatestatus")
 	@ResponseBody
 	public String updateStatus(
 			@RequestParam("reworkNumber") String reworkNumber,
 			@RequestParam("server") String server,
 			@RequestParam("valueStatus")  String valueStatus,
-			@RequestParam("whoUpdate")    String whoUpdate
+			@RequestParam("whoUpdate")    String whoUpdate,
+			@PathVariable("project") String project
 			) {
 				
-			String response = statusService.updateStatus( reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
+			String response = statusService.updateStatus(reworkNumber, server, Util.getStatusSql(valueStatus), whoUpdate);
 		return response;
 	}
 	
-	@GetMapping("/main/updatedate")
+	@GetMapping("/{project}/updatedate")
 	@ResponseBody
 	public String updateDate(
 			@RequestParam("reworkNumber") String reworkNumber,
 			@RequestParam("server") String server,
-			@RequestParam("date")  String date
+			@RequestParam("date")  String date,
+			@PathVariable("project") String project
 			) {
 				
-			String response = statusService.updateDate( reworkNumber, server, date);
+			String response = statusService.updateDate(reworkNumber, server, date);
 		return response;
 	}
 

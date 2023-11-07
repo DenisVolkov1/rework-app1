@@ -43,30 +43,29 @@ public class StatusImplMSSQL implements StatusDao {
 	@Transactional()
 	@Override
 	public String updateStatus(String reworkNumber, String server, String status, String whoUpdate) {
-
-				String sqlUpdateStatus = "UPDATE REWORKDETAIL "
-										 + "set STATUS = ?,"
-											+ " EDITDATE = GETDATE(),"
-											+ " EDITWHO = ? "
-										+ "WHERE REWORKNUMBER = ? AND SERVER = ?; ";
-				jdbcTemplate.update(
-						sqlUpdateStatus, 
-						status, whoUpdate, reworkNumber, server);
-				//CHECK ALL SEVERS IS DONE
-
-				String checkSelectCountRows =
-				"SELECT COUNT(*) "+
-				"FROM REWORK AS r "+
-					"JOIN REWORKDETAIL AS rd "+
-						"ON r.REWORKNUMBER = rd.REWORKNUMBER "+
-				"WHERE r.REWORKNUMBER = ? AND STATUS != 'OK' ";
-				Integer checksCountRows = jdbcTemplate.queryForObject(checkSelectCountRows, new Object[] {reworkNumber}, Integer.class);
-				
-				if(checksCountRows == 0) { 
-					reworkService.hideRework(reworkNumber); 
-					
-					return "All servers is done!";
-				} else { return "" ; }
+		
+			String sqlUpdateStatus = "UPDATE REWORKDETAIL "
+									 + "set STATUS = ?,"
+										+ " EDITDATE = GETDATE(),"
+										+ " EDITWHO = ? "
+									+ "WHERE REWORKNUMBER = ? AND SERVER = ? ";
+			jdbcTemplate.update(
+					sqlUpdateStatus, 
+					status, whoUpdate, reworkNumber, server);
+			//CHECK ALL SEVERS IS DONE
+	
+			String checkSelectCountRows =
+			"SELECT COUNT(*) "+
+			"FROM REWORK AS r "+
+				"JOIN REWORKDETAIL AS rd "+
+					"ON r.REWORKNUMBER = rd.REWORKNUMBER "+
+			"WHERE r.REWORKNUMBER = ? AND rd.STATUS != 'OK' ";
+			Integer checksCountRows = jdbcTemplate.queryForObject(checkSelectCountRows, new Object[] {reworkNumber}, Integer.class);
+			
+			if(checksCountRows == 0) { 
+				reworkService.hideRework(reworkNumber);
+				return "All servers is done!";
+			} else { return "" ; }
 	}
 
 	@Override
@@ -95,6 +94,7 @@ public class StatusImplMSSQL implements StatusDao {
 
 	@Override
 	public String updateDate(String reworkNumber, String server, String date) {
+		
 		String sqlUpdateDate = 
 				"UPDATE REWORKDETAIL "
 				 + "set EDITDATE = CONVERT(datetime, ?, 104) "

@@ -76,15 +76,17 @@ $(function() {
 						$('#statusUpdateStatusLabel').text(valueStatus);
 						$('#reworkNumberUpdateStatusLabel').text(reworkNumber);
 					});
-				
+					
+					// Update status
 					$("#updateStatusButton").click(function() {
 						var	name =	        $('#nameUpdateStatusLabel').text();
 						var	reworkNumber =	$('#reworkNumberUpdateStatusLabel').text();
 						var	server =	    $('#serverUpdateStatusLabel').text();
 						var	valueStatus =	$('#statusUpdateStatusLabel').text();
 						var	whoUpdate =     $('#whoUpdatesSelect').find(":selected").text();
+						var project = 		$('#project').val();
 						//
-						var updateStatusUrl = "http://"+ serverName +":"+ port +"/rework-app1-monetka/main/updatestatus?"
+						var updateStatusUrl = "http://"+ serverName +":"+ port +"/rework/"+project+"/updatestatus?"
 						+"reworkNumber="+ reworkNumber 
 						+"&server="+ server
 						+"&valueStatus="+valueStatus
@@ -165,8 +167,9 @@ $(function() {
 						var	reworkNumber =	$('#reworkNumberUpdateDateLabel').text();
 						var	server =	    $('#serverUpdateDateLabel').text();
 						var	date =			$datepicker.value();
+						var project = 		$('#project').val();
 						//
-						var updateDatesUrl = "http://"+ serverName +":"+ port +"/rework-app1-monetka/main/updatedate?"
+						var updateDatesUrl = "http://"+ serverName +":"+ port +"/rework/"+project+"/updatedate?"
 						+"reworkNumber="+ reworkNumber 
 						+"&server="+ server
 						+"&date="+date;					
@@ -195,9 +198,6 @@ $(function() {
 				
 				$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);			
 				$('#cancelUpdateDateModal').click(hideUpdateDateModal);
-				
-				//$('#loading').addClass('d-none');
-				//$('.container-fluid').removeClass('d-none');
 				
 				$('#topPageButton').click(function() {
 						upToPage();
