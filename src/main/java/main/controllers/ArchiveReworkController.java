@@ -48,7 +48,6 @@ public class ArchiveReworkController {
 			@RequestParam(value="project",required = false) String project,
 			Model model,HttpServletRequest request) {
 		
-		System.out.println(project);
 		archive(searchFilter,model, request);
 		model.addAttribute("project",project);
 					
@@ -58,11 +57,11 @@ public class ArchiveReworkController {
 	@PostMapping("/archive")
 	public String showArchivePagePOST(
 			@ModelAttribute("modelFilter") SearchFilter searchFilter ,
-			@ModelAttribute("project") String project ,
+			@RequestParam(value="project",required = false) String project,
 			Model model,HttpServletRequest request) {	
 		
-		System.out.println(project);
 		archive(searchFilter,model, request);
+		model.addAttribute("project",project);
 					
 		return "archive";
 	}
@@ -72,17 +71,17 @@ public class ArchiveReworkController {
 	 * */
 	@GetMapping("/showrework_archive/{reworknumber}")
 	public String showrework(
-							@RequestParam(value="isUpdate",required = false) String isUpdate,
 							@PathVariable("reworknumber") String reworknumber,
 							@ModelAttribute("modelFilter") SearchFilter searchFilter,
+							@RequestParam(value="project",required = false) String project,
 							Model model) {
 		
 		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
 		Rework rework = reworkService.getRework(serialkey);
 		ReworkDto reworkDto = new ReworkDto(rework);
-			//modelRework.toStringAll();
-		if(isUpdate != null) model.addAttribute("isUpdate","true");
+		//
 		model.addAttribute("reworkDto",reworkDto);
+		model.addAttribute("project",project);
 		
 		return "show_rework_archive";
 	}

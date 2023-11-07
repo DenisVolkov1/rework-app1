@@ -120,12 +120,11 @@
 				</div>
 			</div>
 		</div>
-
 	</form>
-	<form hidden id="formBack" th:method="POST" th:action="@{/archive}" th:object="${modelFilter}">
+	<form hidden id="formBack" th:method="GET" th:action="@{/archive(project=${project})}" th:object="${modelFilter}">
+	<input hidden type="project" th:value="${project}" th:name="project" th:placeholder="project" />
 		<input id="searchBack" th:field= "*{search}" type="text">
 	</form>
-	<a hidden id="startLink" th:href="@{/main}"></a>
 </body>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/jquery-3.5.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/bootstrap4/js/bootstrap.bundle.min.js}"></script>
