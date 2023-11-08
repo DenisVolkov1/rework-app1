@@ -158,8 +158,6 @@ public class ReworkImplMSSQL implements ReworkDao {
 				
 		List<Tuple2<Rework, List<ReworkDetail>>> result = jdbcTemplate.query(sqlSelectFilter, paramsSqlSelectFilter.toArray(), resultSetExtractor);
 		
-		
-		
 		return result;
 	}
 	

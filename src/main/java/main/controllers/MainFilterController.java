@@ -91,10 +91,9 @@ public class MainFilterController {
 				List<ReworkDetailDto> detailDtos ;
 				int countServers = t.v2.size();
 				//
+				ReworkDto reworkDto = new ReworkDto(t.v1);
 				ReworkDetailDto[] arrayDetailDtos = Util.getArrReworkDetailDto(countServers, t.v2);
 							
-				ReworkDto reworkDto = new ReworkDto(t.v1);
-				
 				detailDtos = Arrays.asList(arrayDetailDtos); 
 				
 				Tuple2<ReworkDto, List<ReworkDetailDto>> tupleDto = new Tuple2<ReworkDto, List<ReworkDetailDto>>(reworkDto, detailDtos);

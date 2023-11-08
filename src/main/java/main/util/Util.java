@@ -50,57 +50,23 @@ public class Util {
 	public static ReworkDetailDto[] getArrReworkDetailDto(int countServers , List<ReworkDetail> listrd) {
 		
 		ReworkDetailDto[] arrayDetailDtos = new ReworkDetailDto[ countServers ];
-		
+		boolean b = isAllReworksInstalled(listrd); 
 		for (int i = 0; i < listrd.size(); i++) {
-			arrayDetailDtos[i] = new ReworkDetailDto(listrd.get(i));
+			ReworkDetailDto detailDto = new ReworkDetailDto(listrd.get(i));
+				detailDto.setAllReworksInstalled(b);
+				arrayDetailDtos[i] = detailDto;
 		}
-		
-		Arrays.sort(arrayDetailDtos );
-		
-		/*for(ReworkDetail rd : listrd) {
-			
-			switch (rd.getServer()) {
-				case "Дев сервер" :
-					{
-						arrayDetailDtos[0] = new ReworkDetailDto(rd);
-					}
-					break;
-				case "ЕКБ ТЭЦ" :
-					{
-						arrayDetailDtos[1] = new ReworkDetailDto(rd);
-					}
-					break;
-				case "ЕКБ РЦ Берёзовский" :
-					{
-						arrayDetailDtos[2] = new ReworkDetailDto(rd);
-					}
-					break;
-				case "Нефтеюганск" :
-					{
-						arrayDetailDtos[3] = new ReworkDetailDto(rd);
-					}
-					break;
-				case "Новосибирск" :
-					{
-						arrayDetailDtos[4] = new ReworkDetailDto(rd);
-					}
-				break;
-				case "Уфа" :
-					{
-						arrayDetailDtos[5] = new ReworkDetailDto(rd);
-					}
-				break;
-				case "Пермь" :
-				{
-					arrayDetailDtos[6] = new ReworkDetailDto(rd);
-				}
-			break;
-				default: {throw new IllegalArgumentException("Не существующий сервер! : " + rd.getServer());}
-			}
-		}*/
+		Arrays.sort(arrayDetailDtos);
 		
 		return arrayDetailDtos;
-		
-		
+	}
+
+	private static boolean isAllReworksInstalled(List<ReworkDetail> listrd) {
+		for (ReworkDetail reworkDetail : listrd) {
+			if(!reworkDetail.getStatus().equals("OK")) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

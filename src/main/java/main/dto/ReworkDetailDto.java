@@ -20,6 +20,8 @@ public class ReworkDetailDto implements Comparable<ReworkDetailDto>{
 	private String editWho;
 	private Timestamp editDate;
 	
+	private boolean isAllReworksInstalled;
+	
 	public ReworkDetailDto(ReworkDetail reworkDetail) {
 		this.reworkDetail = reworkDetail;
 		
@@ -107,5 +109,13 @@ public class ReworkDetailDto implements Comparable<ReworkDetailDto>{
 	@Override
 	public int compareTo(ReworkDetailDto o) {
 		return this.server.compareTo(o.getServer());
+	}
+
+	public boolean isAllReworksInstalled() {
+		return isAllReworksInstalled;
+	}
+
+	public void setAllReworksInstalled(boolean isAllReworksInstalled) {
+		this.isAllReworksInstalled = isAllReworksInstalled;
 	}
 }
