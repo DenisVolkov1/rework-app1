@@ -7,17 +7,17 @@
 	var reworkTable;
 
 $(function() {
-		
+		//Set gradient colors for header
 		var gradientForHeader = $('#gradientforheader').val();
 		const gr = gradientForHeader.split(' ');
 		$('#gradientHeader').css("background-image",'linear-gradient(120deg, '+gr[0]+' 0%, '+gr[1]+' 100%)')
-
+		// Datepicer init
 		$('#datepicker').datepicker({
 			format: 'dd.mm.yyyy',
 			locale: 'ru-ru',
             uiLibrary: 'bootstrap4'
         });
-		
+		//Tooltip, selectpicker init
   		$('[data-toggle="tooltip"]').tooltip();
 		$('#reworkTable').find('select').selectpicker();
 		$('#reworkTable').find('select').selectpicker('hide');
@@ -26,7 +26,7 @@ $(function() {
 		$("#eraserSearch").click(function() {
 			$("#searchInput").val('');
 		});
-		
+		//Buttonwrap click listeners
 		$("#buttonWRAP").click(function() {
 			if($(this).attr('iswrraped') == 'false') {
 				$(this).attr('iswrraped','true');
@@ -43,7 +43,7 @@ $(function() {
 		});
 		//table FIlter
 		reworkTable = document.getElementById("reworkTable");
-	
+		//ADD event listeners for cell
 		var filterCountColumn = reworkTable.rows[1].cells.length;
 		for (let indexRow = beginFilterIndexRows; indexRow < reworkTable.rows.length; indexRow++) {
 			for (var i = beginFilterIndexColumn; i < filterCountColumn; i++) {
@@ -51,8 +51,9 @@ $(function() {
 					cell.addEventListener('click', showSelectedList);
 			}
 		}
-		
-		// update status show form start///////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////
+		// Update status show form start//
+		/////////////////////////////////
 		$(".selectpicker").change(function() {
 			var serverName = $("#server").val();
 			var port = $("#port").val();
@@ -76,8 +77,9 @@ $(function() {
 				$('#statusUpdateStatusLabel').text(valueStatus);
 				$('#reworkNumberUpdateStatusLabel').text(reworkNumber);
 			});
-			
-			// Update status
+			//////////////////
+			// Update status click
+			//////////////////
 			$("#updateStatusButton").click(function() {
 				var	name =	        $('#nameUpdateStatusLabel').text();
 				var	reworkNumber =	$('#reworkNumberUpdateStatusLabel').text();
@@ -85,7 +87,7 @@ $(function() {
 				var	valueStatus =	$('#statusUpdateStatusLabel').text();
 				var	whoUpdate =     $('#whoUpdatesSelect').find(":selected").text();
 				var project = 		$('#project').val();
-				//
+				//URL for update 'status'
 				var updateStatusUrl = "http://"+ serverName +":"+ port +"/rework/"+project+"/updatestatus?"
 				+"reworkNumber="+ reworkNumber 
 				+"&server="+ server
@@ -97,9 +99,10 @@ $(function() {
 					}).done(function( data ){
 						response = ""+data;
 						if(response == "All servers is done!") {
-							response =  "Доработка полностью установлена!"; 
-							$parentThis.parent().parent().parent().addClass('liteGreenAllServers');
-						} else {$parentThis.parent().parent().parent().removeClass('liteGreenAllServers');}
+							response =  "Доработка полностью установлена!";
+							//Mark if rework is done for all servers.  
+							$parentThis.parent().parent().parent().addClass('markedAsFullSet');
+						} else {$parentThis.parent().parent().parent().removeClass('markedAsFullSet');}
 						
 						var $alertUpdate = alertUpdate(response+" "+name +" : "+server+" : ", " Статус был обновлён! на "+valueStatus);
 
@@ -127,10 +130,14 @@ $(function() {
 						hideUpdateStatusModal.call();
 					});
 			});
-			
+			//Show window modal for 'status'
 			$('#updateStatusModal').modal('show');
 		});
-		///////Update date
+		//Cancel modal window for 'status'
+		$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);	
+		////////////////////
+		//Update date click
+		////////////////////
 		$('[date="updateDate"]').click(function() {
 			
 			var serverName = $("#server").val();
@@ -193,12 +200,13 @@ $(function() {
 						hideUpdateDateModal.call();
 					});
 			});
+			//Show window modal 'date'
 			$('#updateDateModal').modal('show');
 		});
-		
-		$('#cancelUpdateStatusModal').click(hideUpdateStatusModal);			
+		//Cancel modal window for 'date'		
 		$('#cancelUpdateDateModal').click(hideUpdateDateModal);
 		
+		//Up scroll button
 		$('#topPageButton').click(function() {
 				upToPage();
 		});
@@ -215,6 +223,7 @@ $(function() {
 		    mybutton.style.display = "none";
 		  }
 		}
+		//Click for rework description
 		$('[submitLinkShowReworkForm]').click(function() {
 			$(this).closest('form').submit();
 		});		

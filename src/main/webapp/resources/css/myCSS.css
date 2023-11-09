@@ -22,8 +22,11 @@ html {
   	animation: animate-load 400ms;
   }
   
-  .liteGreenAllServers {
+  .markedAsFullSet {
   	background: rgb(102, 255, 204)
+  }
+  .liteGreenAllServers {
+  	background: rgb(205 255 238 / 41%)
   }
   
   @keyframes animate-load {

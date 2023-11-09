@@ -62,8 +62,7 @@ public class StatusImplMSSQL implements StatusDao {
 			"WHERE r.REWORKNUMBER = ? AND rd.STATUS != 'OK' ";
 			Integer checksCountRows = jdbcTemplate.queryForObject(checkSelectCountRows, new Object[] {reworkNumber}, Integer.class);
 			
-			if(checksCountRows == 0) { 
-				reworkService.hideRework(reworkNumber);
+			if(checksCountRows == 0) {
 				return "All servers is done!";
 			} else { return "" ; }
 	}
