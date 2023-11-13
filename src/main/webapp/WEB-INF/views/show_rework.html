@@ -45,7 +45,7 @@
 	</div>
 <!-- Modal -->
 
-	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{/showrework/update/{reworkNumber}(reworkNumber = 'reworknumber_'+*{getReworkNumber()})}" th:object="${reworkDto}" class="container rounded-bottom myShadow bg-light">
+	<form id="formUpdate" th:attr="isUpdate = ${isUpdate} ? 'true' : 'false'" th:method="POST" th:action="@{'/'+${project}+'/showrework/update/reworknumber_'+*{getReworkNumber()}}" th:object="${reworkDto}" class="container rounded-bottom myShadow bg-light">
 		<div class="row gradientbackgroundHeaderMain" id="gradientHeader"></div>
 		<div class="row">
 			<div class="col-12">
