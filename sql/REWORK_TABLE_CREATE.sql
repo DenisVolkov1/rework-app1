@@ -8,7 +8,7 @@ CREATE TABLE [dbo].[PROJECT](
 	[PARTURL] [nvarchar](150) NOT NULL,
 	[FIELD1] [nvarchar](24) DEFAULT '' NOT NULL ,
 	[FIELD2] [nvarchar](24) DEFAULT '' NOT NULL ,
-	[GRADIENTFORHEADER] [nvarchar](30) DEFAULT '#ffffff #007bff' NOT NULL,
+	[GRADIENTFORHEADER] [nvarchar](30) DEFAULT '#ffffff #80bdff' NOT NULL,
 PRIMARY KEY CLUSTERED ([NAME] ASC)
 )
 GO
