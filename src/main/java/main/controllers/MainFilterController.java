@@ -103,7 +103,8 @@ public class MainFilterController {
 			}
 			serversNameForTitle.addAll((mainListReworksDto.get(0)).v2);
 		}
-		//Изменяем сортировку для доработок которые установлены не на все площадки являются приорететнее.
+		//Изменяем сортировку 
+		//Для доработок которые установлены не на все площадки являются приорететнее.
 		//Далее уже сортируется по возрастанию номера доработки
 		class ShitComapare implements Serializable,Comparator<Tuple2<ReworkDto, List<ReworkDetailDto>>>  {
 
