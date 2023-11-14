@@ -104,9 +104,9 @@ public class MainFilterController {
 			serversNameForTitle.addAll((mainListReworksDto.get(0)).v2);
 		}
 		//Изменяем сортировку 
-		//Для доработок которые установлены не на все площадки являются приорететнее.
-		//Далее уже сортируется по возрастанию номера доработки
-		class ShitComapare implements Serializable,Comparator<Tuple2<ReworkDto, List<ReworkDetailDto>>>  {
+		//Доработки которые установлены не на все площадки являются приорететнее.
+		//Далее уже сортируется по возрастанию номера доработки.
+		class MainReworksComaparator implements Serializable,Comparator<Tuple2<ReworkDto, List<ReworkDetailDto>>>  {
 
 			private static final long serialVersionUID = 1L;
 
@@ -127,12 +127,13 @@ public class MainFilterController {
 				} else if(o1_isAllReworksInstalled && o2_isAllReworksInstalled) {
 					return o1.v1.getReworkNumber().compareTo(o2.v1.getReworkNumber());
 				} else {
-					return 0;
+					//ERROR 
+					throw new RuntimeException("Недопустимое состояние сравнения!");
 				}
 			}
 		}
 		
-		Collections.sort(mainListReworksDto, new ShitComapare());
+		Collections.sort(mainListReworksDto, new MainReworksComaparator());
 		// Переворачиваем отсортированный лист.
 		Collections.reverse(mainListReworksDto);
 		//
