@@ -59,15 +59,16 @@ public class ShowReworkController {
 		return "show_rework";
 	}
 
-	@PostMapping("/showrework/update/{reworknumber}")
+	@PostMapping("{project}/showrework/update/{reworknumber}")
 	public String update(@ModelAttribute("modelRework") Rework rework, 
 						 @PathVariable("reworknumber") String reworknumber, 
+						 @PathVariable("project") String project, 
 						 Model model) {
 		
 		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
-			reworkService.updateRework(serialkey, rework);
-				model.addAttribute("isUpdate","true");
-		return "redirect:/showrework/reworknumber_{reworknumber}";
+		
+		reworkService.updateRework(serialkey, rework);
+		return "redirect:/"+project;
 	}
 	
 	@GetMapping("{project}/showrework/delete")

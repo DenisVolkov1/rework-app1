@@ -197,7 +197,8 @@ public class ReworkImplMSSQL implements ReworkDao {
 		Object[] returnObj = new Object[2];
 		List<String> paramsSqlSelectFilter = new ArrayList<String>();
 		String sqlSelectFilter = "";
-		String isArchive = (project.equals("archive")) ? " OR r.PROJECT LIKE ?" : " ";
+		Boolean isArchive = (project.equals("archive"));
+		String	ifArchiveScreen	= (isArchive) ? " OR r.PROJECT LIKE ?" : " ";
 		
 		if(!project.equals("archive")) {
 			sqlSelectFilter += " AND r.PROJECT = (SELECT TOP 1 NAME FROM PROJECT WHERE PARTURL = ?) ";
@@ -213,7 +214,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 				for (int i = 0; i < arraySearch.length; i++) {
 					
 					String predicate = (i == 0) ? "AND (" : "OR";
-					sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.FIELD1 LIKE ? OR r.FIELD2 LIKE ? "+isArchive+") ";
+					sqlSelectFilter += predicate + " (r.DESCRIPTION LIKE ? OR r.FIELD1 LIKE ? OR r.FIELD2 LIKE ? "+ifArchiveScreen+") ";
 						for (int j = 1; j <= 3; j++) {
 							paramsSqlSelectFilter.add("%"+arraySearch[i]+"%");
 						}
@@ -222,7 +223,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 				sqlSelectFilter += " ) ";
 				
 			} else {
-					sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.FIELD1 LIKE ? OR r.FIELD2 LIKE ? "+isArchive+") ";
+					sqlSelectFilter += " AND (r.DESCRIPTION LIKE ? OR r.FIELD1 LIKE ? OR r.FIELD2 LIKE ? "+ifArchiveScreen+") ";
 						
 				paramsSqlSelectFilter.add("%"+search+"%");
 				paramsSqlSelectFilter.add("%"+search+"%");
@@ -231,6 +232,7 @@ public class ReworkImplMSSQL implements ReworkDao {
 			}
 		}
 		sqlSelectFilter += " ORDER BY r.REWORKNUMBER DESC ";
+		
 		returnObj[0] = sqlSelectFilter;
 		returnObj[1] = paramsSqlSelectFilter;
 		
