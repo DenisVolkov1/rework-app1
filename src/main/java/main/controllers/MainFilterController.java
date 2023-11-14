@@ -1,8 +1,10 @@
 package main.controllers;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -101,7 +103,38 @@ public class MainFilterController {
 			}
 			serversNameForTitle.addAll((mainListReworksDto.get(0)).v2);
 		}
+		//Изменяем сортировку для доработок которые установлены не на все площадки являются приорететнее.
+		//Далее уже сортируется по возрастанию номера доработки
+		class ShitComapare implements Serializable,Comparator<Tuple2<ReworkDto, List<ReworkDetailDto>>>  {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public int compare(Tuple2<ReworkDto, List<ReworkDetailDto>> o1, Tuple2<ReworkDto, List<ReworkDetailDto>> o2) {
+				
+				Boolean o1_isAllReworksInstalled = o1.v2().get(0).isAllReworksInstalled();
+				Boolean o2_isAllReworksInstalled = o2.v2().get(0).isAllReworksInstalled();
+				//Если дораб. усановлена не на все площдки считается выше по сортировке, чем если доработка установлена на все площадки.
+				if(!o1_isAllReworksInstalled && o2_isAllReworksInstalled) {
+					return 1;
+				} else if(o1_isAllReworksInstalled && !o2_isAllReworksInstalled) {
+					return -1;
+				//Если обе срвниваемые дораб не уст. на все площадки, то сортируем по номеру дораб от меньшего к большему.	
+				} else if(!(o1_isAllReworksInstalled) && !(o2_isAllReworksInstalled)) {
+					return o1.v1.getReworkNumber().compareTo(o2.v1.getReworkNumber()); 
+				//Если обе срвниваемые дораб уст. полностью, то сортируем по номеру дораб от меньшего к большему.		
+				} else if(o1_isAllReworksInstalled && o2_isAllReworksInstalled) {
+					return o1.v1.getReworkNumber().compareTo(o2.v1.getReworkNumber());
+				} else {
+					return 0;
+				}
+			}
+		}
 		
+		Collections.sort(mainListReworksDto, new ShitComapare());
+		// Переворачиваем отсортированный лист.
+		Collections.reverse(mainListReworksDto);
+		//
 		List<Status> allStatuses = statusService.findAll();
 		List<AddWho> allWhoUpdates = addWhoService.findAll();
 		List<Project> allProjects = projectService.findAll();

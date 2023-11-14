@@ -68,7 +68,7 @@ public class ShowReworkController {
 		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
 		//
 		reworkService.updateRework(serialkey, rework);
-		return "redirect:/"+project+"/showrework/"+reworknumber;
+		return "redirect:/"+project;
 	}
 	
 	@GetMapping("{project}/showrework/delete")
