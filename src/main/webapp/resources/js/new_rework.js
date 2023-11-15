@@ -22,7 +22,7 @@ $(function() {
 	const gr = gradientForHeader.split(' ');
 	$('#gradientHeader').css({
 		"background-image":'linear-gradient(120deg, '+gr[0]+' 0%, '+gr[1]+' 100%)',
-		"height":'7'
+		"height":'20'
 	});
 	
 	$('#inputNewAddWhoButton_selectExists').click(function() {
