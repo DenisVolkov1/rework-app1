@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -46,7 +47,7 @@ public class ShowReworkController {
 		Integer serialkey = Integer.valueOf(reworknumber.replace("reworknumber_", ""));
 		Rework rework = reworkService.getRework(serialkey);
 		ReworkDto reworkDto = new ReworkDto(rework);
-			//modelRework.toStringAll();
+		//
 		if(isUpdate != null) model.addAttribute("isUpdate","true");
 		
 		Project projectByName = projectService.getProjectByPartURL(project);
@@ -83,6 +84,18 @@ public class ShowReworkController {
 		return "redirect:/"+project;
 	}
 	
+	@GetMapping("/{project}/isAlreadyExistsRework")
+	@ResponseBody
+	public String isAlreadyExistsRework(
+			@RequestParam("description") String description,
+			@RequestParam(value="reworknumber",required = false) String reworkNumber,
+			@PathVariable("project") String project) {
+		
+		boolean isAlreadyExistsRework = reworkService.isAlreadyExistsRework(reworkNumber,description, project);
+		
+	    return isAlreadyExistsRework ? "true" : "false";
+	}
+	
 	@ModelAttribute("server")	
 	public String serverNameAttribute(HttpServletRequest servletRequest) {
 		String server = servletRequest.getServerName().toString();
@@ -93,6 +106,5 @@ public class ShowReworkController {
 		Integer port = servletRequest.getServerPort();
 		return port.toString();
 	}
-	
 	
 }

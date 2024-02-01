@@ -35,7 +35,7 @@ $(function() {
 		var isAlreadyExistsRework;
 		var isEmptyFields;
 			
-		var description = $("#descrReworkTextarea").val();
+		var description = ($("#descrReworkTextarea").val()).trim();
 		var addWho = $("#addWhoInput").val();
 		//
 		var serverName = $("#server").val();
@@ -47,7 +47,7 @@ $(function() {
 			if(addWho.trim() == '') {showErrorMessage($('#addWhoInput'), "Заполните поле \'Кто добавил\'!"); isEmptyFields = "true"}
 		}
 		// Check empty "Название доработки/исправления"
-		if(description.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните \'Название доработки/исправления\'!"); isEmptyFields = "true"}
+		if(description == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните \'Название доработки/исправления\'!"); isEmptyFields = "true"}
 		
 		if(isEmptyFields == "true") return;
 		
@@ -63,7 +63,7 @@ $(function() {
 			
 			      isAlreadyExistsRework = data;	
 				  console.log('-isAlreadyExistsRework = '+data);
-		
+					
 					if(isAlreadyExistsRework == "true"){
 						showErrorMessage($('#descrReworkTextarea'),  "Доработки с таким описанием уже существует! ("+description+")");
 						return;

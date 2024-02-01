@@ -22,10 +22,11 @@ public interface ReworkDao {
 	public void addNewRework(NewRework newRework, String project);
 
 	public List<Tuple2<Rework, List<ReworkDetail>>> findOnSearchParam(String search, String project);
-
-	boolean isAlreadyExistsRework(String description,String project);
-
+	
 	public List<Archive> findOnSearchParamInArchive(String search);
 
+	public boolean isAlreadyExistsRework(String description,String project);
+
+	public boolean isAlreadyExistsRework(String reworkNumber, String description, String project);
 
 }

@@ -88,6 +88,7 @@ public class NewReworkController {
 	@ResponseBody
 	public String isAlreadyExistsRework(
 			@RequestParam("description") String description,
+			@RequestParam(value="reworknumber",required = false) String reworkNumber,
 			@PathVariable("project") String project) {
 		
 		boolean isAlreadyExistsRework = reworkService.isAlreadyExistsRework(description, project);

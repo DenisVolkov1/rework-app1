@@ -41,6 +41,10 @@ public class ReworkService {
 	public boolean isAlreadyExistsRework(String description,String project) {
 		return reworkDao.isAlreadyExistsRework(description,project);
 	}
+	
+	public boolean isAlreadyExistsRework(String reworkNumber,String description,String project) {
+		return reworkDao.isAlreadyExistsRework(reworkNumber,description,project);
+	}
 
 	public List<Archive> findOnSearchParamInArchive(String search) {
 		return reworkDao.findOnSearchParamInArchive(search);

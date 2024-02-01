@@ -240,6 +240,12 @@ public class ReworkImplMSSQL implements ReworkDao {
 	}
 	
 	@Override
+	public List<String> findAllWhoUpdate() {
+		String query = "SELECT DISTINCT EDITWHO FROM REWORKDETAIL";
+		List<String> data = jdbcTemplate.queryForList(query, String.class);
+		return data;
+	}
+	@Override
 	public boolean isAlreadyExistsRework(String description, String project) {
 		 String sqlisExists = "SELECT REWORKNUMBER FROM REWORK WHERE DESCRIPTION = ? AND PROJECT = (SELECT NAME FROM PROJECT WHERE PARTURL=?)";
 		 List<Map<String, Object>> reworks = jdbcTemplate.queryForList(sqlisExists, description, project);
@@ -247,10 +253,10 @@ public class ReworkImplMSSQL implements ReworkDao {
 	}
 
 	@Override
-	public List<String> findAllWhoUpdate() {
-		String query = "SELECT DISTINCT EDITWHO FROM REWORKDETAIL";
-		List<String> data = jdbcTemplate.queryForList(query, String.class);
-		return data;
+	public boolean isAlreadyExistsRework(String reworkNumber, String description, String project) {
+		 String sqlisExists = "SELECT REWORKNUMBER FROM REWORK WHERE DESCRIPTION = ? AND REWORKNUMBER != ? AND PROJECT = (SELECT NAME FROM PROJECT WHERE PARTURL=?)";
+		 List<Map<String, Object>> reworks = jdbcTemplate.queryForList(sqlisExists, description, reworkNumber, project);
+		return !reworks.isEmpty();
 	}
 
 }

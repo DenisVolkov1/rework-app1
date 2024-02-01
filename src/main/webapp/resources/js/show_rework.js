@@ -42,12 +42,45 @@ $(function() {
 
 	$('#updateButton').click(function() {
 		var isEmptyFields;
-		var descrRework = $("#descrReworkTextarea").val();
+		var description = ($("#descrReworkTextarea").val()).trim();
+		var serverName = $("#server").val();
+		var port = $("#port").val();
 		
-		if(descrRework.trim() == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните поле \'Название доработки/исправления\'!"); isEmptyFields = "true";}
-		
+		if(description == '') {showErrorMessage($('#descrReworkTextarea'), "Заполните поле \'Название доработки/исправления\'!"); isEmptyFields = "true";}
+		//Exit
 		if(isEmptyFields == "true") return;
-		$('#formUpdate').submit();
+		
+		var reworkNumber = $("#reworkNumberDiv").text();
+		var project = $('#project').val();
+		var url = "http://"+ serverName +":"+ port +"/rework/"+project+"/isAlreadyExistsRework";
+		$.ajax({
+			    type: 'get',
+			    url: url,
+			    data: {
+        			description: description,
+					reworknumber: reworkNumber
+    			},
+			    success: function(data) {
+			
+			      isAlreadyExistsRework = data;	
+				  console.log('-isAlreadyExistsRework = '+data);
+					
+					if(isAlreadyExistsRework == "true"){
+						showErrorMessage($('#descrReworkTextarea'),  "Доработки с таким описанием уже существует! ("+description+")");
+						return;
+					} 
+					
+					// remove element for thymeleaf model dublicate				
+					if($('#addWhoInput').attr("isActualElement") == "false") {
+						$('#addWhoInputDIV').remove();
+					} else {
+						$('#addWhoSelectDIV').remove();
+					}
+					$('#formUpdate').submit();
+			    }
+			});
+		
+		//$('#formUpdate').submit();
 	});
 	$('input, textarea').click(function() {
 		hideError($(this));
